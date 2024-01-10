@@ -1,5 +1,6 @@
 # driver-development-book
-This book explains driver development using Rust. It does so by procedurally creating a UART driver for a RISCV chip. 
+This book explains driver development using Rust. It does so by procedurally creating a UART driver for a RISCV chip.  
+You do not need a physical chip to get through... but having one in the later chapters is highly encouraged so as to garner a more hands-on experience.  
 
 
 ### Why the UART?
