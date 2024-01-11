@@ -1,0 +1,34 @@
+name: doc_checks
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build_book:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup cargo-binstall
+        run: |
+             yes |
+             curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+      
+      - name: Setup Mdbook
+        run: | 
+             yes |
+             cargo binstall mdbook
+
+      - name: Build driver-book
+        run: |
+             cd ./driver_book
+             mdbook build
+
+      - name: Build onboarding-book
+        run: |
+             cd ./onboarding_book
+             mdbook build
