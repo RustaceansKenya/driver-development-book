@@ -1,11 +1,11 @@
 # Tasks
 
-As earlier mentioned, an 'issue' is the synonym of a 'task'.   
+A 'Task' is a fancy name for a Github 'issue'.   
 
 ## Where do tasks come from?
 
-The maintainers create the initial tasks and post them as issues.  
-The contributors can also create new issues/tasks and tag them appropriately. eg 'suggested-feature' 'bug' 'typo' ....
+The maintainers create the initial tasks and post them as Github issues.  
+The contributors can also create new issues/tasks and tag them appropriately. eg 'suggested-feature'-tag, 'bug' 'typo' ....
 
 All tasks/issues automatically relect on the Project board.  
 
