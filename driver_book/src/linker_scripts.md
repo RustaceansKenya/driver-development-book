@@ -24,8 +24,10 @@ It is not guaranteed that the default linker will always be used, so check the c
 A linker script helps organize the memory layout of the object file(s).  
 
 ### Why do we need to write linker script each time, can't we have a default?  
+The linker always uses a linker script. If you do not supply one yourself, the linker will use a default script that is compiled into the linker executable.  
+
 There is a default script that comes with the linker. You can see it using the 'ld --verbose' command.  
-But this linker is suited for the pc-host.  
+But this link-script is suited for the pc-host.  
 So if we are compiling an object file for a different host, we need to define a linker script for the new target.   
 
 

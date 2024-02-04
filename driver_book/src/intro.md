@@ -1,6 +1,6 @@
 # Intro
 
-This book explains driver development using Rust. You get to procedurally write a UART driver for a RISCV chip called ESP32C3.  
+This book is about driver development using Rust. You get to procedurally write a UART driver for a RISCV chip called ESP32C3.  
 
 You do not need a physical chip to get through... but having one is highly encouraged so as to garner a more hands-on experience. The chip costs less than 8 dollars. 
 
@@ -13,7 +13,7 @@ The pseudo_expert on the other hand can write a fully functional concurrent driv
 
 A dev can iteratively work on this one project for a long time while improving on it and still manage to find it challenging on each iteration. You keep on improving.  
 
-Moreover, the UART is needed in almost all embedded devices that require some form of I/O; making it a necessary topic for firmware writers.  
+Moreover, the UART is needed in almost all embedded devices that require some form of I/O; making it a necessary topic for driver developers.  
 
 
 The main aim here is to teach, not to create the supreme UART driver ever seen in the multiverse.    

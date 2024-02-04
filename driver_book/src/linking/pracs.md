@@ -30,3 +30,6 @@ So get your datasheet out and plug in that board to your pc.
 - What is the relation between program headers, sections and memory regions?
 - Does the riscv cpu care that you've used an elf? or a specific riscv ABI version?
 - When is the PROVIDE keyword necessary?
+
+### more
+- apart from mapping sections, what other operations can the linker do?
