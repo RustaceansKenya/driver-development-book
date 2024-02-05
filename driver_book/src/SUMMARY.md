@@ -1,16 +1,17 @@
 # Summary
 
 # INTRO
-- [Intro](./intro.md)
-- [The Roadmap](./the_roadmap.md)
-- [Prerequisites for the Book]()changed
+- [Intro](./intro/intro.md)
+- [Prerequisites for the Book](./intro/prerequisites.md) 
 
 
 # UNDERSTANDING DRIVERS (theory)
-- [What's a driver?](./whats_a_driver.md)
-- [Types of Drivers]()
+- [Intro to Drivers](./understanding_drivers/understanding_drivers.md)
+- [Role 1: Controlling the device below](./understanding_drivers/controlling_the_device_below.md)
+- [Role 2: Providing an interface](./understanding_drivers/providing_an_interface.md)
+- [Types of Drivers](./understanding_drivers/types_of_drivers.md)
 - [Driver Architecture and Components]()
-- [Kernel and Driver Interaction]()
+- [Kernel and Driver Interaction mechanisms]()
 
 
 # BARE METAL PROGRAMMING
