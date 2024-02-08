@@ -10,15 +10,13 @@
 - [Role 1: Controlling the device below](./understanding_drivers/controlling_the_device_below.md)
 - [Role 2: Providing an interface](./understanding_drivers/providing_an_interface.md)
 - [Types of Drivers](./understanding_drivers/types_of_drivers.md)
-- [Driver Architecture and Components]()
 - [Kernel and Driver Interaction mechanisms]()
 
 
 # BARE METAL PROGRAMMING
-  - [Introduction to Operating System Kernels]()
-  - [Communication between Kernel and Drivers]()
-  - [Rust's Approach to Kernel Interaction]()
-- [The no-std template](./the_no_std_template.md)
+- [Bare Metal Programming](./bare_metal/the_no_std_preface.md)
+  - [Intro](./bare_metal/the_no_std_intro.md)
+  - [Disabling the Standard Library](./bare_metal/removing_std_lib.md)
 - [Writing linker scripts](./linker_scripts.md)
   - [pracs](./linking/pracs.md)
     - [Step one: understanding the memory layout of the board](./linking/step_1_understanding_memory_layout.md)
@@ -26,8 +24,10 @@
     - [Runtime requirements](runtime_requirements.md)
 - [Debugging](debugging.md)
   - [udev](./udev.md)
+  - [cargo-flash](./cargo-flash.md)
   - [probe-rs](./probe_rs.md)
   - [Logging](./logging.md)
+  - [defmt](./defmt.md)
 - [No-std testing]()
 - [Performance testing]()
 
