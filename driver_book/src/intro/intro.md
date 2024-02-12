@@ -1,8 +1,8 @@
 # Intro
 
-This book is about driver development using Rust. You get to procedurally write a UART driver for a RISCV chip called ESP32C3.  
+This book is on driver development using Rust. You get to procedurally write a UART driver for a RISCV chip called ESP32C3.  
 
-The chip costs less than 8 dollars, kindly burn that cash. BURN THAT CAAAASHHH!!! Money machine go BRRRR!!!
+The chip costs less than 8 dollars, kindly... politely...with utmost humility... burn that cash. BURN THAT CAAAASHHH!!! Money machine go BRRRR!!!
 
 
 ### Why the UART?
@@ -24,5 +24,9 @@ This book does not explain driver development for a particular Operating System 
 
 ### Quick links
 
-To access the tutorial book, visit : [this link][driver-development-book-website] [undone: broken link]
-To access the source-code, visit [this-repo/driver_code][driver-code] [undone: broken link]
+To access the tutorial book, visit : [this link][driver-development-book-website]  
+To access the source-code, visit [this repo's sub-folder][driver-code]  
+
+
+[driver-development-book-website]: https://rustaceanskenya.github.io/driver-development-book/
+[driver-code]: https://github.com/RustaceansKenya/driver-development-book/tree/master/driver_code

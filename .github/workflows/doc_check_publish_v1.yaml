@@ -28,7 +28,7 @@ jobs:
              cd ./driver_book
              mdbook build
 
-      - name: Build onboarding-book
+      - name: Build contribution-book
         run: |
-             cd ./onboarding_book
+             cd ./contribution_book
              mdbook build
