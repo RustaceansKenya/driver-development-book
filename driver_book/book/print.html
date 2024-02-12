@@ -1,0 +1,1133 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>driver development in Rust</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">INTRO</li><li class="chapter-item expanded "><a href="intro/intro.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="intro/prerequisites.html"><strong aria-hidden="true">2.</strong> Prerequisites for the Book</a></li><li class="chapter-item expanded affix "><li class="part-title">UNDERSTANDING DRIVERS (theory)</li><li class="chapter-item expanded "><a href="understanding_drivers/understanding_drivers.html"><strong aria-hidden="true">3.</strong> Intro to Drivers</a></li><li class="chapter-item expanded "><a href="understanding_drivers/controlling_the_device_below.html"><strong aria-hidden="true">4.</strong> Role 1: Controlling the device below</a></li><li class="chapter-item expanded "><a href="understanding_drivers/providing_an_interface.html"><strong aria-hidden="true">5.</strong> Role 2: Providing an interface</a></li><li class="chapter-item expanded "><a href="understanding_drivers/types_of_drivers.html"><strong aria-hidden="true">6.</strong> Types of Drivers</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> Kernel and Driver Interaction mechanisms</div></li><li class="chapter-item expanded affix "><li class="part-title">BARE METAL PROGRAMMING</li><li class="chapter-item expanded "><a href="bare_metal/the_no_std_preface.html"><strong aria-hidden="true">8.</strong> Bare Metal Programming</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bare_metal/the_no_std_intro.html"><strong aria-hidden="true">8.1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="bare_metal/removing_std_lib.html"><strong aria-hidden="true">8.2.</strong> Disabling the Standard Library</a></li></ol></li><li class="chapter-item expanded "><a href="linker_scripts.html"><strong aria-hidden="true">9.</strong> Writing linker scripts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="linking/pracs.html"><strong aria-hidden="true">9.1.</strong> pracs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="linking/step_1_understanding_memory_layout.html"><strong aria-hidden="true">9.1.1.</strong> Step one: understanding the memory layout of the board</a></li><li class="chapter-item expanded "><a href="linking/step_1_understanding_memory_layout_part_2.html"><strong aria-hidden="true">9.1.2.</strong> Step one (continuation)</a></li><li class="chapter-item expanded "><a href="runtime_requirements.html"><strong aria-hidden="true">9.1.3.</strong> Runtime requirements</a></li></ol></li><li class="chapter-item expanded "><a href="linking/sample_linking_files.html"><strong aria-hidden="true">9.2.</strong> example linker files</a></li><li class="chapter-item expanded "><a href="linking/samples/linkall.html"><strong aria-hidden="true">9.3.</strong> linkall.x</a></li></ol></li><li class="chapter-item expanded "><a href="debugging.html"><strong aria-hidden="true">10.</strong> Debugging</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="udev.html"><strong aria-hidden="true">10.1.</strong> udev</a></li><li class="chapter-item expanded "><a href="probe_rs.html"><strong aria-hidden="true">10.2.</strong> probe-rs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="flashing_problems.html"><strong aria-hidden="true">10.2.1.</strong> why is my program not flashing?</a></li></ol></li><li class="chapter-item expanded "><a href="cargo-flash.html"><strong aria-hidden="true">10.3.</strong> cargo-flash</a></li><li class="chapter-item expanded "><a href="logging.html"><strong aria-hidden="true">10.4.</strong> Logging</a></li><li class="chapter-item expanded "><a href="defmt.html"><strong aria-hidden="true">10.5.</strong> defmt</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> No-std testing</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.</strong> Performance testing</div></li><li class="chapter-item expanded affix "><li class="part-title">ABSTRACTIONS</li><li class="chapter-item expanded "><a href="mmio_programming.html"><strong aria-hidden="true">13.</strong> MMIO programming</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="registers_and_mmio_programming.html"><strong aria-hidden="true">13.1.</strong> Registers and MMIO programming</a></li></ol></li><li class="chapter-item expanded "><a href="knowing_your_hardware.html"><strong aria-hidden="true">14.</strong> The datasheet</a></li><li class="chapter-item expanded "><a href="abstraction.html"><strong aria-hidden="true">15.</strong> Abstraction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="svd2rust.html"><strong aria-hidden="true">15.1.</strong> svd2rust</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">THE UART THEORY</li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.</strong> Understanding UART Theory</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">17.</strong> Understanding UART physical Implemetation in the esp32</div></li><li class="chapter-item expanded affix "><li class="part-title">THE UART IMPLEMENTATION (naive)</li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.</strong> chapters that I dont know their titles</div></li><li class="chapter-item expanded affix "><li class="part-title">THE UART IMPLEMENTATION (less naive)</li><li class="chapter-item expanded "><div><strong aria-hidden="true">19.</strong> Concurrency and atomic magic</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">20.</strong> chapters that I dont know their titles</div></li><li class="chapter-item expanded affix "><li class="part-title">OTHER STORIES</li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.</strong> Driver Security</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">21.1.</strong> Common Security Issues in Driver Development</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.2.</strong> Rust's Safety Features for Driver Security</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.3.</strong> Best Practices for Secure Driver Development</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">22.</strong> Case Studies and Examples</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">22.1.</strong> Real-world Driver Development Examples</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">22.2.</strong> Analyzing an Existing Rust Driver</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">23.</strong> Iterative Implementation</div></li><li class="chapter-item expanded affix "><li class="part-title">APPENDIX</li><li class="chapter-item expanded "><a href="notable_crates.html"><strong aria-hidden="true">24.</strong> Notable Crates</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">25.</strong> Notable Learning Resources</div></li><li class="chapter-item expanded "><a href="why_embedded_rust.html"><strong aria-hidden="true">26.</strong> why use Rust?</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">driver development in Rust</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="intro"><a class="header" href="#intro">Intro</a></h1>
+<p>This book is about driver development using Rust. You get to procedurally write a UART driver for a RISCV chip called ESP32C3.</p>
+<p>The chip costs less than 8 dollars, kindly burn that cash. BURN THAT CAAAASHHH!!! Money machine go BRRRR!!!</p>
+<h3 id="why-the-uart"><a class="header" href="#why-the-uart">Why the UART?</a></h3>
+<p>The UART driver was chosen because it is simple and hard at the same time. Both a beginner and an experienced folk can learn a lot while writing it.<br />
+For example, the beginner can write a minimal UART and concentrate on understanding the basics of driver development; No-std development,linking, flashing, logging, abstracting things in a standard way, interrupt and error-handling...<br />
+The pseudo_expert on the other hand can write a fully functional concurrent driver while focusing on things like performance optimization,concurrency and parallelism.</p>
+<p>A dev can iteratively work on this one project for a long time while improving on it and still manage to find it challenging on each iteration. You keep on improving.</p>
+<p>Moreover, the UART is needed in almost all embedded devices that require some form of I/O; making it a necessary topic for driver developers.</p>
+<p>The main aim here is to teach, not to create the supreme UART driver ever seen in the multiverse.</p>
+<h3 id="what-this-book-is-not"><a class="header" href="#what-this-book-is-not">What this book is NOT</a></h3>
+<p>This book does not explain driver development for a particular Operating System or Kernel. Be it Tock, RTOSes, Windows or linux. This book assumes that you are building a generic driver.</p>
+<h3 id="quick-links"><a class="header" href="#quick-links">Quick links</a></h3>
+<p>To access the tutorial book, visit : [this link][driver-development-book-website] [undone: broken link]
+To access the source-code, visit [this-repo/driver_code][driver-code] [undone: broken link]</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="prerequisites-for-the-book"><a class="header" href="#prerequisites-for-the-book">Prerequisites for the Book</a></h1>
+<p>The prerequisites are not strict, you can always learn as you go:</p>
+<ul>
+<li>Computer architecture knowledge : you should have basic knowledge on things like RAM, ROM, CPU cycle, buses...</li>
+<li>Rust knowledge : You don't have to be a generics or atomics guru. If you are okay with the topics covered before chapter 14 in the Rust book, then you are overqualified for this.</li>
+<li>Have an esp32-c3. </li>
+<li>Some interest in driver development.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="intro-to-drivers"><a class="header" href="#intro-to-drivers">Intro to Drivers</a></h1>
+<p>This chapter is filled with definitions.</p>
+<p>And as you all know, there are NO right definitions in the software world. People still debate what 'kernel' means. People are okay using the word 'serverless' apps. It's chaos everywhere.</p>
+<p>So the definitions used here are constrained in the context of this book.</p>
+<h3 id="whats-a-driver"><a class="header" href="#whats-a-driver">What's a driver?</a></h3>
+<p>A driver is a piece of software that sits in between a high-level program and a physical device. The high level program could be a kernel in this case.</p>
+<p>The driver has 2 primary functions : </p>
+<ol>
+<li>Controlling the underlying device. </li>
+<li>Providing an interface for the kernel/higher-level program. The interface could contain things like functions, data_structures, message passing endpoints...</li>
+</ol>
+<p>Demo : 
+<img src="understanding_drivers/img/birds_eye_view.svg" alt="Alt text" /></p>
+<p>Let's break down the two main roles of the driver... </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="role-1--controlling-the-physical-device-below"><a class="header" href="#role-1--controlling-the-physical-device-below">Role 1 : Controlling the Physical device below</a></h1>
+<p><strong>TLDR</strong> :<br />
+The driver controls the hardware below by either <strong>Direct Register Programming</strong> or <strong>Memory Mapped Programming</strong>. This can be done in Assembly, low-level languages like C/Rust, or a mixture of both.</p>
+<p>A physical device is a piece of electronic that does things, for example, an SSD disk stores data. You can read and write to that SSD device.</p>
+<p>An SSD is roughly made up of : </p>
+<ol>
+<li>Storage cells</li>
+<li>A small IC or processor that implements the SSD's firmware</li>
+<li>The SSD's firmware stored in the SSD's ROM</li>
+<li>Exposed registers</li>
+</ol>
+<p>The only way to interact with the device is through the exposed registers.</p>
+<p>To make the device do things, you meaningfully supply electrical signals to the exposed registers. Once the CPU detects signals on the registers, it interprets them as parameters for the functions defined in the firmware. From there, the firmware does its duties.</p>
+<p>Here is an extremely over-simplified and incorrect view of the SSD :</p>
+<p><img src="understanding_drivers/img/ssd_stub.svg" alt="Alt text" /></p>
+<p>Usage :</p>
+<ol>
+<li>To store data to the SSD...
+<ol>
+<li>You write an 8-bit address to the address register. This is called the 'destination address': it is the memory address of the place you want to write to in the SSD.</li>
+<li>You write the 8-bit data that you wanted to store in the data register. This is called the 'subject data'</li>
+<li>You make sure that the read register is not receiving any signal. This gets translated as 'read == false'.</li>
+<li>You supply an electric signal to the write register. This electrical signal is translated as 'write == true'.</li>
+<li>The SSD processor detects a signal in the 'write' register and immediately does the following : 
+<ul>
+<li>It starts executing the &quot;write function&quot; found in the firmware code. </li>
+<li>It passes the 'destination' address and the 'subject data' to it</li>
+<li>Viollah! The write operation is complete.</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="a-manual-driver"><a class="header" href="#a-manual-driver">A manual driver?</a></h3>
+<p>If we had the ssd and a couple of electric wires only, we could store data without using a driver. All we have to do is to supply meaningful electric signals to the registers of the ssd.</p>
+<p>For example, to store the number 1 into the address 0x05, we could do this... 
+<img src="understanding_drivers/img/ssd_stub_manual_write.svg" alt="Alt text" /></p>
+<h3 id="programming"><a class="header" href="#programming">Programming</a></h3>
+<p>We are developers, we automate everything... especially when it is unnecessary. Our superpower.<br />
+So how do we automate this manual manipulation of SSD registers? How?? Panic everywhere!!</p>
+<p><em><strong>Solution 1: Direct Register Programming</strong></em></p>
+<p>We attach all the SSD registers DIRECTLY to the CPU. And then write some assembly code to change the values of the attached registers...<br />
+This solution gets the job done.</p>
+<p>Demo: 
+<img src="understanding_drivers/img/ssd_stub_register_programming.svg" alt="Alt text" /></p>
+<p><em><strong>Solution 2: Memory Mapped Programming</strong></em><br />
+The CPU has a limited number of registers. The RAM exists because of this exact reason.<br />
+So instead of directly attaching the SSD registers to the limited CPU registers, we could attach them to the RAM instead.</p>
+<p>We could then write some assembly code to manipulate RAM addresses, hence indirectly manipulating the values of the SSD registers. This is called Memory-mapped I/O programming (<strong>mmio programming</strong>).</p>
+<p>This is the method that we will stick to because it is more practical.</p>
+<p>You could however use Direct Register Programming when building things like pace-makers, nanobots or some divine machine that is highly specialized and requires 100% performance.</p>
+<p>Here is a demo of a naive MMIO setup : 
+<img src="understanding_drivers/img/ssd_stub_mmio_programming.svg" alt="Alt text" /></p>
+<h3 id="summary"><a class="header" href="#summary">Summary</a></h3>
+<p>The driver controls the hardware below by either <strong>Direct Register Programming</strong> or <strong>Memory Mapped Programming</strong>. This can be done in Assembly, low-level languages like C/Rust, or a mixture of both.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="role-2-providing-an-interface"><a class="header" href="#role-2-providing-an-interface">Role 2: Providing an Interface</a></h1>
+<p><strong>TLDR</strong></p>
+<ul>
+<li>Just provide a well-thought out API.</li>
+<li>Err on the side of making communication between the kernel and the driver to be through message-passing.</li>
+<li>Err on the side of exporting structures that implement singletons.</li>
+</ul>
+<p>[undone : Figure out how to write a clean driver-API, one that can be easily be reused in new drivers]</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="types-of-drivers"><a class="header" href="#types-of-drivers">Types of Drivers</a></h1>
+<p>Classifications and fancy words do not matter, we go straight to the list :</p>
+<h2 id="drivers-classified-by-the-level-of-how-close-to-the-metal"><a class="header" href="#drivers-classified-by-the-level-of-how-close-to-the-metal">Drivers classified by the level of 'how close to the metal?'</a></h2>
+<ol>
+<li>
+<p><strong>Function drivers</strong> : this drivers implement functions that directly manipulate registers. You could say that this are the OG drivers. </p>
+</li>
+<li>
+<p><strong>Filter drivers/ Processing drivers/ Wrapper drivers</strong>: This drivers take input from the function drivers and process them into palatable input and functions for the kernel. They can be seen as 'adapters' between the function-driver and the kernel. They can even be used to implement additional security features. Point being, their main function is wrapping the function-driver.</p>
+</li>
+</ol>
+<p>Oh look... this 👇🏻 is what we were talking about... thanks windows for your docs.<br />
+<img src="understanding_drivers/img/types_of_drivers.png" alt="Alt text" /><br />
+This image was borrowed from the <a href="https://learn.microsoft.com/en-us/windows-hardware/drivers/gettingstarted/what-is-a-driver-">Windows Driver development docs</a></p>
+<p><strong>Note</strong> : <em>A driver stack</em> is a collection of different drivers that work together to achieve a common goal. For example, you may use many function and filter drivers to control an integrated piece of hardware.<br />
+Another example : You may use a couple of filter drivers when porting a function driver to a new kernel environment.</p>
+<h2 id="drivers-classified-by-function"><a class="header" href="#drivers-classified-by-function">Drivers classified by function</a></h2>
+<ul>
+<li>storage drivers : eg ssd drivers</li>
+<li>File System Drivers : Drivers above the file system.</li>
+<li>system drivers : used in motherboard components instead of peripherals</li>
+<li>Input Device Drivers</li>
+<li>Network Drivers</li>
+<li>Communication drivers</li>
+<li>Virtual drivers (Emulators)</li>
+<li>This list can be as long as one can imagine... but I hope you get the drift</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="bare-metal-programming"><a class="header" href="#bare-metal-programming">Bare Metal Programming</a></h1>
+<p>Bare Metal Programming !!!!!!!!!!</p>
+<p>Welcome to the first cool chapter!!! Wooooohooooo!!! Time to be one with the cold metal.</p>
+<p>I would really love to write more about this topic.<br />
+It is THE FOUNDATION OF EVERYTHING in this book.</p>
+<p>I need to take time to put it in better words.</p>
+<p>However, <a href="bare_metal/(https://os.phil-opp.com/)">Philipp Oppermann's blog</a> covered this chapter very well. You can read it here 👇🏽: </p>
+<ul>
+<li>Chapter 1 : <a href="bare_metal/(https://os.phil-opp.com/freestanding-rust-binary/)">A Freestanding Rust Binary</a></li>
+<li>Chapter 2 : <a href="bare_metal/(https://os.phil-opp.com/minimal-rust-kernel/)">A Minimal Rust Kernel</a></li>
+</ul>
+<p>It would be an understatement to call those 2 chapters legendary.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="bare-metal-programming-1"><a class="header" href="#bare-metal-programming-1">Bare Metal Programming</a></h1>
+<p>Drivers provide an interface for the OS to use, meaning that the OS depend on drivers... as a result, you have to write the driver code without the help of the OS-dependent Standard Library.</p>
+<p>Drivers do not depend on the standard library, they run on bare metal. Bare metal programming is the art of writing code that assumes zero or almost-zero hosted-environment.</p>
+<p>We will procedurally create a bare metal program in the next few sub-chapters.</p>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="the-standard-library"><a class="header" href="#the-standard-library">The Standard Library</a></h3>
+<p>The standard library is a group of common function declarations that get called by applications that run on top of an OS.<br />
+So each OS needs to provide implementations for all those common functions.<br />
+For example, the standard library declares the thread_spawn function. Linux OS provides an implementation of that function that is different from the Windows implementation... provided they all do the same thing.</p>
+<p>So when you write drivers, you cannot use the standard library. You can however use the core-library.<br />
+Losing the std library means you forget about threads, files, heap memory, the network, random numbers, standard output, or any other features requiring OS abstractions or specific hardware. If you need them, you have to implement them yourself.</p>
+<h2 id="pracs"><a class="header" href="#pracs">Pracs</a></h2>
+<p>It is best to do things practically... you get error messages that engrain into you PTSD.</p>
+<h3 id="step-1-disabling-the-std-library"><a class="header" href="#step-1-disabling-the-std-library">Step 1: Disabling the Std library</a></h3>
+<p>By default, rust programs depend on the standard library. To disable this dependence, you add the 'no_std attribute' to your code. The code however switches to depending on the 'core' crate.</p>
+<pre><pre class="playground"><code class="language-rust editable">#![no_std]
+
+fn main(){
+    println!(&quot;Hello world!!&quot;);
+}</code></pre></pre>
+<p>If you run this code, you get 3 compilation errors. </p>
+<ol>
+<li>error: cannot find macro <code>println</code> in this scope</li>
+<li>error: <code>#[panic_handler]</code> function required, but not found</li>
+<li>error: unwinding panics are not supported without std</li>
+</ol>
+<p>Println macro is part of the standard library. That is why it cannot be found in the scope of the 'no_std' crate.<br />
+If we remove the println line, we still get the remaining two errors.</p>
+<h4 id="fixing-the-second-and-third-errors"><a class="header" href="#fixing-the-second-and-third-errors">Fixing the second and third errors.</a></h4>
+<p>This is going to be a short fix but with a lot of theory behind it.<br />
+To solve it, we have to understand the core library requirements. </p>
+<p>The core library functions and definitions can get compiled for any target, provided that the target provides definitions of certain linker symbols. The symbols needed are :</p>
+<ul>
+<li>memcpy, memmove, memset, memcmp, bcmp, strlen [undone: more info needed on these memory routines and their integration]. If your target is supported by rustc, you need not worry about these memory routine symbols.</li>
+<li>rust_begin_panic</li>
+<li>rust_eh_personality</li>
+</ul>
+<p>For now, </p>
+<p>[undone]</p>
+<ul>
+<li>
+<p>crt0 functions</p>
+</li>
+<li>
+<p>crt0 implemetations</p>
+</li>
+<li>
+<p>elf board support? How is it implemented?</p>
+</li>
+<li>
+<p>triple-targets</p>
+</li>
+<li>
+<p>what does target add command actually do and why</p>
+</li>
+<li>
+<p>Target support</p>
+</li>
+<li>
+<p>Adding custom targets</p>
+</li>
+<li>
+<p>THe boot process</p>
+</li>
+<li>
+<p>THe esp32 boot process</p>
+</li>
+<li>
+<p>Loaders : BIOS, UEFI, U-Boot SPL, CoreBoot</p>
+</li>
+<li>
+<p>Runtimes : UEFI, ATF(ARM TRUSTED FIRMWARE)</p>
+</li>
+<li>
+<p>BootLoaders : Uboot, Grub, Linux Boot</p>
+</li>
+<li>
+<p>firmware standards in the RISCV ISA</p>
+</li>
+<li>
+<p>Open SBI</p>
+</li>
+<li>
+<p>System V ABI</p>
+</li>
+</ul>
+<p>Bios :</p>
+<ul>
+<li>firmware that sets up environment fit to run a kernel on. It does the following
+<ul>
+<li>does a power-on-self-test</li>
+<li>loads the boot loader to memory. The bootloader then loads the Kernel</li>
+</ul>
+</li>
+<li>Source Material : https://riscv.org/wp-content/uploads/2019/12/Summit_bootflow.pdf</li>
+<li>Multiboot standard</li>
+<li></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="linker-scripts"><a class="header" href="#linker-scripts">Linker scripts</a></h1>
+<p>You can read about linker scripts here :</p>
+<ol>
+<li><a href="https://users.informatik.haw-hamburg.de/~krabat/FH-Labor/gnupro/5_GNUPro_Utilities/c_Using_LD/ldLinker_scripts.html#PROVIDE_command">this page</a></li>
+<li>and <a href="https://sourceware.org/binutils/docs/ld/Scripts.html">this other page</a></li>
+</ol>
+<p>examples :</p>
+<ul>
+<li>GNU Binutils Linker (ld)</li>
+<li>The LLVM Linker (lld) - preferred because it is a predecessor of ld. Similar to ld in terms of commands and scripting landuage. faster. Modular. Documented.</li>
+</ul>
+<p>But I'll stick with ld then move on to lld later on. </p>
+<p>To check the default linker for your target... check the target-spec-json :</p>
+<pre><code class="language-bash">rustc -Z unstable-options --target riscv32i-unknown-none-elf --print target-spec-json
+</code></pre>
+<p>It is not guaranteed that the default linker will always be used, so check the cargo.toml file for assurance</p>
+<h3 id="why-do-we-need-a-linker-script"><a class="header" href="#why-do-we-need-a-linker-script">Why do we need a linker-script</a></h3>
+<p>A linker script helps organize the memory layout of the object file(s).</p>
+<h3 id="why-do-we-need-to-write-linker-script-each-time-cant-we-have-a-default"><a class="header" href="#why-do-we-need-to-write-linker-script-each-time-cant-we-have-a-default">Why do we need to write linker script each time, can't we have a default?</a></h3>
+<p>The linker always uses a linker script. If you do not supply one yourself, the linker will use a default script that is compiled into the linker executable.</p>
+<p>There is a default script that comes with the linker. You can see it using the 'ld --verbose' command.<br />
+But this link-script is suited for the pc-host.<br />
+So if we are compiling an object file for a different host, we need to define a linker script for the new target.</p>
+<p>You may supply your own linker script by using the ` -T ' command line option. for example :</p>
+<pre><code class="language-bash">ld -T
+</code></pre>
+<p>You can also add link linker-scripts as input files, but they wont erplace the default linker-script.</p>
+<h3 id="common-inspections"><a class="header" href="#common-inspections">Common Inspections</a></h3>
+<p>Tools : objdump, nm</p>
+<ul>
+<li>
+<p>ld -h file  // view all the sections, and their neat matadata</p>
+</li>
+<li>
+<p>ld -t file  // view the symbol table</p>
+</li>
+<li>
+<p>nm - list symbols from object files</p>
+</li>
+<li>
+<p>Run 'man nm'</p>
+</li>
+<li>
+<p>nm -C ./target/debug/riscv_metal  // view the symbol table while things are demangled</p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="pracs-1"><a class="header" href="#pracs-1">pracs</a></h1>
+<p>we are going to write the linker script for an esp32c3.<br />
+So get your datasheet out and plug in that board to your pc.</p>
+<h4 id="random-questions-you-need-to-think-through"><a class="header" href="#random-questions-you-need-to-think-through">Random questions you need to think through</a></h4>
+<ul>
+<li>How does a debugger flash memory?  can you explain it step by step</li>
+<li>Why is it called a ROM if a debugger can write to it?</li>
+<li>Is the ESP32 ROM empty? </li>
+<li>If it is empty, what does the cpu fetch?</li>
+<li>If it not empty, what is there? really...</li>
+<li>What is the difference between loadable address and reocatable address?</li>
+<li>Suppose the debugger manages to flash to the device, does it flash to both the RAM and ROM</li>
+<li>If the loadable address for a section is not specified, it is assumed to be the same as the relocatable address. The loadable address == ROM address, the relocatable_address == RAM. what if the ROM address space is smaller than the RAM address space? What happens? Does the debugger throw an error? Or does it just flash the RAM only?</li>
+<li>wtf is an ABI?</li>
+<li>what is the interface between the CPU and the software?</li>
+<li>what correlation is there between the isa and abi?</li>
+<li>Who reads the elf? the cpu? the os/ a program loader engrained in the firmware? which firmware ... arent we the ones writing that firmware?</li>
+<li>What is the crt0? where do we inject it in our code? what does it do? And dont say 'prepare the environment'</li>
+<li>describe the entire journey frm writing hello world to flashing to running to turning off to restarting the board</li>
+<li>read the elf abi</li>
+<li>Why do we need to produce an elf file? Is an elf file just a way of grouping sections in a standard way?</li>
+<li>What is the difference between a memory segment and memory region?</li>
+<li>If a debugger is powerful enough to flash a machine, how do people protect their machines from tampering?</li>
+<li>What is the use of the overlay command in a linker script? How does it get implemented on the physical machine? What implements it? When is it a good idea to use the overlay command?</li>
+<li>What is the relation between program headers, sections and memory regions?</li>
+<li>Does the riscv cpu care that you've used an elf? or a specific riscv ABI version?</li>
+<li>When is the PROVIDE keyword necessary?</li>
+</ul>
+<h3 id="more"><a class="header" href="#more">more</a></h3>
+<ul>
+<li>apart from mapping sections, what other operations can the linker do?</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="step-one--understanding-the-memory-layout-of-the-board"><a class="header" href="#step-one--understanding-the-memory-layout-of-the-board">Step one : understanding the memory layout of the board</a></h1>
+<p>We need to know the memory layout of the board. </p>
+<ul>
+<li>Where is the address of the RAM? </li>
+<li>Where's the ROM address?. </li>
+<li>Which sections do we need to load into?</li>
+<li>Which sections do we need to AVOID overwriting?</li>
+<li>Which sections are unusable?</li>
+<li>Are there sections that have hardwired access-permissions?</li>
+</ul>
+<p>We want to know how and where we will load the object file.<br />
+So we read the 'System Memory chapter' from both the datasheet AND Technical_reference. Don't fret, all of this is like 20 pages, and most of the pages just have images.</p>
+<p>Below are some useful excerpts from the datasheet.</p>
+<h2 id="memory-descriptions-"><a class="header" href="#memory-descriptions-">Memory Descriptions :</a></h2>
+<p><img src="linking/../img/internal_memory_brief_description.png" alt="Alt text" />
+<img src="linking/../img/external_memory_brief_description.png" alt="Alt text" /></p>
+<p>More elaborate memory descriptions are found in the technical reference (2 pages long)</p>
+<h2 id="memory-mappings-"><a class="header" href="#memory-mappings-">Memory Mappings :</a></h2>
+<p><img src="linking/../img/memory_mapping_1.png" alt="Alt text" />
+<img src="linking/../img/memory_mapping_2.png" alt="Alt text" />
+<img src="linking/../img/memory_mapping_3.png" alt="Alt text" /></p>
+<h2 id="visual-representation-of-memory-mapping-"><a class="header" href="#visual-representation-of-memory-mapping-">Visual Representation of memory mapping :</a></h2>
+<p><img src="linking/../img/detailed_address_mapping_structure.png" alt="Alt text" /></p>
+<p>You may notice that some info looks contradicting. For example, the docs said that the chip has 384kiB of ROM yet in the images we have ROM-0 and ROM-1. ROM-0 is 384kiB and ROM-1 is 64kiB, that totals to 448kiB!! We expected 384KiB but we got 448KiB. This 'contradiction' has been explained below.</p>
+<h2 id="buses-and-the-addres-space"><a class="header" href="#buses-and-the-addres-space">Buses and the addres space</a></h2>
+<p>The address space is the list of addresses that the CPU can process/access. If you want to access addresses beyond the address space, you have to modify the CPU itself. 
+Since the CPU bus is 32bits long, it can access a 4GiB memory address space in a one-to-one access ie without the help of MMUs to help it access more than 4GiB.</p>
+<p>The CPU has 2 kinds of buses, data buses and instruction buses. This was a design choice, I guess for the sake of performance. Separating concerns breeds specialization. </p>
+<p>Both data bus and instruction bus are little-endian.</p>
+<p>The data bus can access memory using single-byte, double-byte, 4-byte alignment. The instruction bus can only access memory using a 4-byte alignment. That means that you can fetch a 64-bit word even if what you really intended to fetch was a byte. Choose your trade-offs well.</p>
+<p>There are sections of memory where only the instruction bus can access. They are shown in the table below.<br />
+<img src="linking/../img/buses_and_memory_accesses.png" alt="Alt text" /></p>
+<p>Now, going back to our earlier contradiction. It is not really a contradiction, the ROM is 384 kiB But it is divided into 2 parts that overlap. ROM-0 is 384kiB and can be accessed by the instruction bus ONLY. ROM-1 is a subset of ROM-0. ROM-1 is 64kiB out of the entire 384kiB. ROM-1 can be accessed by both the Data bus and instruction bus.</p>
+<p>Now, if I say that the ROM-1 and ROM-0 overlap, why do they have different and distinct addresses?<br />
+As earlier said, some sections can be accessed by both the data and instruction bus. So even if the addresses used are different, they are referring to the same physical point. The different addresses help the CPU know which bus you have chosen to use.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="step-one-continuation"><a class="header" href="#step-one-continuation">Step one (continuation)</a></h1>
+<p>Now we need to use the info gathered from the datasheet to decide on the layout of the object file. </p>
+<h2 id="observations-and-decisions"><a class="header" href="#observations-and-decisions">Observations and decisions</a></h2>
+<ol>
+<li>All the grey-shaded areas shown in the Address mapping structure are unusable. This was seen in the address mapping structure. So our linker script should not load any section to those memory regions.</li>
+<li>The 400KiB SRAM is enough, let us leave the ROM for more permanent core functions that we will write in the future. For now, the SRAM is enough. We will touch on the RTC Memory when we need to preserve data while the CPU is in sleep mode... we don't need such complexity at the moment.</li>
+<li>We will store .data and .bss section the SRAM1 section because that section can be accessed using the data-bus.</li>
+<li>We will store .text section in the SRAM2 memory region because that section can be accessed by the instruction-bus</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="runtime-requirements"><a class="header" href="#runtime-requirements">Runtime requirements</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="example-linker-files"><a class="header" href="#example-linker-files">example linker files</a></h1>
+<p>These are sample linker files from the <a href="https://github.com/esp-rs/esp-hal/tree/main/esp-hal/ld">esp-hal repo</a> for the esp32c3 board.</p>
+<ul>
+<li>linkall.x
+<ul>
+<li>memory.x</li>
+<li>esp32.x</li>
+<li>hal-defaults.x</li>
+<li>rom-functions.x</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="linkall-file"><a class="header" href="#linkall-file">Linkall File</a></h2>
+<p>linkall.x is the root linker file; other linker files are included in it.</p>
+<pre><code class="language-ld">INCLUDE &quot;memory.x&quot;
+
+/* memory abstraction setion */
+REGION_ALIAS(&quot;ROTEXT&quot;, IROM);
+REGION_ALIAS(&quot;RODATA&quot;, DROM);
+
+REGION_ALIAS(&quot;RWDATA&quot;, DRAM);
+REGION_ALIAS(&quot;RWTEXT&quot;, IRAM);
+
+REGION_ALIAS(&quot;RTC_FAST_RWTEXT&quot;, RTC_FAST);
+REGION_ALIAS(&quot;RTC_FAST_RWDATA&quot;, RTC_FAST);
+
+INCLUDE &quot;esp32c3.x&quot;
+INCLUDE &quot;hal-defaults.x&quot;
+INCLUDE &quot;rom-functions.x&quot;
+</code></pre>
+<p>The memory abstraction section wraps the machine-specific memory-region names into generic-memory-region names.<br />
+For example : </p>
+<pre><code class="language-ld">REGION_ALIAS(&quot;RTC_FAST_RWTEXT&quot;, RTC_FAST);
+</code></pre>
+<h2 id="memoryx-file"><a class="header" href="#memoryx-file">Memory.x file</a></h2>
+<p>Memory.x is a machine-specific file that outlines the memory regions of the specific board.</p>
+<pre><code class="language-ld">MEMORY
+{
+    /*
+        https://github.com/espressif/esptool/blob/ed64d20b051d05f3f522bacc6a786098b562d4b8/esptool/targets/esp32c3.py#L78-L90
+        MEMORY_MAP = [[0x00000000, 0x00010000, &quot;PADDING&quot;],
+                  [0x3C000000, 0x3C800000, &quot;DROM&quot;],
+                  [0x3FC80000, 0x3FCE0000, &quot;DRAM&quot;],
+                  [0x3FC88000, 0x3FD00000, &quot;BYTE_ACCESSIBLE&quot;],
+                  [0x3FF00000, 0x3FF20000, &quot;DROM_MASK&quot;],
+                  [0x40000000, 0x40060000, &quot;IROM_MASK&quot;],
+                  [0x42000000, 0x42800000, &quot;IROM&quot;],
+                  [0x4037C000, 0x403E0000, &quot;IRAM&quot;],
+                  [0x50000000, 0x50002000, &quot;RTC_IRAM&quot;],
+                  [0x50000000, 0x50002000, &quot;RTC_DRAM&quot;],
+                  [0x600FE000, 0x60100000, &quot;MEM_INTERNAL2&quot;]]
+    */
+    /* 400K of on soc RAM, 16K reserved for cache */
+    ICACHE : ORIGIN = 0x4037C000,  LENGTH = 0x4000
+    /* Instruction RAM */
+    IRAM : ORIGIN = 0x4037C000 + 0x4000, LENGTH = 400K - 0x4000
+    /* Data RAM */
+    DRAM : ORIGIN = 0x3FC80000, LENGTH = 0x50000
+    
+
+    /* External flash */
+    /* Instruction ROM */
+    IROM : ORIGIN =   0x42000000 + 0x20, LENGTH = 0x400000 - 0x20
+    /* Data ROM */
+    DROM : ORIGIN = 0x3C000000, LENGTH = 0x400000
+
+    /* RTC fast memory (executable). Persists over deep sleep. */
+    RTC_FAST : ORIGIN = 0x50000000, LENGTH = 0x2000 /*- ESP_BOOTLOADER_RESERVE_RTC*/    
+}
+
+</code></pre>
+<h2 id="esp32c3x-file"><a class="header" href="#esp32c3x-file">esp32c3.x File</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="debugging"><a class="header" href="#debugging">Debugging</a></h1>
+<ul>
+<li>
+<p>explain the jtag protocol technique</p>
+</li>
+<li>
+<p>explain OpenOcd</p>
+</li>
+<li>
+<p>gdb server</p>
+</li>
+<li>
+<p>demo it via probe-rs</p>
+</li>
+<li>
+<p>show logging via defmt, RTT</p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="udev"><a class="header" href="#udev">Udev</a></h1>
+<p>Reference tutorial : https://opensource.com/article/18/11/udev</p>
+<p>Udev stands for User-Device manager.<br />
+It is one of linux's subsystems. You can find the other subsystems in the folder '/sys'.</p>
+<p>[undone: write a tutorial on udev]<br />
+to remember : </p>
+<ul>
+<li>monitoring with 'udevadm monitor'. Looking out for verbs/actions associated with device. What is the order of events when device_event happens?</li>
+<li>listing the available devices : lsusb, lsblk, lshw, </li>
+<li>Reading output from lsusb.</li>
+<li>Reading output from lsblk.</li>
+<li>Getting all associated attributes associated to a specific device and its parents, so as to get the right attributes to reference when writing rules</li>
+<li>Writing rules.</li>
+<li>Reloading rules</li>
+<li>Logging</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="probe-rs"><a class="header" href="#probe-rs">probe-rs</a></h1>
+<p>Probe-rs is an open-source debugging and flashing tool for microcontrollers.<br />
+It provides a unified interface to interact with various hardware debug probes, enabling developers to debug and flash firmware on embedded systems.</p>
+<p>Probe-rs can be used both as a crate or a CLI app.</p>
+<p>It supports a wide range of microcontroller architectures and debug probe hardware, making it a versatile tool for embedded development</p>
+<h2 id="architecture"><a class="header" href="#architecture">Architecture</a></h2>
+<p>Probe-rs is built with a modular architecture, consisting of several key components:</p>
+<ul>
+<li>Probe Interface: This component interacts with the physical hardware debug probe, such as J-Link, ST-Link, or CMSIS-DAP.</li>
+<li>Debugging Backend: Handles the low-level communication with the target microcontroller's debug interface (e.g., JTAG, SWD).</li>
+<li>API Layer: Provides a high-level API for interacting with the debug probe and the target microcontroller. This API is used by higher-level tools and applications.</li>
+<li>Utilities and Extensions: Probe-rs offers various utilities and extensions for specific use cases, such as firmware flashing, debugging, and memory inspection</li>
+</ul>
+<h2 id="probe-rs-cli-commands-and-their-importance"><a class="header" href="#probe-rs-cli-commands-and-their-importance">probe-rs CLI commands and their importance</a></h2>
+<ul>
+<li></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="why-is-my-program-not-flashing"><a class="header" href="#why-is-my-program-not-flashing">Why is my program not flashing?</a></h1>
+<blockquote>
+<p>Does your program use a correct linker script? Does the script specify a memory layout that conflicts with the Esp32c3 memory layout? File too big for certain memory sections? Have you assigned sections to memory regions that were flagged as unreachable?</p>
+</blockquote>
+<p>To test that out use the linker sript and src_code found in the fixup folder.</p>
+<p>Did you specify the right debug protocol? JTAG vs SWD?</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="cargo-flash"><a class="header" href="#cargo-flash">cargo-flash</a></h1>
+<p>This is a tool that tries to make the flashing process easier by integrating probe-rs with cargo.<br />
+It already has many supported chips. And if you have a custom chip, you can tweak it to suit your needs.</p>
+<p>The cargo flash in crates.io is outdated (indicates version 0.13), cargo-flash supports more than just ARM chips.<br />
+Just to get the better version, install cargo-flash by installing probe-rs as a whole.</p>
+<h3 id="understanding-cargo-flash-commands"><a class="header" href="#understanding-cargo-flash-commands">Understanding cargo-flash commands</a></h3>
+<p>To view the possible commands, run the following comand in the terminal.</p>
+<pre><code class="language-bash">cargo flash --help
+</code></pre>
+<p>You get something like this, some lines have been hidden... but you can unhide them by toggling the 'eye' button below :</p>
+<pre><code class="language-bash">Common options when flashing a target device
+
+Usage: cargo flash [OPTIONS]
+
+Options:
+      --reset-halt
+          Use this flag to reset and halt (instead of just a reset) the attached core after flashing the target
+      --log &lt;level&gt;
+          Use this flag to set the log level
+      --path &lt;path&gt;
+          The path to the file to be flashed
+      --work-dir &lt;directory&gt;
+          The work directory from which cargo-flash should operate from
+      --chip &lt;CHIP&gt;
+          [env: PROBE_RS_CHIP=]
+      --chip-description-path &lt;chip description file path&gt;
+          
+      --connect-under-reset
+          Use this flag to assert the nreset &amp; ntrst pins during attaching the probe to the chip
+      --dry-run
+          
+      --allow-erase-all
+          Use this flag to allow all memory, including security keys and 3rd party firmware, to be erased even when it has read-only protection
+      --disable-progressbars
+          
+      --disable-double-buffering
+          Use this flag to disable double-buffering when downloading flash data. If download fails during programming with timeout errors, try this option
+      --restore-unwritten
+          Enable this flag to restore all bytes erased in the sector erase but not overwritten by any page
+      --flash-layout &lt;filename&gt;
+          Requests the flash builder to output the layout into the given file in SVG format
+      --verify
+          After flashing, read back all the flashed data to verify it has been written correctly
+      --format &lt;FORMAT&gt;
+          If a format is provided, use it. If a target has a preferred format, we use that. Finally, if neither of the above cases are true, we default to ELF
+      --base-address &lt;BASE_ADDRESS&gt;
+          The address in memory where the binary will be put at. This is only considered when `bin` is selected as the format
+      --skip &lt;SKIP&gt;
+          The number of bytes to skip at the start of the binary file. This is only considered when `bin` is selected as the format [default: 0]
+      --idf-bootloader &lt;IDF_BOOTLOADER&gt;
+          The idf bootloader path
+      --idf-partition-table &lt;IDF_PARTITION_TABLE&gt;
+          The idf partition table path
+  -h, --help
+          Print help (see more with '--help')
+  -V, --version
+          Print version
+
+PROBE CONFIGURATION:
+      --protocol &lt;PROTOCOL&gt;     Protocol used to connect to chip. Possible options: [swd, jtag]
+      --probe &lt;PROBE_SELECTOR&gt;  Use this flag to select a specific probe in the list
+      --speed &lt;SPEED&gt;           The protocol speed in kHz
+
+
+<span class="boring"> # CARGO BUILD OPTIONS:
+</span>
+<span class="boring"> #     The following options are forwarded to 'cargo build':
+</span>
+<span class="boring"> #         --bin
+</span><span class="boring"> #         --example
+</span><span class="boring"> #     -p, --package
+</span><span class="boring"> #         --release
+</span><span class="boring"> #         --target
+</span><span class="boring"> #         --manifest-path
+</span><span class="boring"> #         --no-default-features
+</span><span class="boring"> #         --all-features
+</span><span class="boring"> #         --features
+</span>
+<span class="boring"> #     Additionally, all options passed after a sentinel '--'
+</span><span class="boring"> #     are also forwarded.
+</span>
+<span class="boring"> #     For example, if you run the command 'cargo flash --release -- \
+</span><span class="boring"> #     --some-cargo-flag', this means that 'cargo build \
+</span><span class="boring"> #     --release --some-cargo-flag' will be called.
+</span></code></pre>
+<h4 id="meaning-and-usage-of-the-commands"><a class="header" href="#meaning-and-usage-of-the-commands">Meaning and Usage of the commands</a></h4>
+<pre><code class="language-bash">--reset-halt
+          Use this flag to reset and halt (instead of just a reset) the attached core after flashing the target
+</code></pre>
+<p>Resetting in the context of embedded systems typically refers to the act of restarting or reinitializing the microcontroller or microprocessor to a known state. This process can involve several steps, including clearing memory, resetting peripheral devices, and initializing hardware registers to their default values.</p>
+<p>Halting the core means stopping its execution, which can be useful for debugging or ensuring a clean state before starting execution.</p>
+<pre><code class="language-bash">--log &lt;level&gt;:
+# for example :  
+# cargo flash --log error
+# cargo flash --log debug
+</code></pre>
+<p>Sets the log level for the operation. Logging levels control the verbosity of the output messages, allowing users to specify how much detail they want to see during the flashing process.</p>
+<p>Certainly! Let's consider an example of how the --log option can be used in a cargo-flash command:</p>
+<p>Suppose you're flashing firmware onto a microcontroller using cargo-flash, and you want to control the amount of detail shown in the output messages during the flashing process. You can use the --log option to specify the desired logging level.</p>
+<p>For instance, if you want to see only critical errors and warnings during the flashing process, you can set the log level to &quot;error&quot; or &quot;warn&quot;. Here's how you would do it:</p>
+<pre><code class="language-bash">cargo flash --log error
+</code></pre>
+<p>With this command, cargo-flash will only display error messages, such as critical failures or warnings indicating potential issues that need attention. This minimal logging level can be useful when you're primarily interested in identifying and addressing critical problems during flashing.</p>
+<p>On the other hand, if you want more detailed information during the flashing process, you can set the log level to &quot;info&quot; or &quot;debug&quot;. Here's how you would do it:</p>
+<pre><code class="language-bash">cargo flash --log debug
+</code></pre>
+<p>With this command, cargo-flash will provide additional information, such as progress updates, debugging messages, and other details relevant to the flashing operation. This higher logging level can be helpful when you're troubleshooting issues or monitoring the flashing process closely.</p>
+<pre><code class="language-bash">--path &lt;path&gt;:
+# for example : cargo flash --path ./target/debug/executable_file
+</code></pre>
+<p>Specifies the path to the file to be flashed. This is the binary file containing the firmware that will be programmed onto the target device.<br />
+If you don't specify this, cargo will automatically assume that its the target binary of that particular cargo project.</p>
+<pre><code class="language-bash">--chip &lt;CHIP&gt;:  
+# for example : cargo flash --chip esp32c3
+</code></pre>
+<p>Specifies the target chip/device. This option is crucial for cargo-flash to know the specific hardware it is flashing firmware onto. This command only works with supported chips. If your chip is not supported by default, you can add it by providing the chip description(SVD) and tweaking some configs [undone: more explanation is needed here]</p>
+<pre><code class="language-bash">--chip-description-path &lt;chip description file path&gt;: 
+
+</code></pre>
+<p>Specifies the path to the file containing the description of the target chip. This file provides information about the memory layout, peripherals, and other details necessary for flashing. This file is helpful when you are adding a new chip to be supported by cargo flash and probe-rs.</p>
+<pre><code class="language-bash">--connect-under-reset: 
+# For example : cargo-flash --chip esp32c3 --connect-under-reset
+</code></pre>
+<p>Sets the states of the nreset &amp; ntrst pins during attaching the probe to the chip. This option can ensure a more reliable connection between the programming tool and the target device.<br />
+Setting the nreset pin resets the state of the whole micro-controller.<br />
+setting the ntrst pin resets the chip debug/programming interface only.</p>
+<pre><code class="language-bash">--dry-run`:
+</code></pre>
+<p>Performs a trial run without actually flashing the firmware; it simulates the flashing process without actually writing any data to the target device. Instead of performing the real flashing operation, it only goes through the motions of the process.<br />
+This is useful for testing the command and verifying the parameters without making any changes to the target device. It's important for ensuring that the flashing process is configured correctly before performing the actual operation.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="logging"><a class="header" href="#logging">Logging</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="defmt"><a class="header" href="#defmt">defmt</a></h1>
+<p>Read the <a href="(https://defmt.ferrous-systems.com/)">official docs</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="mmio-programming"><a class="header" href="#mmio-programming">MMIO programming</a></h1>
+<ul>
+<li>explain why mmio programming is important</li>
+<li>how is it implemented? (GDMA and all)</li>
+<li>demonstrate the relevance of understanding the memory layout</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="registers-and-mmio-programming"><a class="header" href="#registers-and-mmio-programming">Registers and MMIO programming</a></h1>
+<p>You know your hardware by reading the relevant parts of your datasheet.<br />
+Your hardware is like a library, the datasheet is its documentation.</p>
+<h2 id="mmio-programming-1"><a class="header" href="#mmio-programming-1">MMIO Programming</a></h2>
+<p>But before we talk about the datasheets, let't talk about MMIO-programming.<br />
+[demo, undone]<br />
+MMIO involves using memory addresses as an interface to communicate with and control hardware devices.</p>
+<p>Memory-Mapped I/O refers to the technique of accessing hardware registers and controlling peripherals using memory addresses. Instead of specialized instructions, developers interact with hardware by reading from and writing to specific memory addresses, treating hardware like memory-mapped regions.</p>
+<p>Hardware Registers: Peripherals and hardware components are often controlled by registers, each associated with a specific functionality (e.g., configuration, data transmission, status).</p>
+<p>So to control hardware, you read and write to the respective registers... or memory regions.</p>
+<h2 id="the-volatile-key-word"><a class="header" href="#the-volatile-key-word">The Volatile key word</a></h2>
+<p>Quick detour :</p>
+<p>Facts :</p>
+<ol>
+<li>Your code does not always get executed procedurally. </li>
+<li>Some lines from your code get ignored or cut out by the compiler or CPU. </li>
+</ol>
+<p>The compiler optimizes the order of instructions, it even makes assumptions : 
+eg </p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>  let register_1 = 1;
+  // insert other instructions here
+  let register_1 = 1;
+<span class="boring">}</span></code></pre></pre>
+<p>can be optimized to </p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>  let register_1 = 1;
+  // insert other instructions here
+  //   let register_1 = 1; // gets truncated
+<span class="boring">}</span></code></pre></pre>
+<p>The CPU also optimizes and changes the order of those instruction even further.<br />
+If you add parallelism to the matter... it just makes it impossible to be sure that your instructions get executed in a specific order. </p>
+<p>These optimizations are bad if the changes to the register truly matter.</p>
+<h3 id="enter-the-volatile-key-word-the-superhero"><a class="header" href="#enter-the-volatile-key-word-the-superhero">Enter the volatile key-word... the superhero</a></h3>
+<p>The volatile keyword makes reads and writes to be atomic and un-reordered(if that'ts a word).</p>
+<p>It is the embodiement of :
+&quot;Hey, compiler and CPU, no optimizations should affect the order of my reads and writes. I cannot deal with surprises please&quot;<br />
+useul when the order and timing of reads and writes are critical, and the compiler should not make any assumptions about the potential side effects of these operations.</p>
+<p>example in rust : </p>
+<pre><pre class="playground"><code class="language-rust">// Import necessary modules
+use core::ptr;
+
+fn main() {
+    // Define a mutable pointer to a memory-mapped address
+    let mut mmio_ptr = 0x4000_0000 as *mut u32;
+
+    unsafe {
+        // Read from a volatile memory-mapped address
+        let value = ptr::read_volatile(mmio_ptr);
+        println!(&quot;Read value: {}&quot;, value);
+
+        // Write to a volatile memory-mapped address
+        let new_value = value + 1;
+        ptr::write_volatile(mmio_ptr, new_value);
+        println!(&quot;Written new value: {}&quot;, new_value);
+    }
+}</code></pre></pre>
+<p>Summary :</p>
+<ol>
+<li>You control hardware by reading and writing to its registers.</li>
+<li>All reads and writes to the registers have to be done using the volatile keyword.</li>
+</ol>
+<p>Question : Why do you think Volatile reads and writes are not the default methods. why are unpredictable reads and writes the default methods?</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="knowing-your-hardware"><a class="header" href="#knowing-your-hardware">Knowing your Hardware</a></h1>
+<p>Your hardware is like a library, to use it correctly, you should know it well... or at least know the relevant parts.<br />
+To understand your hardware, you read the datasheet. Like this one : the <a href="https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf">esp32 datasheet</a></p>
+<p>The 20% of the 100%, the important parts :</p>
+<ul>
+<li>Understand the functional features and capabilities </li>
+<li>Understand the hardware registers AND pins of the hardware you want to control.</li>
+</ul>
+<p>What's the diference between  pin and a register in mmio?  [Demo, undone]</p>
+<h3 id="figures"><a class="header" href="#figures">Figures</a></h3>
+<ol>
+<li>
+<p>Physical board with Pins
+<img src="img/semiconductor_QFN.png" alt="Alt text" /></p>
+</li>
+<li>
+<p>Pin Layout
+<img src="img/pin_layout_1.png" alt="Alt text" />
+<img src="img/pin_layout_2.png" alt="Alt text" /></p>
+</li>
+<li>
+<p>Memory Layout (Registers + Actual_memory)
+<img src="img/memory_mapping_1.png" alt="Alt text" />
+<img src="img/memory_mapping_2.png" alt="Alt text" />
+<img src="img/memory_mapping_3.png" alt="Alt text" /></p>
+</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="abstraction"><a class="header" href="#abstraction">Abstraction</a></h1>
+<ul>
+<li>explain the abstraction crates in rust, PACs, MACs, HALs, board crates</li>
+<li>Try to implement a naiv abstraction.</li>
+<li>Finally use a tool svd2rust</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="svd2rust"><a class="header" href="#svd2rust">svd2rust</a></h1>
+<p>Once you read the datasheet, and understand the memory mapping, pin-layout and whatever else you wanted to get straight, you begin to safely abstract the board.</p>
+<h3 id="svd-files"><a class="header" href="#svd-files">SVD files</a></h3>
+<p>An svd file is a file that describes the peripherals of a board using xml. So you could say that an svd file is a board abstracted as an xml template.<br />
+SVD is the abbreviation for : System View Description.</p>
+<p>The svd file outlines :</p>
+<ul>
+<li>The boards metadata eg boardname, board version, feature description, vendor name</li>
+<li>Major component info : eg CPU_capabilities, Endianness, address_width, added cpu_extensions... </li>
+<li>all list of all the peripherals
+<ul>
+<li>the registers of each peripheral</li>
+<li>the functions of each register</li>
+<li>the memory address of each register</li>
+<li>the read/write access of each register</li>
+</ul>
+</li>
+</ul>
+<p>You can find sample svd files <a href="%5Bhttps://github.com/espressif/svd/tree/main/svd%5D">here</a>, they are from the espressif organization.<br />
+Here is the esp32C3 svd file that we will be using : <a href="%5Bhttps://github.com/espressif/svd/tree/main/svd%5D">ESP32_C3 svd file</a></p>
+<p>Here is a snippet of a sample svd file : </p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;device schemaVersion=&quot;1.1&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xs:noNamespaceSchemaLocation=&quot;CMSIS-SVD_Schema_1_1.xsd&quot;&gt;
+  &lt;vendor&gt;ESPRESSIF SYSTEMS (SHANGHAI) CO., LTD.&lt;/vendor&gt;
+  &lt;vendorID&gt;ESPRESSIF&lt;/vendorID&gt;
+  &lt;name&gt;ESP32-C3&lt;/name&gt;
+  &lt;series&gt;ESP32 C-Series&lt;/series&gt;
+  &lt;version&gt;17&lt;/version&gt;
+  &lt;description&gt;32-bit RISC-V MCU &amp;amp; 2.4 GHz Wi-Fi &amp;amp; Bluetooth 5 (LE)&lt;/description&gt;
+
+  &lt;!-- snip snip snipped some lines --&gt;
+
+  &lt;cpu&gt;
+    &lt;name&gt;RV32IMC&lt;/name&gt;
+    &lt;revision&gt;r0p0&lt;/revision&gt;
+    &lt;endian&gt;little&lt;/endian&gt;
+    &lt;mpuPresent&gt;false&lt;/mpuPresent&gt;
+    &lt;fpuPresent&gt;false&lt;/fpuPresent&gt;
+    &lt;nvicPrioBits&gt;0&lt;/nvicPrioBits&gt;
+    &lt;vendorSystickConfig&gt;false&lt;/vendorSystickConfig&gt;
+  &lt;/cpu&gt;
+
+  &lt;!-- snip snip snipped some lines --&gt;
+
+   &lt;peripherals&gt;
+   
+   &lt;!-- here is 1/32 peripherals --&gt;
+    &lt;peripheral&gt;
+        &lt;name&gt;UART0&lt;/name&gt;
+      &lt;description&gt;UART (Universal Asynchronous Receiver-Transmitter) Controller 0&lt;/description&gt;
+      &lt;groupName&gt;UART&lt;/groupName&gt;
+      &lt;baseAddress&gt;0x60000000&lt;/baseAddress&gt;
+      &lt;addressBlock&gt;
+        &lt;offset&gt;0x0&lt;/offset&gt;
+        &lt;size&gt;0x84&lt;/size&gt;
+        &lt;usage&gt;registers&lt;/usage&gt;
+      &lt;/addressBlock&gt;
+      &lt;interrupt&gt;
+        &lt;name&gt;UART0&lt;/name&gt;
+        &lt;value&gt;21&lt;/value&gt;
+      &lt;/interrupt&gt;
+      &lt;registers&gt;
+        &lt;register&gt;
+          &lt;name&gt;FIFO&lt;/name&gt;
+          &lt;description&gt;FIFO data register&lt;/description&gt;
+          &lt;addressOffset&gt;0x0&lt;/addressOffset&gt;
+          &lt;size&gt;0x20&lt;/size&gt;
+          &lt;fields&gt;
+            &lt;field&gt;
+              &lt;name&gt;RXFIFO_RD_BYTE&lt;/name&gt;
+              &lt;description&gt;UART 0 accesses FIFO via this register.&lt;/description&gt;
+              &lt;bitOffset&gt;0&lt;/bitOffset&gt;
+              &lt;bitWidth&gt;8&lt;/bitWidth&gt;
+              &lt;access&gt;read-write&lt;/access&gt;
+            &lt;/field&gt;
+          &lt;/fields&gt;
+        &lt;/register&gt;
+
+        &lt;!-- more registers --&gt;
+        &lt;register&gt;
+        &lt;/register&gt;
+        &lt;/register&gt;
+        &lt;!-- more registers --&gt;
+    &lt;peripheral&gt;
+
+    &lt;!-- snipped out the other 31 peripherals --&gt;
+   &lt;peripherals&gt;
+</code></pre>
+<h3 id="svd2rust-1"><a class="header" href="#svd2rust-1">svd2Rust</a></h3>
+<p>This is a tool that takes in svd files and outputs Rust code that reflects the contents of the svd file.</p>
+<h3 id="why-use-svd2rust-instead-of-doing-the-abstraction-manually"><a class="header" href="#why-use-svd2rust-instead-of-doing-the-abstraction-manually">Why use svd2rust instead of doing the abstraction manually?</a></h3>
+<p>Before we discuss whether you should do it manually or not. Let's settle out some facts first.<br />
+A full-fledged board has many components. The datasheet reference is like &gt;700 pages. These components are dependent on each other.<br />
+You get some form of info overload. How can you create complete abstractions if you do not fully understand the board and how they are interdependent on each other? Enter headaches and suicidal thoughts.</p>
+<p>If you look at the esp32c3.svd file, you realize it is &gt;35000 lines. But at-least the svd file provides a complete abstraction from the &gt;700 page datasheet.</p>
+<h4 id="when-to-do-it-manually"><a class="header" href="#when-to-do-it-manually">When to do it manually</a></h4>
+<ol>
+<li>When you fully understand all the details about a peripheral</li>
+<li>When you also fuly understand all the direct components that the target peripheral depends on.</li>
+<li>When you can comfortably abstract the peripheral and its dependents, in a safe way: critical sections, atomics and all that vodoo when accessing registers.</li>
+<li>When you do not need to abstract the whole board.</li>
+</ol>
+<h4 id="when-to-do-it-automatically"><a class="header" href="#when-to-do-it-automatically">When to do it automatically</a></h4>
+<ol>
+<li>When you dont mind abstracting all the peripherals</li>
+<li>When you want a library to automatically implement the access-safety methods of accessing registers. You don't have to implement atomic vodoo on your own.</li>
+<li>When you want to use a standard way of abstracting the board. Your whole team uses the same template. Everyone speaks the same language, everyone becomes happy.</li>
+</ol>
+<h3 id="svd2rust-2"><a class="header" href="#svd2rust-2">svd2rust</a></h3>
+<p>To understand svd2rust, let's :</p>
+<ol>
+<li>read its docs</li>
+<li>experiment with it a little</li>
+<li>Do our abstractions manually without depending on svd2rust</li>
+<li>Go back to svd2rust while fully appreciating all the manual work it does for us </li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="notable-crates"><a class="header" href="#notable-crates">Notable Crates</a></h1>
+<h2 id="for-bare-metal-programming"><a class="header" href="#for-bare-metal-programming">For bare metal programming</a></h2>
+<ul>
+<li>heapless</li>
+<li>critical-section</li>
+<li>portable-atomic</li>
+<li>bit-field, bitfield</li>
+<li>bit-flags</li>
+<li>embedded-hal</li>
+<li>embedded-dma : This library provides the ReadBuffer and WriteBuffer unsafe traits to be used as bounds to buffers types used in DMA operations.</li>
+<li>fugi : time crate for embedded systems</li>
+<li>nb : Minimal and reusable non-blocking I/O layer</li>
+<li>riscv</li>
+<li>riscv-rt</li>
+<li>volatile-register</li>
+<li>vcell : Just like Cell but with volatile read / write operations</li>
+</ul>
+<h2 id="utility-like"><a class="header" href="#utility-like">Utility-like</a></h2>
+<ul>
+<li>svd2rust + form + rustfmt</li>
+<li>defmt : A highly efficient logging framework that targets resource-constrained devices, like microcontrollers.
+Check out the defmt book at https://defmt.ferrous-systems.com for more information about how to use it.</li>
+<li>embassy crates</li>
+<li>probe crates</li>
+<li>clap</li>
+<li>ratatui</li>
+<li>serde</li>
+</ul>
+<h3 id="more-tertiary-for-now"><a class="header" href="#more-tertiary-for-now">more tertiary for now</a></h3>
+<ul>
+<li>cfg-if  : A macro for defining #[cfg] if-else statements.</li>
+<li></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="why-embedded-rust"><a class="header" href="#why-embedded-rust">Why Embedded Rust</a></h1>
+<h2 id="memory-safety"><a class="header" href="#memory-safety">Memory Safety:</a></h2>
+<p>Rust's ownership system and borrow checker ensure memory safety without the need for a garbage collector. This helps prevent common issues like null pointer dereferences, buffer overflows, and data races.</p>
+<h2 id="concurrency-and-parallelism"><a class="header" href="#concurrency-and-parallelism">Concurrency and Parallelism:</a></h2>
+<p>Advantage: Rust provides ownership-based concurrency control, allowing developers to write concurrent code without the risk of data races. The language's emphasis on zero-cost abstractions enables efficient parallelism.</p>
+<h2 id="nice-integration-with-c-and-c-and-their-respective-tools"><a class="header" href="#nice-integration-with-c-and-c-and-their-respective-tools">Nice integration with C and C++... and their respective tools</a></h2>
+<ul>
+<li>Rust has a robust FFI that allows seamless integration with C and C++ code.</li>
+<li>Cargo integrates well with tools that are popular in the embedded world, so a C developer needs not learn ALL NEW things. For example the default toolchain components are extended LLVM or GNU components. You can integrate C library and build tools in a seamless manner in your project.</li>
+</ul>
+<h2 id="ergonomics"><a class="header" href="#ergonomics">Ergonomics</a></h2>
+<ul>
+<li>Tools are considerably documented.</li>
+<li>Helpful community</li>
+<li>many helpful tools &amp; crates... especially the compiler itself. </li>
+</ul>
+<p>Naive but somehow true perspective : Rust enables you to write complex software (even as a junior), your implementation is not 100% dependent on your experience level.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="ace.js"></script>
+        <script src="editor.js"></script>
+        <script src="mode-rust.js"></script>
+        <script src="theme-dawn.js"></script>
+        <script src="theme-tomorrow_night.js"></script>
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>

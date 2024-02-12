@@ -1,0 +1,378 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>cargo-flash - driver development in Rust</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">INTRO</li><li class="chapter-item expanded "><a href="intro/intro.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="intro/prerequisites.html"><strong aria-hidden="true">2.</strong> Prerequisites for the Book</a></li><li class="chapter-item expanded affix "><li class="part-title">UNDERSTANDING DRIVERS (theory)</li><li class="chapter-item expanded "><a href="understanding_drivers/understanding_drivers.html"><strong aria-hidden="true">3.</strong> Intro to Drivers</a></li><li class="chapter-item expanded "><a href="understanding_drivers/controlling_the_device_below.html"><strong aria-hidden="true">4.</strong> Role 1: Controlling the device below</a></li><li class="chapter-item expanded "><a href="understanding_drivers/providing_an_interface.html"><strong aria-hidden="true">5.</strong> Role 2: Providing an interface</a></li><li class="chapter-item expanded "><a href="understanding_drivers/types_of_drivers.html"><strong aria-hidden="true">6.</strong> Types of Drivers</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> Kernel and Driver Interaction mechanisms</div></li><li class="chapter-item expanded affix "><li class="part-title">BARE METAL PROGRAMMING</li><li class="chapter-item expanded "><a href="bare_metal/the_no_std_preface.html"><strong aria-hidden="true">8.</strong> Bare Metal Programming</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bare_metal/the_no_std_intro.html"><strong aria-hidden="true">8.1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="bare_metal/removing_std_lib.html"><strong aria-hidden="true">8.2.</strong> Disabling the Standard Library</a></li></ol></li><li class="chapter-item expanded "><a href="linker_scripts.html"><strong aria-hidden="true">9.</strong> Writing linker scripts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="linking/pracs.html"><strong aria-hidden="true">9.1.</strong> pracs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="linking/step_1_understanding_memory_layout.html"><strong aria-hidden="true">9.1.1.</strong> Step one: understanding the memory layout of the board</a></li><li class="chapter-item expanded "><a href="linking/step_1_understanding_memory_layout_part_2.html"><strong aria-hidden="true">9.1.2.</strong> Step one (continuation)</a></li><li class="chapter-item expanded "><a href="runtime_requirements.html"><strong aria-hidden="true">9.1.3.</strong> Runtime requirements</a></li></ol></li><li class="chapter-item expanded "><a href="linking/sample_linking_files.html"><strong aria-hidden="true">9.2.</strong> example linker files</a></li><li class="chapter-item expanded "><a href="linking/samples/linkall.html"><strong aria-hidden="true">9.3.</strong> linkall.x</a></li></ol></li><li class="chapter-item expanded "><a href="debugging.html"><strong aria-hidden="true">10.</strong> Debugging</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="udev.html"><strong aria-hidden="true">10.1.</strong> udev</a></li><li class="chapter-item expanded "><a href="probe_rs.html"><strong aria-hidden="true">10.2.</strong> probe-rs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="flashing_problems.html"><strong aria-hidden="true">10.2.1.</strong> why is my program not flashing?</a></li></ol></li><li class="chapter-item expanded "><a href="cargo-flash.html" class="active"><strong aria-hidden="true">10.3.</strong> cargo-flash</a></li><li class="chapter-item expanded "><a href="logging.html"><strong aria-hidden="true">10.4.</strong> Logging</a></li><li class="chapter-item expanded "><a href="defmt.html"><strong aria-hidden="true">10.5.</strong> defmt</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> No-std testing</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.</strong> Performance testing</div></li><li class="chapter-item expanded affix "><li class="part-title">ABSTRACTIONS</li><li class="chapter-item expanded "><a href="mmio_programming.html"><strong aria-hidden="true">13.</strong> MMIO programming</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="registers_and_mmio_programming.html"><strong aria-hidden="true">13.1.</strong> Registers and MMIO programming</a></li></ol></li><li class="chapter-item expanded "><a href="knowing_your_hardware.html"><strong aria-hidden="true">14.</strong> The datasheet</a></li><li class="chapter-item expanded "><a href="abstraction.html"><strong aria-hidden="true">15.</strong> Abstraction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="svd2rust.html"><strong aria-hidden="true">15.1.</strong> svd2rust</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">THE UART THEORY</li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.</strong> Understanding UART Theory</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">17.</strong> Understanding UART physical Implemetation in the esp32</div></li><li class="chapter-item expanded affix "><li class="part-title">THE UART IMPLEMENTATION (naive)</li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.</strong> chapters that I dont know their titles</div></li><li class="chapter-item expanded affix "><li class="part-title">THE UART IMPLEMENTATION (less naive)</li><li class="chapter-item expanded "><div><strong aria-hidden="true">19.</strong> Concurrency and atomic magic</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">20.</strong> chapters that I dont know their titles</div></li><li class="chapter-item expanded affix "><li class="part-title">OTHER STORIES</li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.</strong> Driver Security</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">21.1.</strong> Common Security Issues in Driver Development</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.2.</strong> Rust's Safety Features for Driver Security</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.3.</strong> Best Practices for Secure Driver Development</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">22.</strong> Case Studies and Examples</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">22.1.</strong> Real-world Driver Development Examples</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">22.2.</strong> Analyzing an Existing Rust Driver</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">23.</strong> Iterative Implementation</div></li><li class="chapter-item expanded affix "><li class="part-title">APPENDIX</li><li class="chapter-item expanded "><a href="notable_crates.html"><strong aria-hidden="true">24.</strong> Notable Crates</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">25.</strong> Notable Learning Resources</div></li><li class="chapter-item expanded "><a href="why_embedded_rust.html"><strong aria-hidden="true">26.</strong> why use Rust?</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">driver development in Rust</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="cargo-flash"><a class="header" href="#cargo-flash">cargo-flash</a></h1>
+<p>This is a tool that tries to make the flashing process easier by integrating probe-rs with cargo.<br />
+It already has many supported chips. And if you have a custom chip, you can tweak it to suit your needs.</p>
+<p>The cargo flash in crates.io is outdated (indicates version 0.13), cargo-flash supports more than just ARM chips.<br />
+Just to get the better version, install cargo-flash by installing probe-rs as a whole.</p>
+<h3 id="understanding-cargo-flash-commands"><a class="header" href="#understanding-cargo-flash-commands">Understanding cargo-flash commands</a></h3>
+<p>To view the possible commands, run the following comand in the terminal.</p>
+<pre><code class="language-bash">cargo flash --help
+</code></pre>
+<p>You get something like this, some lines have been hidden... but you can unhide them by toggling the 'eye' button below :</p>
+<pre><code class="language-bash">Common options when flashing a target device
+
+Usage: cargo flash [OPTIONS]
+
+Options:
+      --reset-halt
+          Use this flag to reset and halt (instead of just a reset) the attached core after flashing the target
+      --log &lt;level&gt;
+          Use this flag to set the log level
+      --path &lt;path&gt;
+          The path to the file to be flashed
+      --work-dir &lt;directory&gt;
+          The work directory from which cargo-flash should operate from
+      --chip &lt;CHIP&gt;
+          [env: PROBE_RS_CHIP=]
+      --chip-description-path &lt;chip description file path&gt;
+          
+      --connect-under-reset
+          Use this flag to assert the nreset &amp; ntrst pins during attaching the probe to the chip
+      --dry-run
+          
+      --allow-erase-all
+          Use this flag to allow all memory, including security keys and 3rd party firmware, to be erased even when it has read-only protection
+      --disable-progressbars
+          
+      --disable-double-buffering
+          Use this flag to disable double-buffering when downloading flash data. If download fails during programming with timeout errors, try this option
+      --restore-unwritten
+          Enable this flag to restore all bytes erased in the sector erase but not overwritten by any page
+      --flash-layout &lt;filename&gt;
+          Requests the flash builder to output the layout into the given file in SVG format
+      --verify
+          After flashing, read back all the flashed data to verify it has been written correctly
+      --format &lt;FORMAT&gt;
+          If a format is provided, use it. If a target has a preferred format, we use that. Finally, if neither of the above cases are true, we default to ELF
+      --base-address &lt;BASE_ADDRESS&gt;
+          The address in memory where the binary will be put at. This is only considered when `bin` is selected as the format
+      --skip &lt;SKIP&gt;
+          The number of bytes to skip at the start of the binary file. This is only considered when `bin` is selected as the format [default: 0]
+      --idf-bootloader &lt;IDF_BOOTLOADER&gt;
+          The idf bootloader path
+      --idf-partition-table &lt;IDF_PARTITION_TABLE&gt;
+          The idf partition table path
+  -h, --help
+          Print help (see more with '--help')
+  -V, --version
+          Print version
+
+PROBE CONFIGURATION:
+      --protocol &lt;PROTOCOL&gt;     Protocol used to connect to chip. Possible options: [swd, jtag]
+      --probe &lt;PROBE_SELECTOR&gt;  Use this flag to select a specific probe in the list
+      --speed &lt;SPEED&gt;           The protocol speed in kHz
+
+
+<span class="boring"> # CARGO BUILD OPTIONS:
+</span>
+<span class="boring"> #     The following options are forwarded to 'cargo build':
+</span>
+<span class="boring"> #         --bin
+</span><span class="boring"> #         --example
+</span><span class="boring"> #     -p, --package
+</span><span class="boring"> #         --release
+</span><span class="boring"> #         --target
+</span><span class="boring"> #         --manifest-path
+</span><span class="boring"> #         --no-default-features
+</span><span class="boring"> #         --all-features
+</span><span class="boring"> #         --features
+</span>
+<span class="boring"> #     Additionally, all options passed after a sentinel '--'
+</span><span class="boring"> #     are also forwarded.
+</span>
+<span class="boring"> #     For example, if you run the command 'cargo flash --release -- \
+</span><span class="boring"> #     --some-cargo-flag', this means that 'cargo build \
+</span><span class="boring"> #     --release --some-cargo-flag' will be called.
+</span></code></pre>
+<h4 id="meaning-and-usage-of-the-commands"><a class="header" href="#meaning-and-usage-of-the-commands">Meaning and Usage of the commands</a></h4>
+<pre><code class="language-bash">--reset-halt
+          Use this flag to reset and halt (instead of just a reset) the attached core after flashing the target
+</code></pre>
+<p>Resetting in the context of embedded systems typically refers to the act of restarting or reinitializing the microcontroller or microprocessor to a known state. This process can involve several steps, including clearing memory, resetting peripheral devices, and initializing hardware registers to their default values.</p>
+<p>Halting the core means stopping its execution, which can be useful for debugging or ensuring a clean state before starting execution.</p>
+<pre><code class="language-bash">--log &lt;level&gt;:
+# for example :  
+# cargo flash --log error
+# cargo flash --log debug
+</code></pre>
+<p>Sets the log level for the operation. Logging levels control the verbosity of the output messages, allowing users to specify how much detail they want to see during the flashing process.</p>
+<p>Certainly! Let's consider an example of how the --log option can be used in a cargo-flash command:</p>
+<p>Suppose you're flashing firmware onto a microcontroller using cargo-flash, and you want to control the amount of detail shown in the output messages during the flashing process. You can use the --log option to specify the desired logging level.</p>
+<p>For instance, if you want to see only critical errors and warnings during the flashing process, you can set the log level to &quot;error&quot; or &quot;warn&quot;. Here's how you would do it:</p>
+<pre><code class="language-bash">cargo flash --log error
+</code></pre>
+<p>With this command, cargo-flash will only display error messages, such as critical failures or warnings indicating potential issues that need attention. This minimal logging level can be useful when you're primarily interested in identifying and addressing critical problems during flashing.</p>
+<p>On the other hand, if you want more detailed information during the flashing process, you can set the log level to &quot;info&quot; or &quot;debug&quot;. Here's how you would do it:</p>
+<pre><code class="language-bash">cargo flash --log debug
+</code></pre>
+<p>With this command, cargo-flash will provide additional information, such as progress updates, debugging messages, and other details relevant to the flashing operation. This higher logging level can be helpful when you're troubleshooting issues or monitoring the flashing process closely.</p>
+<pre><code class="language-bash">--path &lt;path&gt;:
+# for example : cargo flash --path ./target/debug/executable_file
+</code></pre>
+<p>Specifies the path to the file to be flashed. This is the binary file containing the firmware that will be programmed onto the target device.<br />
+If you don't specify this, cargo will automatically assume that its the target binary of that particular cargo project.</p>
+<pre><code class="language-bash">--chip &lt;CHIP&gt;:  
+# for example : cargo flash --chip esp32c3
+</code></pre>
+<p>Specifies the target chip/device. This option is crucial for cargo-flash to know the specific hardware it is flashing firmware onto. This command only works with supported chips. If your chip is not supported by default, you can add it by providing the chip description(SVD) and tweaking some configs [undone: more explanation is needed here]</p>
+<pre><code class="language-bash">--chip-description-path &lt;chip description file path&gt;: 
+
+</code></pre>
+<p>Specifies the path to the file containing the description of the target chip. This file provides information about the memory layout, peripherals, and other details necessary for flashing. This file is helpful when you are adding a new chip to be supported by cargo flash and probe-rs.</p>
+<pre><code class="language-bash">--connect-under-reset: 
+# For example : cargo-flash --chip esp32c3 --connect-under-reset
+</code></pre>
+<p>Sets the states of the nreset &amp; ntrst pins during attaching the probe to the chip. This option can ensure a more reliable connection between the programming tool and the target device.<br />
+Setting the nreset pin resets the state of the whole micro-controller.<br />
+setting the ntrst pin resets the chip debug/programming interface only.</p>
+<pre><code class="language-bash">--dry-run`:
+</code></pre>
+<p>Performs a trial run without actually flashing the firmware; it simulates the flashing process without actually writing any data to the target device. Instead of performing the real flashing operation, it only goes through the motions of the process.<br />
+This is useful for testing the command and verifying the parameters without making any changes to the target device. It's important for ensuring that the flashing process is configured correctly before performing the actual operation.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="flashing_problems.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="logging.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="flashing_problems.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="logging.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="ace.js"></script>
+        <script src="editor.js"></script>
+        <script src="mode-rust.js"></script>
+        <script src="theme-dawn.js"></script>
+        <script src="theme-tomorrow_night.js"></script>
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

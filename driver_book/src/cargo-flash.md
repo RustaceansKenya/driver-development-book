@@ -1,6 +1,6 @@
 # cargo-flash
 
-This is a tool that tries to make the flashing process easier.  
+This is a tool that tries to make the flashing process easier by integrating probe-rs with cargo.  
 It already has many supported chips. And if you have a custom chip, you can tweak it to suit your needs.  
 
 
@@ -170,7 +170,5 @@ setting the ntrst pin resets the chip debug/programming interface only.
 ``` 
 Performs a trial run without actually flashing the firmware; it simulates the flashing process without actually writing any data to the target device. Instead of performing the real flashing operation, it only goes through the motions of the process.  
 This is useful for testing the command and verifying the parameters without making any changes to the target device. It's important for ensuring that the flashing process is configured correctly before performing the actual operation.  
-
-
 
 

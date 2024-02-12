@@ -16,4 +16,5 @@ So what is a debugging interface?
 
 #### Questions
 - How can I add custom chips?
-- 
+- The debug adapter typically provides additional features such as voltage level translation, signal buffering, and target power control, which are necessary for reliable communication with the target hardware.
+  

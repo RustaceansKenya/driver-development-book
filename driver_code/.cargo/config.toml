@@ -1,11 +1,21 @@
 
 [build]
-target = "riscv32i-unknown-none-elf"
+target = "riscv32imc-unknown-none-elf"
 
-[target.riscv32i-unknown-none-elf]
-# runner = ""
+
+[target.riscv32imc-unknown-none-elf]
+runner = "espflash flash --monitor"
 linker = "ld.lld"
-# rustflags = ["…", "…"]  # custom flags for `rustc`
+rustflags = ["-C", "link-arg=-Tsrc/ld_template/esp32c3/linkall.x" ,
+             "-C", "link-arg=-Lsrc/ld_template/esp32c3",
+             "-C", "link-arg=-Lsrc/ld_template/riscv",
+             "-C", "link-arg=-Lsrc/ld_template/sections",
+             "-C", "link-arg=-Lsrc/ld_template/sections/fixups",
+             ]  # custom flags for `rustc`
+
+# rustflags = ["-C", "link-arg=-Tsrc/ld/linkall.x" ,
+#              "-C", "link-arg=-Lsrc/ld"
+#              ]  # custom flags for `rustc`
 
 
 
