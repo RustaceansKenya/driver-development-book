@@ -1,0 +1,15 @@
+[book]
+authors = ["kiarie404"]
+language = "en"
+multilingual = false
+src = "src"
+title = "driver development in Rust"
+
+
+[output.html.playground]
+editable = true
+runnable = true
+
+[output.html.code.hidelines]
+bash = "//"
+
