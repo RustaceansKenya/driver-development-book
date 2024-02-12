@@ -29,8 +29,8 @@ This book does not explain driver development for a particular Operating System 
 
 To access the tutorial book, visit : [this link][driver-development-book-website]  
 To access the source-code, visit [this repo's sub-folder][driver-code]  
-To access the mdbook source files, visit [this-repo/driver_book/src][driver-book-src] 
-If you wish to contribute, skim through this : [book][contribution-book]
+To access the mdbook source files, visit [this-repo/driver_book/src][driver-book-src]  
+If you wish to be a contributor, skim through this guide: [book][contribution-book]
 
 
 ## Communication
