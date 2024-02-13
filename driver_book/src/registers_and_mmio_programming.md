@@ -5,7 +5,7 @@ Your hardware is like a library, the datasheet is its documentation.
 
 ## MMIO Programming  
 But before we talk about the datasheets, let't talk about MMIO-programming.  
-[demo, undone]  
+<!-- [demo, undone]   -->
 MMIO involves using memory addresses as an interface to communicate with and control hardware devices.  
 
 Memory-Mapped I/O refers to the technique of accessing hardware registers and controlling peripherals using memory addresses. Instead of specialized instructions, developers interact with hardware by reading from and writing to specific memory addresses, treating hardware like memory-mapped regions.  

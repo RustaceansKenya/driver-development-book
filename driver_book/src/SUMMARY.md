@@ -14,9 +14,11 @@
 
 
 # BARE METAL PROGRAMMING
-- [Bare Metal Programming](./bare_metal/the_no_std_preface.md)
-  - [Intro](./bare_metal/the_no_std_intro.md)
-  - [Disabling the Standard Library](./bare_metal/removing_std_lib.md)
+- [No std preface](./bare_metal/the_no_std_preface.md)
+  - [No std](./bare_metal/no_std/the_no_std_intro.md)
+  - [Disabling the Standard Library](./bare_metal/no_std/removing_std_lib.md)
+  - [Pracs 1](./bare_metal/no_std/pracs_1.md)
+  - [Pracs 2](./bare_metal/no_std/pracs_2.md)
 - [Writing linker scripts](./linker_scripts.md)
   - [pracs](./linking/pracs.md)
     - [Step one: understanding the memory layout of the board](./linking/step_1_understanding_memory_layout.md)

@@ -9,7 +9,9 @@ The 20% of the 100%, the important parts :
 - Understand the functional features and capabilities 
 - Understand the hardware registers AND pins of the hardware you want to control.  
 
-What's the diference between  pin and a register in mmio?  [Demo, undone]
+
+What's the diference between  pin and a register in mmio?  
+<!-- [Demo, undone] -->
 
 ### Figures
 

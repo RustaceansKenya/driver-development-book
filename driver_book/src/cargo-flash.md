@@ -147,7 +147,8 @@ If you don't specify this, cargo will automatically assume that its the target b
 --chip <CHIP>:  
 # for example : cargo flash --chip esp32c3
 ```  
-Specifies the target chip/device. This option is crucial for cargo-flash to know the specific hardware it is flashing firmware onto. This command only works with supported chips. If your chip is not supported by default, you can add it by providing the chip description(SVD) and tweaking some configs [undone: more explanation is needed here]  
+Specifies the target chip/device. This option is crucial for cargo-flash to know the specific hardware it is flashing firmware onto. This command only works with supported chips. If your chip is not supported by default, you can add it by providing the chip description(SVD) and tweaking some configs 
+<!-- [undone: more explanation is needed here]   -->
 
 ```bash
 --chip-description-path <chip description file path>: 

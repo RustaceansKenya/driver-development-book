@@ -1,0 +1,208 @@
+# Pracs 1
+
+It is best to do things practically... you get error messages that engrain into you some PTSD.  
+
+## Step 1: Disabling the Std library
+
+Go to your terminal and create a new empty project :  
+```bash
+cargo new hello_world --bin
+```
+
+By default, rust programs depend on the standard library. To disable this dependence, you add the 'no_std attribute' to your code. The code however switches to depending on the 'core' crate.  
+```rust
+#![no_std]
+
+fn main(){
+    println!("Hello world!!");
+}
+```
+
+If you run this code, you get 3 compilation errors. 
+1. error: cannot find macro `println` in this scope
+2. error: `#[panic_handler]` function required, but not found
+3. error: unwinding panics are not supported without std
+
+## Step 2: Fixing the first Error
+The [println macro][println-macro-doc] is part of the standard library. That is why it cannot be found in the scope of the 'no_std' crate.  
+To fix the first error, we remove the println line.  
+```rust
+#![no_std]
+
+fn main(){
+    // println!("Hello world!!");
+}
+```
+Two errors remain...  
+
+## Step 3: Fixing the second and third error  (theory)
+This is going to be a short fix but with a lot of theory behind it.  
+To solve it, we have to understand the [core library requirements][core-library-requirements] first. 
+
+The core library functions and definitions can get compiled for any target, provided that the target provides definitions of certain linker symbols. The symbols needed are :
+1. memcpy, memmove, memset, memcmp, bcmp, strlen. 
+2. rust_begin_panic
+3. rust_eh_personality (this is not a symbol, it is actually a [language item][rust-eh-language-item])
+
+In other words, you can write whatever you want for any supported ISA, as long as you link files that contain the definitions of the above symbols.  
+
+### 1. memcpy, memmove, memset, memcmp, bcmp and strlen symbols
+
+
+These are all symbols that point to memory routines.  
+You need to provide to the linker the ISA code that implements the above routines.  
+
+When you compile Rust code for a specific target architecture (ISA - Instruction Set Architecture), the Rust compiler needs to know how to generate machine code compatible with that architecture. For many common architectures, such as x86, ARM, or MIPS, the Rust toolchain already includes pre-defined implementations of these memory routines. Therefore, if your target architecture is one of these supported ones, you don't need to worry about providing these definitions yourself.  
+
+However, if you're targeting a custom architecture or an architecture that isn't directly supported by the Rust toolchain, you'll need to provide implementations for these memory routines. This ensures that the generated machine code will correctly interact with memory according to the specifics of your architecture.  
+
+### 2. the rust_begin_panic symbol
+
+
+This symbol is used by Rust's panic mechanism, which is invoked when unrecoverable errors occur during program execution. Implementing this symbol allows the generated code to handle panics correctly.  
+You could say that THIS symbol references the function that the Rust runtime calls whenever a panic happens.  
+
+This means that you have to... 
+1. Define a function that acts as the overall panic handler. 
+2. Put that function in a file
+3. Link that file with your driver code when compiling.  
+
+For the sake of ergonomics, the cool rust developers provided a 'panic-handler' attribute that you can attach to a divergent function. You do not have to do all the linking vodoo. This has been demonstrated later on... do not worry if this statement did not make sense.  
+
+### 3. The rust_eh_personality 
+
+When a panic happens, the rust runtime starts unwinding the stack so that it can free the memory of the affected stack variables. This unwinding also ensures that the parent thread catches the panic and maybe deal with it.  
+
+Unwinding is awesome... but complicated to implement without the help of the std library. *Coughs in soy-dev*.  
+
+The rust_eh_personality is a language item that defines how the rust runtime behaves if a panic happens : "does it unwind the stack? How does it unwind the stack? Or does it just refuse to unwind the stack and instead just end program execution?  
+
+To set this language behaviour, we are faced with two solutions :  
+1. Tell rust that it should not unwind the stack and instead, it should just abort the entire program.
+2. Tell rust that it should unwind the stack... and then offer it a pointer to a function definition that clearly implements the unwinding process. (we are soy-devs, this option is completely and utterly off the table!!)  
+
+
+## Step 3.something: Fixing the third Error  
+
+The remaining errors were ...
+```bash
+error: `#[panic_handler]` function required, but not found
+
+error: language item required, but not found: `eh_personality`
+  |
+  = note: this can occur when a binary crate with `#![no_std]` is compiled for a target where `eh_personality` is defined in the standard library
+  = help: you may be able to compile for a target that doesn't need `eh_personality`, specify a target with `--target` or in `.cargo/config`
+
+error: could not compile `playground` (bin "playground") due to 2 previous errors
+```
+
+This is our third error...
+```bash
+error: `#[panic_handler]` function required, but not found
+```
+
+This is our fourth...
+```bash
+error: language item required, but not found: `eh_personality`
+```
+
+
+
+Just like you guessed, the third error occured because the 'rust_begin_panic symbol' has not been defined. We solve this by pinning a '#[panic_handler]' attribute on a divergent function that takes 'panicInfo' as its input. This has been demonstrated below. A divergent function is a function that never returns.  
+```rust
+#![no_std]
+
+use core::panic::PanicInfo;
+
+
+#[panic_handler]
+// you can name this function any name...it does not matter. eg the_voice_breaker_the_original_copy_the_one_and_only_HIM
+// The function takes in a reference to the panic Info. 
+// Kid, go read the docs in core::panic module. You're a super soldier.  
+fn default_panic_handler(_info: &PanicInfo) -> !{
+    loop {  
+        // function does nothing for now, but this is where you write your magic //
+        // This is where you typically call an exception handler, or call code that logs the error messages before aborting the program
+        // The function never returns, this is an endless loop... it is a divergent function
+      }
+}
+
+
+fn main(){
+    // println!("Hello world!!");
+}
+```
+
+Would you look at that... if you compile this program, you'll notice that the third compilation error is f* gone!!! Hapa ni wapi!? Mwalimu wa maths!?  
+
+[undone : remove this before you publish]
+ 
+
+## Step 4: Fixing the Fourth Error
+The fourth error states that the 'eh_personality' language item is missing.  
+But it is missing because we have not declared it anywhere... we havent even defined a stack unwinding function. So we just configure our program to never unwind the stack, that way... defining the 'eh_personality' becomes optional.  
+
+We do this by adding the following lines in the cargo.toml file : 
+```toml
+# this is the cargo.toml file
+[package]
+name = "driver_code"
+version = "0.1.0"
+edition = "2021"
+
+[profile.release]
+panic = "abort" # if the program panics, just abort. Do not try to unwind the stack
+
+[profile.dev]
+panic = "abort" # if the program panics, just abort. Do not try to unwind the stack
+```
+
+Now ... drum-roll... time to compile our program without any errors....  
+
+But then ... out of no-where, we get a new diferent error ... 
+```bash 
+error: using `fn main` requires the standard library
+  |
+  = help: use `#![no_main]` to bypass the Rust generated entrypoint and declare a platform specific entrypoint yourself, usually with `#[no_mangle]`
+```  
+
+Aahh errors... headaches...  
+But at least it is a new error. 🤌🏼🥹  
+It's a new error guys!! 🥳💪🏼😎  
+
+
+<!-- [undone] -->
+<!-- - crt0 functions
+- crt0 implemetations
+- elf board support? How is it implemented?
+- triple-targets
+- what does target add command actually do and why
+- Target support
+- Adding custom targets
+
+
+
+- THe boot process
+- THe esp32 boot process
+- Loaders : BIOS, UEFI, U-Boot SPL, CoreBoot
+- Runtimes : UEFI, ATF(ARM TRUSTED FIRMWARE)
+- BootLoaders : Uboot, Grub, Linux Boot
+- firmware standards in the RISCV ISA
+- Open SBI
+- System V ABI
+
+Bios :
+- firmware that sets up environment fit to run a kernel on. It does the following
+  - does a power-on-self-test
+  - loads the boot loader to memory. The bootloader then loads the Kernel
+- Source Material : https://riscv.org/wp-content/uploads/2019/12/Summit_bootflow.pdf
+- Multiboot standard -->
+
+
+
+
+[core-library-requirements]: (https://doc.rust-lang.org/core/#how-to-use-the-core-library)  
+[println-macro-doc]: https://doc.rust-lang.org/std/macro.println.html  
+[rust-eh-language-item]: https://os.phil-opp.com/freestanding-rust-binary/#the-eh-personality-language-item
+
+<!-- [undone: more info needed on these memory routines specifies as libcore requirements and their integration] -->
