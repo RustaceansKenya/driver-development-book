@@ -1,1 +1,0 @@
-# example linker files
