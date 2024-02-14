@@ -5,7 +5,7 @@
 
 [target.riscv32imc-unknown-none-elf]
 runner = "espflash flash --monitor"
-# linker = "ld.lld"
+linker = "ld.lld"
 # rustflags = ["-C", "link-arg=-Tsrc/ld_template/esp32c3/linkall.x" ,
 #              "-C", "link-arg=-Lsrc/ld_template/esp32c3",
 #              "-C", "link-arg=-Lsrc/ld_template/riscv",

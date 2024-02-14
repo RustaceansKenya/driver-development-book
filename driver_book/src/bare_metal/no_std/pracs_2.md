@@ -84,18 +84,34 @@ fn default_panic_handler(_info: &PanicInfo) -> !{
 // main has just been trashed... coz... why not? It's pointless
 ```
 
-But when we compile this, we get a linking error, something like '...in function `_start'... undefined reference to `__libc_start_main'...'.  
+But when we compile this, we get a linking error, something like this ...
+```bash
+error: linking with `cc` failed: exit status: 1
+  |
+  # some lines have been hidden here for the sake of presentability...   
+ // = note: LC_ALL="C" PATH="/home/k/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/bin:/home/k/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin" VSLANG="1033" "cc" "-m64" "/tmp/rustcWMxOew/symbols.o" "/home/k/ME/Repos/embedded_tunnel/driver-development-book/driver_code/target/debug/deps/driver_code-4c11dfa3f10db3d0.f20457jvl65bh2w.rcgu.o" "-Wl,--as-needed" "-L" "/home/k/ME/Repos/embedded_tunnel/driver-development-book/driver_code/target/debug/deps" "-L" "/home/k/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib" "-Wl,-Bstatic" "/home/k/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc_std_workspace_core-9686387289eaa322.rlib" "/home/k/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libcore-632ae0f28c5e55ff.rlib" "/home/k/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libcompiler_builtins-3166674eacfcf914.rlib" "-Wl,-Bdynamic" "-Wl,--eh-frame-hdr" "-Wl,-z,noexecstack" "-L" "/home/k/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib" "-o" "/home/k/ME/Repos/embedded_tunnel/driver-development-book/driver_code/target/debug/deps/driver_code-4c11dfa3f10db3d0" "-Wl,--gc-sections" "-pie" "-Wl,-z,relro,-z,now" "-nodefaultlibs"
+  = note: /usr/bin/ld: /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o: in function `_start':
+          (.text+0x1b): undefined reference to `main'
+          /usr/bin/ld: (.text+0x21): undefined reference to `__libc_start_main'
+          collect2: error: ld returned 1 exit status
+          
+  = note: some `extern` functions couldn't be found; some native libraries may need to be installed or have their path specified
+  = note: use the `-l` flag to specify native libraries to link
+  = note: use the `cargo:rustc-link-lib` directive to specify the native libraries to link with Cargo (see https://doc.rust-lang.org/cargo/reference/build-scripts.html#cargorustc-link-libkindname)
+```
 
-This is because :  
-1. The compilation process still relies on a linker script that assumes that '_start of crt0', 'start of rust-runtime' and 'main' are still relevant.  
-2. We have not explicitly declared an entrypoint, we have just said "we wont use the normal entry point". It's like we were in a chinese restaurant, and we just came in and declared that we don't want chinese food, and then we just kept quiet, we did not even offer an alernative.  
-
-Which brings us to the two important topics :  Linking and cross-compilation.  
-Linking will provide us a way to explicitly declare the entry-point of our program.  
-Cross-compilation chapter will help us tweak the default compilation and linking to suit our needs.  
+This error occurs because the toolchain thinks that we are compiling for our host machine... which in this case happens to be a x86_64-unknown-linux-gnu machine.  
 
 
-Don't worry, we will get to a point where our bare-metal code will run without a hitch... but it's a long way to go.  
+To fix this error, we execute one of the following solutions :
+1. Specify a cargo-build for a triple target that has 'none' in its OS description. eg `riscv32i-unknown-none-elf`. This is the easier of the two solutions, and it is the most flexible.  
+2. Supply a new linker script that defines our custom entry-point and section layout. If this method is used, the build process will still treat the host's triple-target as the compilation target.   
+
+If the above 2 paragraphs made complete sense to you, and you were even able to implement them, skip to the [Debugging chapter]() <!-- undone: provide link -->  
+
+
+If they did not make sense, then you got some reading to do in the next immediate chapters... `Cross compilation and linking`.  
+Don't worry, we will get to a point where our bare-metal code will run without a hitch... but it's a long way to go. And its fun. Rainbows, uniorns and excalibars everywhere!!  
 
 
 
