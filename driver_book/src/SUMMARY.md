@@ -21,6 +21,7 @@
   - [Pracs 2](./bare_metal/no_std/pracs_2.md)
 - [Cross-Compilation](./bare_metal/cross_compilation/cross_compilation.md)
 - [Linking](./bare_metal/linking/linking.md)
+  - [Rusty Linkers](./bare_metal/linking/rusty_linkers.md)
   - [Fixing the precious error](./linking/fixing_prev_error.md)
     - [Step one: understanding the memory layout of the board](./linking/step_1_understanding_memory_layout.md)
     - [Step one (continuation)](./linking/step_1_understanding_memory_layout_part_2.md)
