@@ -1,4 +1,4 @@
-# Fixing the precious error by declaring an Entrypoint
+# Fixing the previous linker error
 
 So far, our bare-metal program looks like this :  
 ```rust
@@ -31,14 +31,76 @@ error: linking with `cc` failed: exit status: 1
 
 ```  
 
-From your readings on the 'linking process', you noticed that the compilation process requires a linking step.  
-If the programmer does not specify a linker script for the compilation process, the host's default linker script gets picked. This default linker script is sometimes called the '**internal linker script**'.  
+Armed with the knowledge from the previous 2 sub-chapters, we can break-down the above error message into the following facts :  
+1. The compilation process used the ld linker
+2. The linker script used was meant for a `x86_64-unknown-linux-gnu` triple-target.  
+3. The linker script used expects us to have a `main` function defined.  
 
-You can view the default linker script on your linux host machine by running the command : 
+All the above facts go against what we originally set out to do : 
+1. To Build a file that does not depend on any OS. `x86_64-unknown-linux-gnu` object files rely on the existence of a Linux OS as an execution environment.  
+2. We also just yeeted the default entry-point chain, so we cannot stick to a linker script that still requires us to provide a `main` function
+ 
+
+To solve this, we change the compilation target for our project to something that does not specify an OS execution environment. For example : `riscv32i-unknown-none-elf`  or `x86_64-unknown-none`.  
+
+We can do that by either passing on a compilation parameter : 
 ```bash
-ld --verbose
-```  
+cargo build --target=riscv32i-unknown-none-elf
+```
 
+Or we can modify the .cargo/config.toml file :  
+```toml
+[build]
+target = "riscv32imc-unknown-none-elf"
+
+
+[target.riscv32imc-unknown-none-elf]
+linker = "ld.lld"
+```
+
+
+And we are DONE!!!  
+Now all we have to do is to load our compiled file to a bare-metal CPU... for example, the esp32c3.  
+The esp32c3's target specification is `riscv32imc-unknown-none-elf`.  
+
+
+# Disclaimer
+
+Our code did not declare an explicit Entry point. The entry point was implicitly defined during the linking proccess.  
+To confirm this, inspect your executable file using `readelf` cmd tool like this : 
+```bash
+readelf -h ./target/riscv32i-unknown-none-elf/debug/your_executable_file
+```
+
+You will get a response like the one below :  
+```bash
+ELF Header:
+  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           RISC-V
+  Version:                           0x1
+
+  # LOOK HERE; the Entry Point has been assumed to be address Zero.
+  Entry point address:               0x0  
+
+
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          5104 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         4
+  Size of section headers:           40 (bytes)
+  Number of section headers:         12
+  Section header string table index: 10
+```
+
+We will define our own entry point when it actually matters, for now we can ignore this.  
 
 
 
