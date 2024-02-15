@@ -23,15 +23,13 @@
 - [Linking](./bare_metal/linking/linking.md)
   - [Rusty Linkers](./bare_metal/linking/rusty_linkers.md)
 - [Probing](./bare_metal/probing/probing_preface.md)
-  - [Theory](./bare_metal/probing/probing_theory_1.md)
-  - [Flashing](./bare_metal/probing/flashing/flashing_preface.md)
-  - [udev](./udev.md)
-  - [probe-rs]()
-    - [why is my program not flashing?]()
-  - [cargo-flash]()
-  - [Logging]()
-  - [defmt]()
-- [No-std testing]()
+  - [Probing Theory](./bare_metal/probing/probing_theory_1.md)
+  - [Probing Pracs](./bare_metal/probing/pracs.md)
+   - [udev](./udev.md)
+   - [Flashing](./bare_metal/probing/flashing/flashing_preface.md)
+   - [Monitoring and Logging]()
+   - [Debugging]()
+  - [No-std testing]()
 - [Performance testing]()
 
 
@@ -47,13 +45,14 @@
 - [Understanding UART Theory]()
 - [Understanding UART physical Implemetation in the esp32]()
 
-# THE UART IMPLEMENTATION (naive)
-- [chapters that I dont know their titles]()
+# THE UART IMPLEMENTATION (naive, without async)
+- [tutorial over a naive UART implementation on a Qemu device]()
+- [tutorial over a naive UART implementation on a Esp32 device]()
 
 
-# THE UART IMPLEMENTATION (less naive)
-- [Concurrency and atomic magic]()
-- [chapters that I dont know their titles]()
+# THE UART IMPLEMENTATION (less naive, with async)
+- [tutorial over a naive UART implementation on a Qemu device]()
+- [tutorial over a naive UART implementation on a Esp32 device]()
 
 
 # OTHER STORIES

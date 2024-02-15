@@ -1,4 +1,4 @@
-# Probing Theory Part 1
+# Probing Theory
 
 
 What is probing really? How is it achieved? What's flashing? What's in-system programming? Debugging?  
