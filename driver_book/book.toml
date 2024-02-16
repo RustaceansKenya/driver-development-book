@@ -5,6 +5,22 @@ multilingual = false
 src = "src"
 title = "driver development in Rust"
 
+[output.html]
+# theme = "my-theme"
+# default-theme = "light"
+# preferred-dark-theme = "navy"
+# curly-quotes = true
+# mathjax-support = false
+# copy-fonts = true
+# additional-css = ["custom.css", "custom2.css"]
+# additional-js = ["custom.js"]
+# no-section-label = false
+git-repository-url = "https://github.com/RustaceansKenya/driver-development-book"
+git-repository-icon = "fa-github"
+edit-url-template = "https://github.com/RustaceansKenya/driver-development-book/edit/master/driver_book/{path}"
+site-url = "/book"
+# cname = "myproject.rs"
+# input-404 = "not-found.md"
 
 [output.html.playground]
 editable = true
