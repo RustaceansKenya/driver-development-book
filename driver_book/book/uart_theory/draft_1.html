@@ -1,0 +1,350 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>draft_1 - driver development in Rust</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">INTRO</li><li class="chapter-item expanded "><a href="../intro/intro.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="../intro/prerequisites.html"><strong aria-hidden="true">2.</strong> Prerequisites for the Book</a></li><li class="chapter-item expanded affix "><li class="part-title">UNDERSTANDING DRIVERS (theory)</li><li class="chapter-item expanded "><a href="../understanding_drivers/understanding_drivers.html"><strong aria-hidden="true">3.</strong> Intro to Drivers</a></li><li class="chapter-item expanded "><a href="../understanding_drivers/controlling_the_device_below.html"><strong aria-hidden="true">4.</strong> Role 1: Controlling the device below</a></li><li class="chapter-item expanded "><a href="../understanding_drivers/providing_an_interface.html"><strong aria-hidden="true">5.</strong> Role 2: Providing an interface</a></li><li class="chapter-item expanded "><a href="../understanding_drivers/types_of_drivers.html"><strong aria-hidden="true">6.</strong> Types of Drivers</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> Kernel and Driver Interaction mechanisms</div></li><li class="chapter-item expanded affix "><li class="part-title">BARE METAL PROGRAMMING</li><li class="chapter-item expanded "><a href="../bare_metal/the_no_std_preface.html"><strong aria-hidden="true">8.</strong> No std preface</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../bare_metal/no_std/the_no_std_intro.html"><strong aria-hidden="true">8.1.</strong> No std</a></li><li class="chapter-item expanded "><a href="../bare_metal/no_std/removing_std_lib.html"><strong aria-hidden="true">8.2.</strong> Disabling the Standard Library</a></li><li class="chapter-item expanded "><a href="../bare_metal/no_std/pracs_1.html"><strong aria-hidden="true">8.3.</strong> Pracs 1</a></li><li class="chapter-item expanded "><a href="../bare_metal/no_std/pracs_2.html"><strong aria-hidden="true">8.4.</strong> Pracs 2</a></li></ol></li><li class="chapter-item expanded "><a href="../bare_metal/cross_compilation/cross_compilation.html"><strong aria-hidden="true">9.</strong> Cross-Compilation</a></li><li class="chapter-item expanded "><a href="../bare_metal/linking/linking.html"><strong aria-hidden="true">10.</strong> Linking</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../bare_metal/linking/rusty_linkers.html"><strong aria-hidden="true">10.1.</strong> Rusty Linkers</a></li></ol></li><li class="chapter-item expanded "><a href="../bare_metal/probing/probing_preface.html"><strong aria-hidden="true">11.</strong> Probing</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../bare_metal/probing/probing_theory_1.html"><strong aria-hidden="true">11.1.</strong> Probing Theory</a></li><li class="chapter-item expanded "><a href="../bare_metal/probing/pracs.html"><strong aria-hidden="true">11.2.</strong> Probing Pracs</a></li><li class="chapter-item expanded "><a href="../bare_metal/probing/udev.html"><strong aria-hidden="true">11.3.</strong> udev</a></li><li class="chapter-item expanded "><a href="../bare_metal/probing/flashing.html"><strong aria-hidden="true">11.4.</strong> Flashing</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.5.</strong> Monitoring and Logging</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.6.</strong> Debugging</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.7.</strong> No-std testing</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.</strong> Performance testing</div></li><li class="chapter-item expanded affix "><li class="part-title">ABSTRACTIONS</li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.</strong> MMIO programming</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../registers_and_mmio_programming.html"><strong aria-hidden="true">13.1.</strong> Registers and MMIO programming</a></li></ol></li><li class="chapter-item expanded "><a href="../knowing_your_hardware.html"><strong aria-hidden="true">14.</strong> The datasheet</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.</strong> Abstraction</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../svd2rust.html"><strong aria-hidden="true">15.1.</strong> svd2rust</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">THE UART THEORY</li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.</strong> Understanding UART Theory</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../uart_theory/draft_1.html" class="active"><strong aria-hidden="true">16.1.</strong> draft_1</a></li><li class="chapter-item expanded "><a href="../uart_theory/draft_2.html"><strong aria-hidden="true">16.2.</strong> draft_2</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">17.</strong> Understanding UART physical Implemetation in the esp32</div></li><li class="chapter-item expanded affix "><li class="part-title">THE UART IMPLEMENTATION (naive, without async)</li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.</strong> tutorial over a naive UART implementation on a Qemu device</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">19.</strong> tutorial over a naive UART implementation on a Esp32 device</div></li><li class="chapter-item expanded affix "><li class="part-title">THE UART IMPLEMENTATION (less naive, with async)</li><li class="chapter-item expanded "><div><strong aria-hidden="true">20.</strong> tutorial over a naive UART implementation on a Qemu device</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.</strong> tutorial over a naive UART implementation on a Esp32 device</div></li><li class="chapter-item expanded affix "><li class="part-title">OTHER STORIES</li><li class="chapter-item expanded "><div><strong aria-hidden="true">22.</strong> Driver Security</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">22.1.</strong> Common Security Issues in Driver Development</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">22.2.</strong> Rust's Safety Features for Driver Security</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">22.3.</strong> Best Practices for Secure Driver Development</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">23.</strong> Case Studies and Examples</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">23.1.</strong> Real-world Driver Development Examples</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">23.2.</strong> Analyzing an Existing Rust Driver</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">24.</strong> Iterative Implementation</div></li><li class="chapter-item expanded affix "><li class="part-title">APPENDIX</li><li class="chapter-item expanded "><a href="../notable_crates.html"><strong aria-hidden="true">25.</strong> Notable Crates</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">26.</strong> Notable Learning Resources</div></li><li class="chapter-item expanded "><a href="../why_embedded_rust.html"><strong aria-hidden="true">27.</strong> why use Rust?</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">28.</strong> Out of topic</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../misc/different_std_libs.html"><strong aria-hidden="true">28.1.</strong> different_std_libs</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">driver development in Rust</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/RustaceansKenya/driver-development-book" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/RustaceansKenya/driver-development-book/edit/master/driver_book/src/uart_theory/draft_1.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="draft_1"><a class="header" href="#draft_1">draft_1</a></h1>
+<p>This chapter covers theory on the uart.</p>
+<h2 id="what-is-the-uart"><a class="header" href="#what-is-the-uart">What is the UART?</a></h2>
+<p>Before tackling the meaning of UART, let's get the acronyms out of the way.</p>
+<ul>
+<li>UART stands for <code>Universal Asynchronous Receiver/Transmitter</code>.</li>
+<li><em>Tx</em> stands for <code>Transmitter</code>.</li>
+<li><em>Rx</em> stands for <code>Receiver</code>.</li>
+</ul>
+<p>The UART is an integrated circuit that takes in parallel data from one end and outputs serial data on the other end. It also receives serial data from one end and outputs parallel data on the other end.</p>
+<p>So it you connect two UARTs as seen below, you achieve serial communication between two devices that have parallel data buses.</p>
+<p><img src="img/uart_connection.png" alt="Alt text" /></p>
+<p><strong>What does asynchronous mean in this case?</strong><br />
+&quot;Asynchronous&quot; refers to the method by which data is transmitted and received between two independent devices without requiring a shared clock signal between the transmitting and receiving devices.<br />
+Instead of using a clock to synchronize the rate at rate at which bits are exchanged, the two communicating devices agree on the data-packet format and the rate of transmitting the bits of that data-packet.</p>
+<p>The rate at which the bits of the data-packet are transmitted is referred to as <code>baud rate</code> in this context.</p>
+<h3 id="so-is-uart-a-serial-communication-protocol"><a class="header" href="#so-is-uart-a-serial-communication-protocol">So is UART a serial-communication protocol?</a></h3>
+<p>Well... The UART is not a communication protocol itself but rather a hardware component or module that facilitates serial communication between devices. You could say that it is circuitry that serves as the underlying hardware mechanism for implementing various communication protocols such as RS-232, RS-485, MIDI, and others</p>
+<p>Confusing... right? ha ha. </p>
+<h2 id="how-the-uarts-work"><a class="header" href="#how-the-uarts-work">How the UARTs work.</a></h2>
+<p>In UART communication, two UARTs communicate directly with each other. The transmitting UART converts parallel data from a controlling device like a CPU into serial form, transmits it in serial to the receiving UART, which then converts the serial data back into parallel data for the receiving device.<br />
+Only two wires are needed to transmit data between two UARTs. Data flows from the Tx pin of the transmitting UART to the Rx pin of the receiving UART:</p>
+<p><img src="img/comms_between_two_UARTs.png" alt="Alt text" /></p>
+<p>UARTs transmit data asynchronously, which means there is no clock signal to synchronize the output of bits from the transmitting UART to the sampling of bits by the receiving UART. Instead of a clock signal, the transmitting UART adds start and stop bits to the data packet being transferred. These bits define the beginning and end of the data packet so the receiving UART knows when to start reading the bits.</p>
+<p>When the receiving UART detects a start bit, it starts to read the incoming bits at a specific frequency known as the baud rate (bits per second). Both UARTs must operate at about the same baud rate. The baud rate between the transmitting and receiving UARTs can only differ by about 10% before the timing of bits gets too far off.</p>
+<p>So before any data transfer actually happens, the two UARTs must agree on : </p>
+<ol>
+<li>The Data packet format</li>
+<li>The Baud rate (bps)</li>
+</ol>
+<p><strong>Example Case :</strong></p>
+<p><img src="img/uart_connection.png" alt="Alt text" /></p>
+<p>The UART that is going to transmit data receives the data from a data bus. The data bus is used to send data to the UART by another device like a CPU, memory, or microcontroller. Data is transferred from the data bus to the transmitting UART in parallel form.<br />
+After the transmitting UART gets the parallel data from the data bus, it adds a start bit, a parity bit, and a stop bit, creating the data packet.<br />
+Next, the data packet is output serially, bit by bit at the Tx pin. The receiving UART reads the data packet bit by bit at its Rx pin. The receiving UART then converts the data back into parallel form and removes the start bit, parity bit, and stop bits. Finally, the receiving UART transfers the data packet in parallel to the data bus on the receiving end.</p>
+<p><strong>If the communication between the two is asynchronous, how do they agree with each other in the first place?</strong></p>
+<ol>
+<li>
+<p><strong>Manual Configuration</strong>: In many systems, the baud rate is manually configured by the user or system designer. This involves setting the baud rate to a specific value (e.g., 9600 bps, 115200 bps) on both the transmitting and receiving UARTs. The configuration is typically done through software or hardware settings.</p>
+</li>
+<li>
+<p><strong>Default Baud Rate:</strong> In some cases, UART devices may have default baud rate settings. If both devices are configured to use the same default baud rate, no additional configuration is necessary.</p>
+</li>
+<li>
+<p><strong>Negotiation</strong>: In more advanced systems, UART devices may support auto-baud detection or negotiation protocols. Auto-baud detection allows a UART receiver to automatically determine the baud rate of incoming data by analyzing the timing of the start bits. This can be useful when the baud rate is not known in advance or may vary.</p>
+</li>
+<li>
+<p><strong>Hardware Handshaking</strong>: In certain situations, UART communication may also involve hardware handshaking signals (such as RTS/CTS - Request to Send/Clear to Send) to coordinate communication between devices. These signals can help ensure that data is only transmitted when the receiving device is ready to receive it, reducing the risk of data loss or corruption.</p>
+</li>
+</ol>
+<h3 id="the-uart-data-packet"><a class="header" href="#the-uart-data-packet">The UART data packet</a></h3>
+<p>The format of the data packet needs to be agreed upon by the two communicating UART circuits as earlier mentioned.</p>
+<p>The format is typically structured as follows....
+<img src="img/data_packet_format.png" alt="Alt text" /></p>
+<ul>
+<li><strong>Start Bit</strong>: The start bit signals the beginning of the data byte. It is always set to a low voltage level (logic 0). The duration of the start bit is one bit duration, determined by the baud rate.</li>
+</ul>
+<p>The UART data transmission line is normally held at a high voltage level when it’s not transmitting data. To start the transfer of data, the transmitting UART pulls the transmission line from high to low for one clock cycle. When the receiving UART detects the high to low voltage transition, it begins reading the bits in the data frame at the frequency of the baud rate.</p>
+<ul>
+<li><strong>Data Bits</strong>: These are the actual bits representing the data being transmitted.<br />
+The number of data bits can vary, but common configurations include 7 or 8 bits per data byte. It can be 5 bits up to 8 bits long if a parity bit is used. If no parity bit is used, the data frame can be 9 bits long.</li>
+</ul>
+<p>The data bits are typically transmitted LSB (Least Significant Bit) first. The duration of each data bit is determined by the baud rate.</p>
+<ul>
+<li><strong>Parity Bit (Optional)</strong>: The parity bit, if used, is an additional bit for error detection. It can be set to even parity, odd parity, mark parity, space parity, or no parity (none).</li>
+</ul>
+<p>Parity describes the evenness or oddness of a number. The parity bit is a way for the receiving UART to tell if any data has changed during transmission. Bits can be changed by electromagnetic radiation, mismatched baud rates, or long distance data transfers. After the receiving UART reads the data frame, it counts the number of bits with a value of 1 and checks if the total is an even or odd number. If the parity bit is a 0 (even parity), the 1 bits in the data frame should total to an even number. If the parity bit is a 1 (odd parity), the 1 bits in the data frame should total to an odd number. When the parity bit matches the data, the UART knows that the transmission was free of errors. But if the parity bit is a 0, and the total is odd; or the parity bit is a 1, and the total is even, the UART knows that bits in the data frame have changed.</p>
+<ul>
+<li><strong>Stop Bit(s)</strong>: The stop bit(s) signal the end of the data byte. Typically, one or two stop bits are used. The stop bit(s) are set to a high voltage level (logic 1). The duration of each stop bit is determined by the baud rate.</li>
+</ul>
+<h3 id="advantages-of-using-uarts"><a class="header" href="#advantages-of-using-uarts">Advantages of using UARTs</a></h3>
+<ul>
+<li>Simple, Only uses two wires</li>
+<li>Simple, No clock signal is necessary.</li>
+<li>Has a parity bit to allow for error checking</li>
+<li>It can accomodate custom communication protocols; The structure of the data packet can be changed as long as both sides are set up for it</li>
+<li>Well documented and widely used method</li>
+</ul>
+<h3 id="disadvantages-of-using-uarts"><a class="header" href="#disadvantages-of-using-uarts">Disadvantages of using UARTs</a></h3>
+<ul>
+<li>The size of the data frame is limited to a maximum of 9 bits.In scenarios where larger data sizes need to be transmitted, the limitation to 9 bits per frame can result in inefficiencies. It may require breaking down larger data sets into multiple frames, which can increase overhead and decrease overall efficiency.</li>
+<li>Doesn’t support multiple slave or multiple master systems</li>
+<li>The baud rates of each UART must be within 10% of each other</li>
+</ul>
+<h3 id="clarifications"><a class="header" href="#clarifications">Clarifications</a></h3>
+<p>As seen from the image at the top of the page, the connection uses two wires to transmit data between devices. But in practice, you may use 3 wires for each device. For example, the 3 wires attached to UART 1 will be : </p>
+<ul>
+<li>The Transmitter wire (Tx wire) from UART 1 to UART 2</li>
+<li>The Receiver wire (RX) from UART 2 to UART 1</li>
+<li>The Ground wire</li>
+</ul>
+<h3 id="credits-and-references"><a class="header" href="#credits-and-references">credits and references</a></h3>
+<ul>
+<li>Credits go to this <a href="https://www.circuitbasics.com/basics-uart-communication/">circuitbasics blog</a>, for the images and elaborate content. You can give it a read.</li>
+<li>If you want to learn about the different serial communication protocols associated with the UART, this Raveon technical brief provides a short overview</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../svd2rust.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../uart_theory/draft_2.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../svd2rust.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../uart_theory/draft_2.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../ace.js"></script>
+        <script src="../editor.js"></script>
+        <script src="../mode-rust.js"></script>
+        <script src="../theme-dawn.js"></script>
+        <script src="../theme-tomorrow_night.js"></script>
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

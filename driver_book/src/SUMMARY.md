@@ -43,6 +43,8 @@
 
 # THE UART THEORY
 - [Understanding UART Theory]()
+  - [draft_1](./uart_theory/draft_1.md)
+  - [draft_2](./uart_theory/draft_2.md)
 - [Understanding UART physical Implemetation in the esp32]()
 
 # THE UART IMPLEMENTATION (naive, without async)
