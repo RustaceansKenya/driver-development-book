@@ -117,7 +117,7 @@ As seen from the image at the top of the page, the connection uses two wires to 
 
 ### credits and references
 - Credits go to this [circuitbasics blog][reference-blog-one], for the images and elaborate content. You can give it a read.    
-- If you want to learn about the different serial communication protocols associated with the UART, this Raveon technical brief provides a short overview
+- If you want to learn about the different serial communication protocols associated with the UART, this [Raveon technical brief][raveon-technical-brief] provides a short overview
 
 
 [reference-blog-one]: https://www.circuitbasics.com/basics-uart-communication/  

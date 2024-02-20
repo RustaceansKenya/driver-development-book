@@ -8,6 +8,11 @@ This book is on driver development using Rust. You get to procedurally write a U
 The chip costs less than 8 dollars, kindly... politely...with utmost humility... burn that cash. BURN THAT CAAAASHHH!!! Money machine go BRRRR!!!
 
 
+This book is currently in active development, chapters will be updated as we go through the [gdsc course](https://gdsc.community.dev/events/details/developer-student-clubs-university-of-nairobi-presents-introduction-to-rust-on-embedded/).  
+Here is the [Course outline](./driver_book/src/direction/course_outline.md)  
+The recordings will be posted soon.  
+
+
 ### Why the UART?
 
 The UART driver was chosen because it is simple and hard at the same time. Both a beginner and an experienced folk can learn a lot while writing it.  
