@@ -4,7 +4,7 @@
 
 use core::panic::PanicInfo;
 use riscv_rt::entry;
-use esp_println::println;
+// use esp_println::println;
 
 #[panic_handler]
 fn default_panic_handler(_info: &PanicInfo) -> ! {

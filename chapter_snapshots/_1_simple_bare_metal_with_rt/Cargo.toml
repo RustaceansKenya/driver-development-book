@@ -6,5 +6,5 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-esp-println = { version = "0.8.0", features = ["esp32c3"] }
+# esp-println = { version = "0.8.0", features = ["esp32c3"] }
 riscv-rt = "0.12.2"
