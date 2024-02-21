@@ -241,8 +241,8 @@ The driver controls the hardware below by either <strong>Direct Register Program
 <li>You supply an electric signal to the write register. This electrical signal is translated as 'write == true'.</li>
 <li>The SSD processor detects a signal in the 'write' register and immediately does the following : 
 <ul>
+<li>It passes the 'destination' address and the 'subject data' to the <code>write function</code></li>
 <li>It starts executing the &quot;write function&quot; found in the firmware code. </li>
-<li>It passes the 'destination' address and the 'subject data' to it</li>
 <li>Viollah! The write operation is complete.</li>
 </ul>
 </li>

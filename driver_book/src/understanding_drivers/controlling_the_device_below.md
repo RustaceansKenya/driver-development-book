@@ -29,8 +29,8 @@ Usage :
    3. You make sure that the read register is not receiving any signal. This gets translated as 'read == false'.
    4. You supply an electric signal to the write register. This electrical signal is translated as 'write == true'.
    5. The SSD processor detects a signal in the 'write' register and immediately does the following : 
+      - It passes the 'destination' address and the 'subject data' to the `write function`
       - It starts executing the "write function" found in the firmware code. 
-      - It passes the 'destination' address and the 'subject data' to it
       - Viollah! The write operation is complete.  
 
 ### A manual driver?  
