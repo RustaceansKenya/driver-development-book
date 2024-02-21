@@ -990,13 +990,126 @@ to remember :
 <p>The <a href="https://github.com/esp-rs">esp-rs team</a> did a good job with <a href="https://esp-rs.github.io/book/">their docs</a>. Go through the <a href="https://esp-rs.github.io/book/tooling/espflash.html">flashing page</a> and do the honors. </p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="monitoring-and-logging"><a class="header" href="#monitoring-and-logging">Monitoring and Logging</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="draft_1"><a class="header" href="#draft_1">draft_1</a></h1>
-<p>This page explains how we are going to achieve logging in our setup.</p>
+<!-- undone : Explain this topic well, in a procedural manner. This topic does not have readable flow -->
+<p>This page elaborates on the logging architecture.</p>
 <h2 id="typical-logging-architecture"><a class="header" href="#typical-logging-architecture">Typical logging architecture</a></h2>
 <p>So how does logging happen? How is the log data encoded? How is the data transmitted? How does the host machine receive and display the log data?</p>
 <p>Here is a rough architecture....</p>
 <p><img src="bare_metal/probing/logging_and_monitoring/img/logging_architecture_lvl_0.png" alt="Alt text" /></p>
 <p>Well... there's a lot to unpack here.</p>
-<h3 id=""><a class="header" href="#"></a></h3>
+<h3 id="explanations-based-on-the-image-above"><a class="header" href="#explanations-based-on-the-image-above">Explanations Based on the Image above</a></h3>
+<p>Our aim is to :</p>
+<ol>
+<li>Allow the programmer to embed logging 'print' statements in the code</li>
+<li>Make the no-std program have the ability to pass on those log statements to the Serial output of the target chip</li>
+<li>Make the host CPU receive those log statements and display them.</li>
+<li>(optional) provide an interactive CLI app to help the end-user to engage with the data in an interactive manner.</li>
+</ol>
+<h3 id="pre-runtime-flow-of-events"><a class="header" href="#pre-runtime-flow-of-events">Pre-runtime flow of events</a></h3>
+<p>The programmer embeds log_print macros in their code where necessary. And then they compile it.<br />
+For example :</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// no_std module
+fn _start () {
+    // bla bla bla
+    log::info!(&quot;program has finished bla-bla-ing&quot;);
+     
+    if some_variable == true {
+        // ble ble ble
+        log::warn!(&quot;program has done ble-ble-ble&quot;);
+    }
+    else {
+        // bli bli bli
+        log::error!(&quot;program just did bli-bli-bli, that's an error, deal with it&quot;);
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<p>During the compilation process, the compiler expands the log_macros seen above in accordance to the log_crate that the programmer is using. So a line like <code>log::info!(&quot;program has finished bla-bla-ing&quot;);</code> will expand to something like :</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>  // code block filled with pseudo-code
+  {
+    // this code cotains instructions that can indirectly manipulate UART registers
+    // It could even be written in assembly, if you want finer control over how the log-info gets to be passed. 
+    let uart_instance = acquire_uart();
+    uart_instance.uart_write_string (&quot;program has finished bla-bla-ing&quot;);
+    uart_instance.flush();
+
+  }
+<span class="boring">}</span></code></pre></pre>
+<p>Point being, the <code>log macros</code> expand into code that can interact with the serial outout of the SoC. In this case, the macros expand to code that can interact with the UART.</p>
+<p><br><br></p>
+<p>During that same compilation process, the indices of the <strong>interned strings</strong> get embued as part of the debug section in the final object file.<br />
+So what are <strong>interned strings?</strong>.</p>
+<p>Well... the micro-controller has limited memory. We would not like to burden it with the responsibility of storing log_strings. We would not like to make the log_strings part of the binary file that gets loaded onto the MCUs memory.<br />
+So people found a way to <em>compress</em> the strings. This string compression consists of building a table of string literals, like &quot;program has finished bla-bla-ing&quot; or &quot;The answer is {:?}&quot;, at compile time. At runtime, this table is made accessible for the host machine to view. On the other hand, the target machine sends indices instead of complete strings.</p>
+<p>So instead of storing complete strings in the MCU's memory, we store them in the host's memory. The MCU only stores string indices (string IDs).<br />
+On top of sparing the MCUs memory, this technique increases the logging throughput; the MCU can use a single byte to convey an entire 256-byte string.</p>
+<p>In summary, <strong>Interned strings</strong> are the strings that get indexed in the compression process. Log crates usually store them as debug info in the program's object file.</p>
+<h3 id="runtime-flow-of-events"><a class="header" href="#runtime-flow-of-events">Runtime flow of events</a></h3>
+<p>These are the events that happen during the actual logging.<br />
+Here are the assumption is that...</p>
+<ol>
+<li>The program is already running in the MCU</li>
+<li>The debug info has been loaded in the host machine.</li>
+<li>There is a decoder, and printer installed on the host machine.</li>
+</ol>
+<p>From the above image...<br />
+The log_print macros found in the no_std app get executed by the processor of the SoC.<br />
+And since those code snippets contain code that manipulates the UART driver, they get used to transmit the indices of the interned strings to the UART.<br />
+The data that gets transferred to the UART is <a href="bare_metal/probing/logging_and_monitoring/monitoring_2.html#unformatted-data"><em>unformatted</em></a> .</p>
+<p>With the assumption that the HOST machine has USB ports only, we are forced to use a UART-to-USB integrated circuit to convert the UART signals into USB-compatible signals.</p>
+<p>The SoC's USB transfers the data to the host's serial input(another USB).</p>
+<p><strong>The decoder</strong></p>
+<p>The decoder is a program that decodes the indices in the received data. 
+The log data received from the SoC contains indices that reference actual strings found in the debug section of the target object file.<br />
+The decoder's work is to fetche the respective interned strings from the debug section and resolve/expand all the indices.<br />
+The decoder then outputs the complete AND unformatted logs.</p>
+<p><strong>The Printer</strong></p>
+<p>The printer is a program that ...</p>
+<ul>
+<li>Takes in unformatted logs and formmats them</li>
+<li>Interacts with the host's console in order to output the logs in a presentable way (tables, buttons, percentages... basically a UI)</li>
+</ul>
+<p>Both the decoder and the printer can be custom-made crates or established third-party software. The choice is up to you.</p>
+<h4 id="unformatted-data"><a class="header" href="#unformatted-data">Unformatted data?</a></h4>
+<p><em>What is formatting in general?</em></p>
+<p>Formatting is the process of converting raw data into another form that is presentable.<br />
+For example, you can format a struct to be a string</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// this is pseudo, no syntax rules have been observed
+struct Time {
+    year : 2024,
+    month : &quot;January&quot;,
+    date : ...
+    hr... 
+    min...
+}
+
+
+fn format ( input: &amp;Time) -&gt; String{
+    // outputs a string like ...
+    //  &quot;25th January 2024 at 0800hrs&quot;
+}
+<span class="boring">}</span></code></pre></pre>
+<p>So you can say, &quot;the struct <code>Time</code> can be formatted into a string.</p>
+<p><em>What is formatting in the logging context?</em></p>
+<p>Formatting in the logging context involves ...</p>
+<ol>
+<li>Converting raw binary data into strings.</li>
+<li>Implementing the format styles of respective data.</li>
+</ol>
+<p>For example :</p>
+<pre><code class="language-bash"># Here is a conversion of raw data into strings
+`255u8` gets converted into into &quot;255&quot;  
+
+# Here is an implementtion of formatting styles
+log::info!(&quot;{=u8:#x}&quot;, 42); will be formatted to the string &quot;0x2a&quot;
+log::info!(&quot;{=u8:b}&quot;, 42);  will be formatted to the string &quot;101010&quot;
+</code></pre>
+<p>The logging data coming out of the SoC is usually unformatted so as to spare the MCU's processor from having to do the conversion/formatting. All the heavy-lifting is made to be the host's resposibility.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="registers-and-mmio-programming"><a class="header" href="#registers-and-mmio-programming">Registers and MMIO programming</a></h1>
 <p>You know your hardware by reading the relevant parts of your datasheet.<br />
 Your hardware is like a library, the datasheet is its documentation.</p>
