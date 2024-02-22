@@ -10,7 +10,9 @@ The chip costs less than 8 dollars, kindly... politely...with utmost humility...
 
 This book is currently in active development, chapters will be updated as we go through the [gdsc course](https://gdsc.community.dev/events/details/developer-student-clubs-university-of-nairobi-presents-introduction-to-rust-on-embedded/).  
 Here is the [Course outline](./driver_book/src/direction/course_outline.md)  
-The recordings will be posted soon.  
+
+
+The class recordings can be found in [this youtube playlist][driver-development-playlist].  
 
 
 ### Why the UART?
@@ -68,3 +70,4 @@ It is the ["contribution book"][contribution-book]
 [contribution-book]: https://rustaceanskenya.github.io/driver-development-book/contribution_book/book/index.html
 [driver-development-book-website]: https://rustaceanskenya.github.io/driver-development-book/  
 [driver-code]: https://github.com/RustaceansKenya/driver-development-book/tree/master/driver_code  
+[driver-development-playlist]: https://www.youtube.com/playlist?list=PL1KAn4vVH-J47SBytmsfVyKYP84pSlfUG
