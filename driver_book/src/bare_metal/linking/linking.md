@@ -18,7 +18,7 @@ This book will however :
 
 
 ### Note-worthy docs 
-1. Start with this 3-minute video demonstrating the role of the linker from a high level.  
+1. Start with this [3-minute video][linker-video] demonstrating the role of the linker from a high level.  
 2. Then move to this [doc][gentle-first-docs]. It is gentle, covers the basics and its short.  
 3. And finally finish it with this [more detailed docs][more-detailed-second-docs]. The two most important pages there are on [memory description][memory-description] and [memory abstraction][memory-abstraction].
 
