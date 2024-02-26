@@ -52,6 +52,7 @@
 - [tutorial over a naive UART implementation on a Qemu device](./uart_implementations/on_qemu/intro.md)
   - [Setting Things Up](./uart_implementations/on_qemu/setting_things_up.md)
   - [Setting up the compiler](./uart_implementations/on_qemu/setting_up_the_compiler.md)
+  - [Setting up the linker](./uart_implementations/on_qemu/setting_up_LLD_linker.md)
 - [tutorial over a naive UART implementation on a Esp32 device]()
 
 

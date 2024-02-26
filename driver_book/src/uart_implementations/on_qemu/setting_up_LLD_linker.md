@@ -3,14 +3,33 @@ References :
 - [Guide to Linker Scripting](http://bravegnu.org/gnu-eprog/lds.html)
 
 As earlier mentioned, the Rust compiler comes with an inbuilt linker. 
-Each target comes with its own configured linker  
+Each target comes with its own configured linker.  
 
 So by default we do not need a linker script. But as for our case, we need a linker script.  
+<br><br>  
 
-**Why?**	
+So Why do we need a custom linker script?
 
-Reason 1:	
-The default compiler does not know the name of your entry_point function. Normally, the linker deals with rust crates that depend on the std libraries, and the entry_point of these crates is "_start"-->"start"-->"main" by default. In our case the linker has no clue. We need to tell it using a linker script.	
+
+
+### Reason 1 : To define the Entry-Point
+
+Every program has an [entry_point function][entry-point-function].  
+An entry point is the place in a program where the execution of a program begins. Where the program-counter of the CPU will initially point to if it wants to run that program.  
+
+For example, Normal Rust programs that depend on the std library normally have their entry-point defined as '_start'. This "_start" function is typically defined as part of the C-runtime code.  
+
+In our case, the default linker used for the `riscv64-unknown-none-elf` sets the entry point by trying each of the following methods in order, and stopping when one of them succeeds:  
+- The ` -e ' entry command-line option;
+- The ` ENTRY (symbol) ' command in a linker script;
+- The value of the symbol, start, if defined;
+- The address of the first byte of the ` .text ' section, if present;
+- The address, `0` in memory '.  
+
+To avoid unpredictable behavior, we will explicitly declare the entry point in the liker script.  s 
+  
+
+
 
 Reason 2:
 Here is the thing, the elf file has many sections. the global_data section, the heap, the stack, the bss, the text section...	
@@ -347,3 +366,8 @@ SECTIONS
 ```
 
 Our Linker script is ready !!!
+
+
+
+
+[entry-point-function]: https://en.wikipedia.org/wiki/Entry_point
