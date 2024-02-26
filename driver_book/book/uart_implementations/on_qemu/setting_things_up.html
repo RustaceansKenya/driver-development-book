@@ -202,27 +202,30 @@ In OS Development, the name toolchain usually refers to the combination of the c
 <li>The Rust Nightly Compiler with a riscv64gc-unknown-none-elf backend</li>
 <li>linker : Rust-lld</li>
 <li>Binutils </li>
-<li>Make</li>
 </ol>
 <p>To our luck, we do not have to install all these elements seperately. There exists compact toolchains :</p>
 <ol>
-<li>LLVM Riscv toolchain</li>
-<li>The GNU Riscv Toolchain</li>
+<li>LLVM Riscv toolchain (ignore for now)</li>
+<li>The GNU Riscv Toolchain (ignore for now)</li>
 <li>The Rust Toolchain</li>
 </ol>
 <h4 id="why-we-need-the-toolchain"><a class="header" href="#why-we-need-the-toolchain">Why we need the toolchain</a></h4>
-<p>We will have two kinds of source code files in our project : Rust source files and RISCV-Assembly files. Both of these types of files need to be turned into object files. Afterwards, those object files need to get linked together into a single executable file.</p>
+<p>We will have two kinds of source code files in our project : Rust source files and RISCV-Assembly files. Both of these types of files need to be turned into object files. Afterwards, those object files need to get linked together into a single executable file.<br />
+To do all this, we need a compiler and a linker that can do cross-procesing.</p>
 <p>We can go about this process of creating a single executable file in two ways:</p>
 <h5 id="method-1"><a class="header" href="#method-1">Method 1</a></h5>
 <p>We can compile the Rust files seperately from the Assembly files.<br />
-Meaning that we will use a stand-alone assembler to assemble the RISCV assembly files and turn them into object code.<br />
-Later, we will then compile the RUST files into object code using a RUST_compiler.<br />
-Afterwords we can combine the resultant object files using a linker to form a single executable.</p>
+Meaning that we will use do the following actions in order : </p>
+<ul>
+<li>Use a stand-alone assembler to assemble the RISCV assembly files and turn them into object code.</li>
+<li>Compile the RUST files into object code using a RUST_compiler.</li>
+<li>Combine the all the resultant object files from the above 2 steps using a linker to form a single executable. </li>
+</ul>
 <h5 id="method-2"><a class="header" href="#method-2">Method 2</a></h5>
-<p>We can embed the assembly code into the Rust source code.<br />
-That way, we only need one compilation, we will only need to compile the asm_embedded Rust files. This method seems more of 'plug and play'.<br />
-The disadvantage of this method is that we will always have to re-compile every file each time we change anything in any source file. But this is not really a problem. Modern compilers are Fast. Using method one will save up a few nano_seconds. A few nanoseconds is  cheap price to pay.<br />
-Method 2  is a more user friendly method. Trading off negligible compile time over a user-friendliness in building and tweaking configurations is by far a very good choice.</p>
+<p>We can embed the assembly code into the Rust source code.</p>
+<p>That way, we only need one compilation, we will only need to compile the asm_embedded Rust files. This method seems more of 'plug and play'.</p>
+<p>The disadvantage of this method is that we will always have to re-compile every file each time we change anything in any source file. But this is not really a problem. Modern compilers are Fast. Using method one will save up a few nano_seconds. A few nanoseconds is cheap price to pay.</p>
+<p>Method 2  is a more user friendly method. Trading off negligible compile time over a user-friendliness in building and tweaking configurations is by far a very good choice.</p>
 <p>Moreover, the rust compiler comes with its own inbuilt LLVM linker, rust-lld. That means that once we hit compile, we get the executable file output. One click, and all the build process runs inbuilt; from compiling rust files, to compiling assembly files, to creating a riscv-compliant executable file.</p>
 <p>No more Makefiles nightmares, no more. This is very big news.<br />
 For this reason, we will use Method 2.</p>
