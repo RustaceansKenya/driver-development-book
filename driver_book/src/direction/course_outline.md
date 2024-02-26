@@ -8,17 +8,11 @@ Here is the link to the class recordings : not_yet_posted
 
 ## Beginnings
 
-- [ ] Setup environments (wokwi, rust_toolchains, other software(gdb, lldb, probe-rs, esp-rs...))
-
-
-- [ ] intro or something, I don't know (driver, MMIO, pre-requisites)
-
-
-- [ ] no_std stuff
+- [x] Setup environments (wokwi, rust_toolchains, other software(gdb, lldb, probe-rs, esp-rs...))
+- [x] intro or something, I don't know (driver, MMIO, pre-requisites)
+- [x] no_std stuff
    - cross-compilation, linking, testing, probing, debugging.  
-
-
-- [ ] Uart theory  
+- [x] Uart theory  
 
 ## On a NS16550A UART chipset on Qemu 
 - [ ] Uart implementation on NS16550A UART chipset on a Qemu device (with naive abstractions)
