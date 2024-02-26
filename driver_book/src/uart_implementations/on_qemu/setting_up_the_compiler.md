@@ -1,7 +1,7 @@
 # Setting Up the Compiler
 
 The compiler is the tool that will convert our source code to machine code that suits a specific machine target.  
-In our case, that specific machine target is "The RISCV CPU, bare metal".   
+In our case, that specific machine target is `riscv64gc-unknown-none-elf`. ie "The RISCV CPU, bare metal".   
 
 The rust compiler gets installed as a toolchain, so it comes with a linker attached. For this reason, our compile button will do the following : 
 1. Compile rust files
