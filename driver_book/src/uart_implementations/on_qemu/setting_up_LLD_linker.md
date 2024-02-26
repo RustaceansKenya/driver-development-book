@@ -26,60 +26,68 @@ In our case, the default linker used for the `riscv64-unknown-none-elf` sets the
 - The address of the first byte of the ` .text ' section, if present;
 - The address, `0` in memory '.  
 
-To avoid unpredictable behavior, we will explicitly declare the entry point in the liker script.  s 
+To avoid unpredictable behavior, we will explicitly declare the entry point in the liker script.  
   
 
 
 
-Reason 2:
-Here is the thing, the elf file has many sections. the global_data section, the heap, the stack, the bss, the text section...	
+### Reason 2: To define your own KNOWN memory addresses
+Here is the thing, the elf file has many sections; the global_data section, the heap, the stack, the bss, the text section...	
 
-To write kernel code, you need to know the memory addresses of different elf sections.	
+To write driver-level code, you need to explicitly **KNOW** the exact memory addresses of different elf sections. You need to **KNOW** the exact memory address for a particular function. You need to **KNOW** the exact memory address for the register that you want to read from. You need to **KNOW** the exact memory addresses to a lot of things.... 
+
 For example....	 
-When programming how the kernel heap will get allocated and deallocated, you will need to know the exact memory address of the heap and you will reference it in your allocating function using a pointer. Or when you want the bootloader to point to the text section of the kernel, you will need to give the bootloader the exact memory address of the start of the text section.	 
-Point is, to write kernel code, you need to know the memory addresses of the different sections.  
+when you want the driver-loader to load the driver, you may have to make the CPU instruction-pointer to point to the entry_point of the driver, you will need to give the driver-loader the exact memory address of the entry_point. Or maybe give it the address of the `text_section`.  
 
-The linker script lets you tell the linker the exact memory addresses where you want it to place the different elf sections. This way, you can make the linker point to the same memory addresses used in your code. You can be assured that the pointers in your code are pointing to some place that you KNOW.  
-And the good thing is that the linker lets you label this known memory points using variables.	
+Point is, to write driver code, you need to know the exact memory addresses of the different sections in your code in memory.   
 
-If you let the linker decide the memory addresses,you would have to constantly change your code to point to the addresses the linker chose for you. And the linker is not that deterministic. Today it places the heap here, tomorrow there.  
+The linker script lets you **define** the exact memory addresses for the different elf sections and `points`. And the good thing is that the linker lets you label this `known memory points` using variables ie. `symbols`.	
 
-There is a problem with this explanation, the linker only deals with virtual memory. Not Physical memory. It is the job of the BIOS to load the kernel in physical addresses that mao to the virtual addresses.  
+Using the default linker script is wild; You let the linker decide the memory addresses for you.  
+This means that you would have to constantly change your code to point to the addresses the linker chose for you. And the linker is not that deterministic. Today it places the heap here, tomorrow there.  
+So it is best to define your own linker script that explicitly defines memory addresses that you KNOW.  
 
-Reason 3:	
-You may want to make sure the different elf sections are aligned to a certain multiple. For example, if you plan to divide the heap into 4KB blocks, you may prefer to make the heap_start memory address a multiple of 4096
+"Reject unpredicatbility, Embrace predictability" - Zyzz
+
+
+### Reason 3: Memory Alignment
+You may want to make sure the different elf sections are aligned to a certain multiple. For example, if you plan to divide the Register mappings into 8-byte blocks, you may prefer to make the register_start memory address a multiple of 8
 
 End of reasons...	
 
 
-So how do we write a Linker Script? And to which linker are we scripting for?
+So how do we write a Linker Script? And which linker are we scripting for?
 
-####  Which linker are we scripting for?
+###  Which linker are we scripting for?
 The rust gives you an option to choose whichever linker you want to use.  
 Rust uses the LLVM Linker by default. So we are currently scripting for the LLVM Linker.   
 You may want to use other linkers based on your usecase. For example the LLVM linker is known for its advanced optimizations. The gold linker is optimized for elf files only, so it is lightweight and faster than the GNU linker. Meaning that you will not prefer the gold linker when creating non_elf files.  
 
-To know which linker you are currently using, you can enter the command below :
+To know which linker version you are currently using, you can enter the command below :
 ```bash
 rustc --version --verbose
 ```
 
 You get a result like this :
-	rustc 1.70.0-nightly (f63ccaf25 2023-03-06)
-    binary: rustc
-    commit-hash: f63ccaf25f74151a5d8ce057904cd944074b01d2
-    commit-date: 2023-03-06
-    host: x86_64-unknown-linux-gnu
-    release: 1.70.0-nightly
-    LLVM version: 15.0.7
+```bash
+rustc 1.70.0-nightly (f63ccaf25 2023-03-06)
+binary: rustc
+commit-hash: f63ccaf25f74151a5d8ce057904cd944074b01d2
+commit-date: 2023-03-06
+host: x86_64-unknown-linux-gnu
+release: 1.70.0-nightly
+LLVM version: 15.0.7
+```
 
 From the above result, you can see That **LLVM linker is used** and specifically version 15.0.7
 
-But each target uses a particular linker flavour, what if you want more information about your current host target? What if you want information about another non_host target ? Use the following command :  
+But each target uses a particular linker flavour, what if you want more information about your current host target? What if you want information about another non_host target? Use the following command :  
+
 ```bash
-rustc +nightly -Z unstable-options --target=wasm32-unknown-unknown --print target-spec-json   // for the nightly compiler
-OR
-rustc  -Z unstable-options --target=riscv64gc-unknown-none-elf --print target-spec-json     //for the stable compiler
+rustc +nightly -Z unstable-options --target=wasm32-unknown-unknown --print target-spec-json   # for the nightly compiler
+
+# OR
+rustc  -Z unstable-options --target=riscv64gc-unknown-none-elf --print target-spec-json     #for the stable compiler
 
 ```  
 

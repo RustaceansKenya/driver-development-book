@@ -1545,41 +1545,44 @@ An entry point is the place in a program where the execution of a program begins
 <li>The address of the first byte of the ` .text ' section, if present;</li>
 <li>The address, <code>0</code> in memory '.</li>
 </ul>
-<p>To avoid unpredictable behavior, we will explicitly declare the entry point in the liker script.  s </p>
-<p>Reason 2:
-Here is the thing, the elf file has many sections. the global_data section, the heap, the stack, the bss, the text section...	</p>
-<p>To write kernel code, you need to know the memory addresses of different elf sections.	
-For example....<br />
-When programming how the kernel heap will get allocated and deallocated, you will need to know the exact memory address of the heap and you will reference it in your allocating function using a pointer. Or when you want the bootloader to point to the text section of the kernel, you will need to give the bootloader the exact memory address of the start of the text section.<br />
-Point is, to write kernel code, you need to know the memory addresses of the different sections.</p>
-<p>The linker script lets you tell the linker the exact memory addresses where you want it to place the different elf sections. This way, you can make the linker point to the same memory addresses used in your code. You can be assured that the pointers in your code are pointing to some place that you KNOW.<br />
-And the good thing is that the linker lets you label this known memory points using variables.	</p>
-<p>If you let the linker decide the memory addresses,you would have to constantly change your code to point to the addresses the linker chose for you. And the linker is not that deterministic. Today it places the heap here, tomorrow there.</p>
-<p>There is a problem with this explanation, the linker only deals with virtual memory. Not Physical memory. It is the job of the BIOS to load the kernel in physical addresses that mao to the virtual addresses.</p>
-<p>Reason 3:	
-You may want to make sure the different elf sections are aligned to a certain multiple. For example, if you plan to divide the heap into 4KB blocks, you may prefer to make the heap_start memory address a multiple of 4096</p>
+<p>To avoid unpredictable behavior, we will explicitly declare the entry point in the liker script.</p>
+<h3 id="reason-2-to-define-your-own-known-memory-addresses"><a class="header" href="#reason-2-to-define-your-own-known-memory-addresses">Reason 2: To define your own KNOWN memory addresses</a></h3>
+<p>Here is the thing, the elf file has many sections; the global_data section, the heap, the stack, the bss, the text section...	</p>
+<p>To write driver-level code, you need to explicitly <strong>KNOW</strong> the exact memory addresses of different elf sections. You need to <strong>KNOW</strong> the exact memory address for a particular function. You need to <strong>KNOW</strong> the exact memory address for the register that you want to read from. You need to <strong>KNOW</strong> the exact memory addresses to a lot of things.... </p>
+<p>For example....<br />
+when you want the driver-loader to load the driver, you may have to make the CPU instruction-pointer to point to the entry_point of the driver, you will need to give the driver-loader the exact memory address of the entry_point. Or maybe give it the address of the <code>text_section</code>.</p>
+<p>Point is, to write driver code, you need to know the exact memory addresses of the different sections in your code in memory.</p>
+<p>The linker script lets you <strong>define</strong> the exact memory addresses for the different elf sections and <code>points</code>. And the good thing is that the linker lets you label this <code>known memory points</code> using variables ie. <code>symbols</code>.	</p>
+<p>Using the default linker script is wild; You let the linker decide the memory addresses for you.<br />
+This means that you would have to constantly change your code to point to the addresses the linker chose for you. And the linker is not that deterministic. Today it places the heap here, tomorrow there.<br />
+So it is best to define your own linker script that explicitly defines memory addresses that you KNOW.</p>
+<p>&quot;Reject unpredicatbility, Embrace predictability&quot; - Zyzz</p>
+<h3 id="reason-3-memory-alignment"><a class="header" href="#reason-3-memory-alignment">Reason 3: Memory Alignment</a></h3>
+<p>You may want to make sure the different elf sections are aligned to a certain multiple. For example, if you plan to divide the Register mappings into 8-byte blocks, you may prefer to make the register_start memory address a multiple of 8</p>
 <p>End of reasons...	</p>
-<p>So how do we write a Linker Script? And to which linker are we scripting for?</p>
-<h4 id="which-linker-are-we-scripting-for"><a class="header" href="#which-linker-are-we-scripting-for">Which linker are we scripting for?</a></h4>
+<p>So how do we write a Linker Script? And which linker are we scripting for?</p>
+<h3 id="which-linker-are-we-scripting-for"><a class="header" href="#which-linker-are-we-scripting-for">Which linker are we scripting for?</a></h3>
 <p>The rust gives you an option to choose whichever linker you want to use.<br />
 Rust uses the LLVM Linker by default. So we are currently scripting for the LLVM Linker.<br />
 You may want to use other linkers based on your usecase. For example the LLVM linker is known for its advanced optimizations. The gold linker is optimized for elf files only, so it is lightweight and faster than the GNU linker. Meaning that you will not prefer the gold linker when creating non_elf files.</p>
-<p>To know which linker you are currently using, you can enter the command below :</p>
+<p>To know which linker version you are currently using, you can enter the command below :</p>
 <pre><code class="language-bash">rustc --version --verbose
 </code></pre>
-<p>You get a result like this :
-rustc 1.70.0-nightly (f63ccaf25 2023-03-06)
+<p>You get a result like this :</p>
+<pre><code class="language-bash">rustc 1.70.0-nightly (f63ccaf25 2023-03-06)
 binary: rustc
 commit-hash: f63ccaf25f74151a5d8ce057904cd944074b01d2
 commit-date: 2023-03-06
 host: x86_64-unknown-linux-gnu
 release: 1.70.0-nightly
-LLVM version: 15.0.7</p>
+LLVM version: 15.0.7
+</code></pre>
 <p>From the above result, you can see That <strong>LLVM linker is used</strong> and specifically version 15.0.7</p>
-<p>But each target uses a particular linker flavour, what if you want more information about your current host target? What if you want information about another non_host target ? Use the following command :</p>
-<pre><code class="language-bash">rustc +nightly -Z unstable-options --target=wasm32-unknown-unknown --print target-spec-json   // for the nightly compiler
-OR
-rustc  -Z unstable-options --target=riscv64gc-unknown-none-elf --print target-spec-json     //for the stable compiler
+<p>But each target uses a particular linker flavour, what if you want more information about your current host target? What if you want information about another non_host target? Use the following command :</p>
+<pre><code class="language-bash">rustc +nightly -Z unstable-options --target=wasm32-unknown-unknown --print target-spec-json   # for the nightly compiler
+
+# OR
+rustc  -Z unstable-options --target=riscv64gc-unknown-none-elf --print target-spec-json     #for the stable compiler
 
 </code></pre>
 <p>You can optionaly specify your linker choice in the build manifest file (configuration file) - cargo.toml as follows :</p>
