@@ -1,11 +1,10 @@
 # Setting up the Riscv Virtual environment
 
-[Crude](./theory_on_Qemu.md)  
 
 We will be using the [Qemu RISC-V System emulator](https://www.qemu.org/docs/master/system/target-riscv.html) to emulate a RISCV-CPU microcontroller. 
 
-#### How to install Qemu RISCV system Emulator on Linux-Mint
-At the command type  
+### Installation
+To install Qemu, input the following terminal commands  
 ```bash  
 sudo apt install qemu-user
 sudo apt install qemu-system-misc
@@ -36,7 +35,7 @@ $(QEMU) -machine $(MACH)
         -nographic       // disables graphical output, so QEMU runs in a terminal window.
         -serial mon:stdio // connects the virtual machine motherboard's serial port to the host's system terminal. Ie, our Linux terminal. This enables us to use the terminal as a console to the virtual machine.
         -bios none       // we not depend on any firmware becaue our machine is virtual. We can just direclty load the OS image to memory. 
-        -kernel $(OUT)  // This specifies the path to the kernel image file
+        -kernel $(OUT)  // This specifies the path to the loader/driver image file
         -drive if=none,format=raw,file=$(DRIVE),id=attic // explained below
         -device virtio-blk-device,scsi=off,drive=attic     // explained below
 ```

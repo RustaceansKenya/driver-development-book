@@ -52,7 +52,7 @@ Method 2  is a more user friendly method. Trading off negligible compile time ov
 
 Moreover, the rust compiler comes with its own inbuilt LLVM linker, rust-lld. That means that once we hit compile, we get the executable file output. One click, and all the build process runs inbuilt; from compiling rust files, to compiling assembly files, to creating a riscv-compliant executable file.
 
-No more Makefiles nightmares, no more. This is very big news.  
+No more [Makefiles nightmares](https://makefiletutorial.com/), no more. This is very big news.  
 For this reason, we will use Method 2.
 
 

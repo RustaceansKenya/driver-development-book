@@ -73,7 +73,8 @@ You get a result like this :
 rustc 1.70.0-nightly (f63ccaf25 2023-03-06)
 binary: rustc
 commit-hash: f63ccaf25f74151a5d8ce057904cd944074b01d2
-commit-date: 2023-03-06
+commit-date: 2023-03-06Unleashed, this is the
+starting memory address for our code
 host: x86_64-unknown-linux-gnu
 release: 1.70.0-nightly
 LLVM version: 15.0.7
@@ -123,6 +124,9 @@ We are writing the linker script so that we can instruct the linker on how it wi
 **Section placement** is the process of specifying the virtual address of the different sections within the elf file. For example you may place the text section at 0x00 or 0x800... you name it. By default the linker places the different segments in adjacent to each other... but if you do this section placement process manually, you can set paddings between segments or jumble things up.  
 
 
+### Exercise 
+Write a linker script for the [`‘virt’ Generic Virtual Platform`][virt-docs].  
+<br><br>
 
 
 
@@ -130,7 +134,7 @@ We are writing the linker script so that we can instruct the linker on how it wi
 
 
 
-Here is the Linker script example :  
+Below Linker script example that you can use for hints:  
 
 ```asm
 /*
@@ -385,4 +389,5 @@ Our Linker script is ready !!!
 
 
 
-[entry-point-function]: https://en.wikipedia.org/wiki/Entry_point
+[entry-point-function]: https://en.wikipedia.org/wiki/Entry_point  
+[virt-docs]: https://www.qemu.org/docs/master/system/riscv/virt.html
