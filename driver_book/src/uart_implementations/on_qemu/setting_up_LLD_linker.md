@@ -93,15 +93,24 @@ rustc  -Z unstable-options --target=riscv64gc-unknown-none-elf --print target-sp
 
 
 
-You can optionaly specify your linker choice in the build manifest file (configuration file) - cargo.toml as follows :
+You can optionaly specify your linker of choice in the build manifest file (configuration file) - cargo.toml as follows :  
+
 ```toml
 [target.'cfg(target_os = "linux")'.llvm]
 linker = "/usr/bin/ld.gold"                   //this specifies the path to the gold linker
 ```
-But this is hard work, we are not taking that path. The less configurations we do, the more portable our code, the less headaches we get.
+
+But this is hard work, we are not taking that path. The less configurations we do, the more portable our code, the less headaches we get.  
+So let's just use LLVM. For this project, ignore gold, GNU or any other linker.  
+
+
 
 #### How do we write a Linker Script?
-Before we explain how to write the linker script, we should answer the question : "Why write the liner script?"  
+You can follow this tutorial [here](http://bravegnu.org/gnu-eprog/lds.html)  
+- Tell the linker which architecture you are targeting
+- You define the entry address of the elf file
+- Define all the memory that we have : RAM and ROM or just one of them 
+
 The linker functions include :
 	- Resolving External symbols
 	- Section Merging
@@ -109,34 +118,32 @@ The linker functions include :
 
 We are writing the linker script so that we can instruct the linker on how it will do the section merging and section placement.  
 
-**Section merging** is the process of combining similar elf sections from different files: For example if A.o and B.o were to be linked together to form C.o then the linker will merge the .text section in both A and B ie.  A.text_section + B.text_section = C.text_section  
+**Section merging** is the process of combining similar elf sections from different files: For example if A.o and B.o were to be linked together to form C.o, then the linker will merge the `.text section` from both A and B and put the merged output into C ie. ` A.text_section + B.text_section = C.text_sectiob`.  
 
 **Section placement** is the process of specifying the virtual address of the different sections within the elf file. For example you may place the text section at 0x00 or 0x800... you name it. By default the linker places the different segments in adjacent to each other... but if you do this section placement process manually, you can set paddings between segments or jumble things up.  
 
-You can follow this tutorial [here](http://bravegnu.org/gnu-eprog/lds.html) :
-
-- Tell the linker which architecture you are targeting
-- You define the entry address of the elf file
-- Define all the memory that we have : RAM and ROM or just one of them 
 
 
 
 
 
 
-Here is the Linker script example :
-```bash
+
+
+Here is the Linker script example :  
+
+```asm
 /*
-  define the architecture that the linker understands.  
+  define the architecture of the target that you are linking for.  
   for any RISC-V target (64-bit riscv is the name of the architectut or 32-bit).
 
-  We will further refine this by using -mabi=lp64 and -march=rv64gc
+  We will further refine this by using -mabi=lp64 and -march=rv64gc. But this will do for now.  s
 */
 OUTPUT_ARCH( "riscv" )
 
 /*
 We're setting our entry point to a symbol
-called _start which is inside of boot.S. This
+called _start which is inside of loader.s . This
 essentially stores the address of _start as the
 "entry point", or where CPU instructions should start
 executing.
