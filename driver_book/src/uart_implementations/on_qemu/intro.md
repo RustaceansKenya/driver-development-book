@@ -1,8 +1,14 @@
 # Building the UART on qemu
 
 This chapter elaborates on how to write a UART driver for a virtual UART emulated by the [Qemu machine emulator][qemu-emulator-front-page].  
+The UART in this chapter is naive. It does not use standard & safe abstractions. It is also blocking in nature.  
 
-QEMU is a generic and open source machine emulator and virtualizer.
+The UART covered in the next-next chapter will be an improved of the UART covered in this chapter.  
+
+
+## Qemu
+
+QEMU is a generic and open source machine emulator and virtualizer.  
 
 A machine emulator is a software program that simulates the behaviour of another computer or another computing system. For example you may simulate the behavior of a quantum computer on a convetional computer.
 
@@ -13,6 +19,12 @@ QEMU can be used in several different ways. The most common is for System Emulat
 The second supported way to use QEMU is User Mode Emulation, where QEMU can launch processes compiled for one CPU on another CPU. In this mode the CPU is always emulated.
 
 In our project, we will use Qemu as a [Riscv System Emulator](https://www.qemu.org/docs/master/system/target-riscv.html).   
+
+
+## Templates (hints)
+The next few chapters are going to be about setting things up. At the end of each sub-chapter, you will see a link to a finished template containing a cargo project that has been modified in accordance to the concerned sub-chapter.  
+
+The templates are not guaranteed to be always compile-worthy. They are meant to act as **Hints** -- Not copyable short-cuts. Try to understand them before moving on. Examine them, things will click with time.  
 
 
 

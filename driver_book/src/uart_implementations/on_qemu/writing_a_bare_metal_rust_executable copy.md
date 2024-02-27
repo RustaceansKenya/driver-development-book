@@ -124,5 +124,5 @@ BUT since we have specified that our program will always abort... AND that it wi
 
 
 
-## 5. Compile to a bare_metal target
+## 5. Compile for a bare_metal target
 You can now compile for the speific target that you want. In our case, it is the `riscv64-unknown-none-elf`.   
