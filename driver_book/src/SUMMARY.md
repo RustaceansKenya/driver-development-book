@@ -56,6 +56,7 @@
   - [No-std recap](./uart_implementations/on_qemu/writing_a_bare_metal_rust_executable%20copy.md)
   - [Setting up the Riscv Virtual environment](./uart_implementations/on_qemu/setting_up_qemu.md)
   - [Setting up the linker](./uart_implementations/on_qemu/setting_up_LLD_linker.md)
+  - [Automating build & run](./uart_implementations/on_qemu/setting_up_build_automation.md)
 ## Loaders and Bootloaders
 - [Loaders and Bootloaders](./uart_implementations/on_qemu/loaders_and_bootloaders/intro.md)
   - [The Bootloader]()
