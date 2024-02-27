@@ -1,18 +1,16 @@
-# writing_a_bare_metal_rust_executable
+# Recap on writing a bare_metal_rust_executable
 
-references :
-1. https://os.phil-opp.com/minimal-rust-kernel/#a-minimal-kernel
 
 ## 1. NO_STD
 
 A bare metal executable is a rust program that can run on a piece of hardware without needing an operating system.  
 
-Since we are building our own operating system, we need to write it as a program that is not dependent on another operating system.  
+Since we are building a driver, we need to write it as a program that is not dependent on an operating system.  
 Normal Rust programs depend on the rust standard library. The Rust standard library itself contains functions that call OS-specific system calls. So we cannot use the Rust std library.    
 
-We use the core Rust Library which is not OS-specific.
+We use the core Rust Library which is not environment-specific. The core library is dependency-free. It's only requirement is that the programmer provides the definitions of some linker symbols and language items. 
 
-we add the attribute #![no_std]
+To disable the std-dependence, we add the crate attribute `#![no_std]` to our project. 
 
 ## 2. NO_MAIN
 
@@ -20,8 +18,8 @@ Libc is a common C standard library that has been in use for a long time. It has
 Rust is a new language. It is very hard to implement the rust_std for all operating systems. To save on labour and allow compatibility, Rust creators decided to make the Rust Library to use libC functions instead of recreating the functions in pure Rust. Though there are some parts of the Rust std library that do not depend on libc.  
 
 Now that it is clear that rust_std depends on libc, when a rust bin is executed, the following events happen.   
-1. The executable program is stored in memory
-2. The CPU points to the first instruction of the executable (the etry point). In this case, the entry point is the C runtime.
+1. The executable program is stored in the main memory (eg RAM)
+2. The CPU points to the first instruction of the executable (the entry point). In this case, the entry point is the `_start` function found in the C runtime.
 3. The C runtime sets up its environment in preparation for the libc functions that will get called by the rust_std functions
 4. After the C runtime has set up the execution environment for the libc functions, it points to the entry point of the Rust Runtime.
 5. The entry point of the Rust Runtime is marked with a language item called "start" ie [start]
@@ -30,15 +28,31 @@ Now that it is clear that rust_std depends on libc, when a rust bin is executed,
 8. Main starts executing
 
 Our bare metal program does not depend on the C runtime. So this sequence of events is quite irrelevant to us.  
-What we will do is that we will inform the compiler that we wont follow this sequence by #![no_main] and then declare our own entry point.
+What we will do is that we will inform the compiler that we wont follow this sequence by : 
+1. Adding the `#![no_main]` crate attribute to our project.
+2. Declaring our own entry point function
 
 To declare our own entry point, we will export a function out of the crate... like so :
 ```rust
-#[no_mangle]
+#[no_mangle] // The no_mangle attribute explained below
 pub extern "C" fn _start()
+
+// Mangling is a technique used by compilers to encode the names of 
+// functions, methods, and other symbols in a program in a way that includes additional information beyond just the name itself. 
+
+// For example `main` may become `main21212jxbjbjbkjckbdsc&kbjbjksdbdjkbf`
+// The primary purpose of mangling is to make sure that each variable or function is completely unique to
+// the point that there are no name-conflicts during compilation and linking.  
+// This also enables function overloading 
+
+//In Rust, the #[no_mangle] attribute is used to instruct the compiler not to mangle the name of the item ...
+// (function or static variable) during compilation. This is useful when you want to interface with external
+//  code, like C code or assembly code, where the function names need to remain unchanged.  
+
+// We want "_start" to be referenced as it is. We cannot gamble with the identity such a symbol name
 ```
 
-But that is not enough, we need to tell the linker the name of our entry_point function. We do this by writing a linker script.  
+But that is not enough, we need to tell the linker the name of our entry_point function. We do this by writing a linker script that uses the `ENTRY` command.  
 The linker will place the code as the first part of the .text section and update the elf header sections to reflect this info.  
 
 ```lds
@@ -46,7 +60,7 @@ The linker will place the code as the first part of the .text section and update
 OUTPUT_ARCH( "riscv" )
 
 
-ENTRY( _start )
+ENTRY( _start )  /* See? we have used the name `_start` just like it is. If name mangling had happened, we would have had some random name that changes with every compilation.  
 
 MEMORY
 {
@@ -56,10 +70,10 @@ MEMORY
 
 
 ## 3. Panic Handler
-Rust panics when a violatio happens. Rust requires you to define a function that will always get called after a panic happens.  
-That function is tagged by the #[panic_handler] attribute   
+Rust runtime panics when a violation happens. Rust requires you to define a function that will always get called after a panic happens.  
+That function is tagged by the #[panic_handler] attribute.   
 
-The panic_handler function never returns anything, it diverges
+The panic_handler function never returns anything, it diverges. It is therefore a divergent function.  
 
 ```rust
 use core::panic::PanicInfo;
