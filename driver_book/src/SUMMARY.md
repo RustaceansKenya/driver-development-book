@@ -53,11 +53,12 @@
   ## Set Ups
   - [Setting Things Up](./uart_implementations/on_qemu/setting_things_up.md)
   - [Setting up the compiler](./uart_implementations/on_qemu/setting_up_the_compiler.md)
+  - [No-std recap](./uart_implementations/on_qemu/writing_a_bare_metal_rust_executable%20copy.md)
   - [Setting up the Riscv Virtual environment](./uart_implementations/on_qemu/setting_up_qemu.md)
   - [Setting up the linker](./uart_implementations/on_qemu/setting_up_LLD_linker.md)
-  - [No-std recap](./uart_implementations/on_qemu/writing_a_bare_metal_rust_executable%20copy.md)
 ## Loaders and Bootloaders
 - [Loaders and Bootloaders](./uart_implementations/on_qemu/loaders_and_bootloaders/intro.md)
+  - [The Bootloader]()
   
 
 - [tutorial over a naive UART implementation on a Esp32 device]()

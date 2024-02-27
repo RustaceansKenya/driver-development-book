@@ -5,6 +5,7 @@ Now that we have written a compile-worthy no-std binary... what next?
 We cannot just run a driver on metal like that. We need to have a program that boots up the machine before running our driver(our no-std file).  
 
 And for this purpose, we introduce two new parties : **Loaders** and **Bootloaders**.  
+Our firmware needs to get loaded into memory by either the Loader or the Bootloader.  
 
 
 ## Difference between a loader and a bootloader.  
@@ -41,8 +42,33 @@ The loader will have the following functions :
 Loading a program involves things such as ; 
 - copying the Program's loadable-elf-sections from ROM/HDD/SDD and putting them in the RAM.
 - adjusting the necessary CPU registers. For example, making the Program counter to point to the entry point of the program that needs to be loaded.
+- Setup stack-protection (if necessary)
 - Ensuring that the metadata for the program is available for the minimal-kernel.  
 
 Unloading a program involves things such as :  
 - cleaning the program stack and zeroing out any 'confidential' program sections to avoid data-stealing.
-- adjusting the necessary CPU registers. For example, making the Program counter to point back to the minimal kernel
+- adjusting the necessary CPU registers. For example, making the Program counter to point back to the minimal kernel  
+
+
+## Bootloaders in Qemu-Riscv Virt machine
+
+When using the sifive_u or virt machine in Qemu, there are three different firmware boot options:
+
+
+```bash
+-bios default # option 1
+```  
+This is the default behaviour if no -bios option is included. This option will load the default OpenSBI firmware automatically. The firmware is included with the QEMU release and no user interaction is required. All a user needs to do is specify the kernel they want to boot with the -kernel option.  
+<br>
+
+```bash
+-bios none    # option 2
+```  
+QEMU will not automatically load any firmware. It is up to the user to load all the images they need.  
+<br>
+
+
+```bash
+-bios <file>  # option 3
+```  
+Tells QEMU to load the specified file as the firmware.

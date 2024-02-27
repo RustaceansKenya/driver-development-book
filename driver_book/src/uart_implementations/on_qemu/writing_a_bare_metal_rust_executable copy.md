@@ -126,3 +126,9 @@ BUT since we have specified that our program will always abort... AND that it wi
 
 ## 5. Compile for a bare_metal target
 You can now compile for the speific target that you want. In our case, it is the `riscv64-unknown-none-elf`.   
+To get a recap on how to perform cross-compiltion, re-visit [this chapter](../../bare_metal/cross_compilation/cross_compilation.md)
+
+
+## Template Link
+
+

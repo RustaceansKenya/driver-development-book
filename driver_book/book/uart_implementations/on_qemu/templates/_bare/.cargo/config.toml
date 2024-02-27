@@ -1,0 +1,2 @@
+[build]
+target = "risc64gc-unknown-none-elf"

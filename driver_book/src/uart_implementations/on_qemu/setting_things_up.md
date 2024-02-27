@@ -36,7 +36,7 @@ To do all this, we need a compiler and a linker that can do cross-procesing.
 We can go about this process of creating a single executable file in two ways:  
 ##### Method 1
 We can compile the Rust files seperately from the Assembly files.  
-Meaning that we will use do the following actions in order : 
+Meaning that we will do the following actions in order : 
 - Use a stand-alone assembler to assemble the RISCV assembly files and turn them into object code.  
 - Compile the RUST files into object code using a RUST_compiler.  
 - Combine the all the resultant object files from the above 2 steps using a linker to form a single executable. 
@@ -44,9 +44,11 @@ Meaning that we will use do the following actions in order :
 ##### Method 2
 We can embed the assembly code into the Rust source code.  
 
-That way, we only need one compilation, we will only need to compile the asm_embedded Rust files. This method seems more of 'plug and play'.  
+That way, we only need one compilation, we will only need to compile the asm_embedded Rust files using the rust compiler. This method seems more of 'plug and play' because it does not need us to have a seperate riscv-asembler. It only requires us to have a rust-compiler only.    
 
-The disadvantage of this method is that we will always have to re-compile every file each time we change anything in any source file. But this is not really a problem. Modern compilers are Fast. Using method one will save up a few nano_seconds. A few nanoseconds is cheap price to pay.  
+The disadvantage of this method is that we will always have to re-compile our entire project each time we change anything in any source file. But this is not really a problem; modern compilers are Fast, recompiling every file in our project is a matter of seconds.  
+
+Using method one will save up a few nano_seconds. A few nanoseconds is cheap price to pay.  
 
 Method 2  is a more user friendly method. Trading off negligible compile time over a user-friendliness in building and tweaking configurations is by far a very good choice.  
 
@@ -55,8 +57,4 @@ Moreover, the rust compiler comes with its own inbuilt LLVM linker, rust-lld. Th
 No more [Makefiles nightmares](https://makefiletutorial.com/), no more. This is very big news.  
 For this reason, we will use Method 2.
 
-
-***references***
-- [The LLD official Page](https://lld.llvm.org/)
-- [Linking in Rust](https://nnethercote.github.io/perf-book/compile-times.html)
 

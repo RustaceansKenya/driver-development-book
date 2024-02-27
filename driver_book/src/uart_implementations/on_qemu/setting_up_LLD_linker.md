@@ -5,7 +5,7 @@ References :
 As earlier mentioned, the Rust compiler comes with an inbuilt linker. 
 Each target comes with its own configured linker.  
 
-So by default we do not need a linker script. But as for our case, we need a linker script.  
+So by default we do not need a linker script. But for our case, we need a linker script.  
 <br><br>  
 
 So Why do we need a custom linker script?
@@ -19,22 +19,22 @@ An entry point is the place in a program where the execution of a program begins
 
 For example, Normal Rust programs that depend on the std library normally have their entry-point defined as '_start'. This "_start" function is typically defined as part of the C-runtime code.  
 
-In our case, the default linker used for the `riscv64-unknown-none-elf` sets the entry point by trying each of the following methods in order, and stopping when one of them succeeds:  
+In our case, the default linker used for the `riscv64-unknown-none-elf` automatically sets the entry point by trying each of the following methods in order, and stopping when one of them succeeds:  
 - The ` -e ' entry command-line option;
 - The ` ENTRY (symbol) ' command in a linker script;
 - The value of the symbol, start, if defined;
 - The address of the first byte of the ` .text ' section, if present;
 - The address, `0` in memory '.  
 
-To avoid unpredictable behavior, we will explicitly declare the entry point in the liker script.  
+To avoid unpredictable behavior, we will explicitly declare the entry point in the linker script.  
   
 
 
 
 ### Reason 2: To define your own KNOWN memory addresses
-Here is the thing, the elf file has many sections; the global_data section, the heap, the stack, the bss, the text section...	
+Here is the thing, an elf file has many sections and symbols; the global_data section, the heap, the stack, the bss, the text section...	
 
-To write driver-level code, you need to explicitly **KNOW** the exact memory addresses of different elf sections. You need to **KNOW** the exact memory address for a particular function. You need to **KNOW** the exact memory address for the register that you want to read from. You need to **KNOW** the exact memory addresses to a lot of things.... 
+To write driver-level code, you need to explicitly **KNOW** the exact memory addresses of different elf sections and symbols. You need to **KNOW** the exact memory address for a particular function. You need to **KNOW** the exact memory address for the register that you want to read from. You need to **KNOW** the exact memory addresses for a lot of things.... 
 
 For example....	 
 when you want the driver-loader to load the driver, you may have to make the CPU instruction-pointer to point to the entry_point of the driver, you will need to give the driver-loader the exact memory address of the entry_point. Or maybe give it the address of the `text_section`.  
@@ -47,11 +47,11 @@ Using the default linker script is wild; You let the linker decide the memory ad
 This means that you would have to constantly change your code to point to the addresses the linker chose for you. And the linker is not that deterministic. Today it places the heap here, tomorrow there.  
 So it is best to define your own linker script that explicitly defines memory addresses that you KNOW.  
 
-"Reject unpredicatbility, Embrace predictability" - Zyzz
+"Reject unpredictability, Embrace predictability" - Zyzz
 
 
 ### Reason 3: Memory Alignment
-You may want to make sure the different elf sections are aligned to a certain multiple. For example, if you plan to divide the Register mappings into 8-byte blocks, you may prefer to make the register_start memory address a multiple of 8
+You may want to make sure the different elf sections and symbols are aligned to a certain multiple. For example, if you plan to divide the Register mappings into 8-byte blocks, you may prefer to make the register_start memory address a multiple of 8
 
 End of reasons...	
 
@@ -126,6 +126,9 @@ We are writing the linker script so that we can instruct the linker on how it wi
 
 ### Exercise 
 Write a linker script for the [`‘virt’ Generic Virtual Platform`][virt-docs].  
+The memory layout for the virtual board can be found [here][virt-memory-layout].  
+Come up with a linker script, even if it doesn't work. Try to figure it out.  
+You can use the example below.  
 <br><br>
 
 
@@ -384,10 +387,10 @@ SECTIONS
 
 ```
 
-Our Linker script is ready !!!
 
 
 
 
 [entry-point-function]: https://en.wikipedia.org/wiki/Entry_point  
-[virt-docs]: https://www.qemu.org/docs/master/system/riscv/virt.html
+[virt-docs]: https://www.qemu.org/docs/master/system/riscv/virt.html  
+[virt-memory-layout]: https://github.com/qemu/qemu/blob/master/hw/riscv/virt.c#L63
