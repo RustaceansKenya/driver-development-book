@@ -388,6 +388,9 @@ SECTIONS
 ```
 
 
+### Template  
+You can view the template folder [here](https://github.com/RustaceansKenya/driver-development-book/tree/master/chapter_snapshots/_1_bare_with_script).
+
 
 
 

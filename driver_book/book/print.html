@@ -1677,6 +1677,8 @@ $(QEMU) -machine $(MACH)
         -kernel $(OUT)  # This specifies the path to the loader/driver/kernel image file
 </code></pre>
 <p>So whenever we run a Qemu emulation, we should run it with the above config files</p>
+<h3 id="template"><a class="header" href="#template">Template</a></h3>
+<p>There is no template for this subchapter. Try writing the qemu commands by hand before we integrate them to cargo.  </p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="setting-up-the-linker"><a class="header" href="#setting-up-the-linker">Setting up the linker</a></h1>
 <p>References : </p>
 <ul>
@@ -2013,6 +2015,8 @@ SECTIONS
 }
 
 </code></pre>
+<h3 id="template-1"><a class="header" href="#template-1">Template</a></h3>
+<p>You can view the template folder <a href="https://github.com/RustaceansKenya/driver-development-book/tree/master/chapter_snapshots/_1_bare_with_script">here</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="loaders-and-bootloaders"><a class="header" href="#loaders-and-bootloaders">Loaders and Bootloaders</a></h1>
 <p>Now that we have written a compile-worthy no-std binary... what next?</p>
 <p>We cannot just run a driver on metal like that. We need to have a program that boots up the machine before running our driver(our no-std file).</p>

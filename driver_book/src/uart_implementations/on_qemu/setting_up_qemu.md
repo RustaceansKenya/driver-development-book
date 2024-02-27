@@ -46,3 +46,7 @@ $(QEMU) -machine $(MACH)
 
 
 So whenever we run a Qemu emulation, we should run it with the above config files
+
+
+### Template
+There is no template for this subchapter. Try writing the qemu commands by hand before we integrate them to cargo.  
