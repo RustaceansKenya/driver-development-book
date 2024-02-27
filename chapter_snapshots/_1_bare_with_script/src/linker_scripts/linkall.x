@@ -14,14 +14,6 @@ MEMORY
 }
 
 
-PHDRS
-{
-  text PT_LOAD;
-  data PT_LOAD;
-  bss PT_LOAD;
-}
-
-
 SECTIONS
 {
   . = ALIGN(4096);
@@ -31,7 +23,6 @@ SECTIONS
     PROVIDE(_text_start = .);
 
     *(.text.init)
-	  *(.eh_frame)
 	  *(.text .text.*)
     PROVIDE(_text_end = .);
 	

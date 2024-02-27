@@ -59,7 +59,7 @@
   - [Automating build & run](./uart_implementations/on_qemu/setting_up_build_automation.md)
 ## Loaders and Bootloaders
 - [Loaders and Bootloaders](./uart_implementations/on_qemu/loaders_and_bootloaders/intro.md)
-  - [The Bootloader]()
+  - [The Bootloader](./uart_implementations/on_qemu/loaders_and_bootloaders/bootloader.md)
   
 
 - [tutorial over a naive UART implementation on a Esp32 device]()
