@@ -2045,6 +2045,39 @@ fn custom_unwind(){
 <h2 id="5-compile-for-a-bare_metal-target"><a class="header" href="#5-compile-for-a-bare_metal-target">5. Compile for a bare_metal target</a></h2>
 <p>You can now compile for the speific target that you want. In our case, it is the <code>riscv64-unknown-none-elf</code>.   </p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="loaders-and-bootloaders"><a class="header" href="#loaders-and-bootloaders">Loaders and Bootloaders</a></h1>
+<p>Now that we have written a compile-worthy no-std binary... what next?</p>
+<p>We cannot just run a driver on metal like that. We need to have a program that boots up the machine before running our driver(our no-std file).</p>
+<p>And for this purpose, we introduce two new parties : <strong>Loaders</strong> and <strong>Bootloaders</strong>.</p>
+<h2 id="difference-between-a-loader-and-a-bootloader"><a class="header" href="#difference-between-a-loader-and-a-bootloader">Difference between a loader and a bootloader.</a></h2>
+<p>A loader and a bootloader are both involved in the process of loading software into memory(*<em>RAM</em>) for execution, but they serve different purposes and operate at different stages of the system startup process.</p>
+<h3 id="bootloader"><a class="header" href="#bootloader">Bootloader:</a></h3>
+<p>A bootloader is a small program that is executed when a computer system is powered on or restarted. Its primary function is to initialize the hardware, perform basic system checks, and load the operating system into memory for execution.</p>
+<p>Bootloaders are typically stored in a specific location on the storage device (e.g., the Master Boot Record on a hard disk drive or in the boot ROM of an embedded system).</p>
+<p>The bootloader is responsible for locating the operating system kernel, loading it into memory, and transferring control to the kernel to begin the boot process.<br />
+Examples of bootloaders include GRUB (Grand Unified Bootloader) and U-Boot (Universal Bootloader), which are commonly used in Linux systems.</p>
+<p>But in our case, since we do not have a kernel in sight, the bootloader will load <em><strong>our no-std file</strong></em>. Our no-std file will act as a temporary kernel... or rather, it will act as an execution runtime that can call the UART driver whenever it is needed.</p>
+<h3 id="loader"><a class="header" href="#loader">Loader:</a></h3>
+<p>A loader, also known as a program loader, is a component of an operating system that loads executable files from storage(eg SSD) into memory(eg RAM) and prepares them for execution.</p>
+<p>Loaders operate after the operating system kernel has been loaded and initialized by the bootloader. They are responsible for loading user-space programs, shared libraries, and other executable files as needed during the runtime of the system.</p>
+<p>Loaders perform tasks such as resolving external references, allocating memory for program code and data, setting up the program's execution environment, and transferring control to the entry point of the program.<br />
+In some cases, the term &quot;loader&quot; may also refer to a component of a development toolchain responsible for generating executable files from source code by linking together various object files and libraries.</p>
+<p>So in our case, the loader will a part of the execution runtime (ie our no-std file that was acting as a minimal kernel)</p>
+<p>The loader will have the following functions :</p>
+<ul>
+<li>listen for loading &amp; unloading orders from the minimal-kernel</li>
+<li>execute the the loading and unloading.</li>
+</ul>
+<p>Loading a program involves things such as ; </p>
+<ul>
+<li>copying the Program's loadable-elf-sections from ROM/HDD/SDD and putting them in the RAM.</li>
+<li>adjusting the necessary CPU registers. For example, making the Program counter to point to the entry point of the program that needs to be loaded.</li>
+<li>Ensuring that the metadata for the program is available for the minimal-kernel.</li>
+</ul>
+<p>Unloading a program involves things such as :</p>
+<ul>
+<li>cleaning the program stack and zeroing out any 'confidential' program sections to avoid data-stealing.</li>
+<li>adjusting the necessary CPU registers. For example, making the Program counter to point back to the minimal kernel</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="notable-crates"><a class="header" href="#notable-crates">Notable Crates</a></h1>
 <h2 id="for-bare-metal-programming"><a class="header" href="#for-bare-metal-programming">For bare metal programming</a></h2>
 <ul>
