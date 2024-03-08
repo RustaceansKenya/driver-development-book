@@ -5,6 +5,8 @@ To get more detailed and reined information, it is better to read the [official 
 
 
 <br><br>
+QEMU is a generic and open source machine emulator and virtualizer.  
+
 
 
 

@@ -17,7 +17,7 @@
 - [No std preface](./bare_metal/the_no_std_preface.md)
   - [No std](./bare_metal/no_std/the_no_std_intro.md)
   - [Disabling the Standard Library](./bare_metal/no_std/removing_std_lib.md)
-  - [Pracs 1](./bare_metal/no_std/pracs_1.md)[Title](<../../../CSC-416-4TH/main_site/Documentation_books/Developer Documentation/src/writing_a_bare_metal_rust_executable.md>)
+  - [Pracs 1](./bare_metal/no_std/pracs_1.md)
   - [Pracs 2](./bare_metal/no_std/pracs_2.md)
 - [Cross-Compilation](./bare_metal/cross_compilation/cross_compilation.md)
 - [Linking](./bare_metal/linking/linking.md)
@@ -40,6 +40,8 @@
 - [The datasheet](./knowing_your_hardware.md)
 - [Abstraction]()
   - [svd2rust](./svd2rust.md)
+  - [vcell](./abstractions/vcell.md)
+  - [representations](./abstractions/representations.md)
 
 
 # THE UART THEORY
@@ -47,6 +49,7 @@
   - [draft_1](./uart_theory/draft_1.md)
   - [draft_2](./uart_theory/draft_2.md)
 - [Understanding UART physical Implemetation in the esp32]()
+
 
 # THE UART IMPLEMENTATION (Qemu)
 - [Intro](./uart_implementations/on_qemu/intro.md)
@@ -60,9 +63,7 @@
 ## Loaders and Bootloaders
 - [Loaders and Bootloaders](./uart_implementations/on_qemu/loaders_and_bootloaders/intro.md)
   - [The Bootloader](./uart_implementations/on_qemu/loaders_and_bootloaders/bootloader.md)
-  
-
-- [tutorial over a naive UART implementation on a Esp32 device]()
+  - [tutorial over a naive UART implementation on a Esp32 device]()
 
 
 # THE UART IMPLEMENTATION (less naive, with async)
@@ -89,3 +90,5 @@
   - [the-C-runtime](./misc/the_C_runtime.md)
   - [api-definition](./misc/API.md)
   - [abi-definition](./misc/abi.md)
+  - [Building runtimes](./misc/building_runtime_crates.md)
+- [To-do](todo.md)

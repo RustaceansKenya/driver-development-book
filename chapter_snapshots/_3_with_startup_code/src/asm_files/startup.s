@@ -14,9 +14,13 @@
 # we need simplicity and predictability more than we need memory efficient code
 .option norvc # this is an assembler directive
 
+
+
+
 # this is where we will store global initialized variables
 # and we have no global data yet
 .section .data
+
 
 # this is code that will get called before the kmain function
 # .text.init sections typically store startup code that sets up the environment for the rest of the code
@@ -42,7 +46,7 @@ _fetch_kernel_global_pointer:
 _choose_bootloading_HART:
     # fetch the ID of the current Hardware Thread (HART) and store it in the temporary register t1
     csrr t1, mhartid 
-    bnez t1, _make_HART_sleep # If HART ID is not ZERO, make that HART sleep.
+    bnez t1, _make_CORE_sleep # If HART ID is not ZERO, make that HART sleep.
                              # If HART IS is zero, _fetch_kernel_global_pointer
     j   _fetch_kernel_global_pointer  # after choosing the HART, we move on to configure essential registers 
                                       # [gp, sp, ]

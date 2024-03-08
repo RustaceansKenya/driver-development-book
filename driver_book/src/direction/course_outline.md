@@ -16,6 +16,8 @@ Here is the link to the class recordings : not_yet_posted
 
 ## On a NS16550A UART chipset on Qemu 
 - [ ] Uart implementation on NS16550A UART chipset on a Qemu device (with naive abstractions)
+  - [ ] write linker
+  - [ ] write bootloader
 
 
 

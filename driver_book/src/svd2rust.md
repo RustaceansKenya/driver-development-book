@@ -1,6 +1,6 @@
 # svd2rust
 
-Once you read the datasheet, and understand the memory mapping, pin-layout and whatever else you wanted to get straight, you begin to safely abstract the board.  
+Once you read the datasheet, and understand the memory mappings, pin-layout and whatever else you wanted to get straight, you begin to safely abstract the board.  
 
 
 ### SVD files
@@ -126,6 +126,19 @@ To understand svd2rust, let's :
 2. experiment with it a little
 3. Do our abstractions manually without depending on svd2rust
 4. Go back to svd2rust while fully appreciating all the manual work it does for us 
+
+
+
+From the docs :  
+
+"svd2rust supports Cortex-M, MSP430, RISCV and Xtensa LX6 microcontrollers." this means that ...
+
+Taking Peripherals needs to be atomic. Some boards do not support atomics, so the best way is to use software-defined critical sections.  
+The take function looks something like this :  
+```rust
+
+```
+
 
 
 [espressif_svd_file_samples]: [https://github.com/espressif/svd/tree/main/svd]  
