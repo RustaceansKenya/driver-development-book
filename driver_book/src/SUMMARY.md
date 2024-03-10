@@ -42,6 +42,7 @@
   - [svd2rust](./svd2rust.md)
   - [vcell](./abstractions/vcell.md)
   - [representations](./abstractions/representations.md)
+- [random](./abstractions/random.md)
 
 
 # THE UART THEORY
@@ -91,4 +92,5 @@
   - [api-definition](./misc/API.md)
   - [abi-definition](./misc/abi.md)
   - [Building runtimes](./misc/building_runtime_crates.md)
+  - [Panicking](./misc/panicking.md)
 - [To-do](todo.md)

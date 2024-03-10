@@ -1,0 +1,1 @@
+- exception attribute with re-entrancy guarantees

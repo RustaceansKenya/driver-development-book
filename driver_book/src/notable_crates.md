@@ -25,6 +25,14 @@
 - ratatui
 - serde
 
+## Panicking
+- panic-abort. A panic causes the abort instruction to be executed.
+- panic-halt. A panic causes the program, or the current thread, to halt by entering an infinite loop.
+- panic-itm. The panicking message is logged using the ITM, an ARM Cortex-M specific peripheral.
+- panic-semihosting. The panicking message is logged to the host using the semihosting technique.
+- more here : https://crates.io/keywords/panic-handler
+
+
 ### more tertiary for now
 - cfg-if  : A macro for defining #[cfg] if-else statements.
 - 
