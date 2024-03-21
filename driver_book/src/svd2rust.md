@@ -142,6 +142,12 @@ The take function looks something like this :
 
 ```
 
+### Abstraction aims
+1. Reduce the amount of unsafe blocks. Limit them to be as close to the registers as much as possible. Reduce them in as much as you can
+2. Abstract the true nature of the registers : Read-only, Write-only, Modify capabilities
+3. Hide the register structures such that NOT Any piece of code anywhere in your program could access the hardware through these register structures
+4. Ensure Volatile reads and writes.  
+5. Handle concurrency gracefully using critical sections
 
 - take by singletonsrustc-link-search
 - repr peripheral with register-block - Name each regsiter

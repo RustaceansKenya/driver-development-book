@@ -1,7 +1,7 @@
 # Probing Theory
 
 
-What is probing really? How is it achieved? What's flashing? What's in-system programming? Debugging?  
+What is probing really? How is it achieved? What's flashing? What's in-system programming? What's Debugging?  
 
 ## Probing
 Probing is the act of interacting with a microcontroller... or a device that does not have a comprehensive User Interface.  
@@ -17,23 +17,23 @@ Interacting may mean one of the following :
 
 ## How are probing devices able to interact with a chip? 
 
-"A probing device is able to interact with a chip because the probe device interfaces with the boundary-scan interface present on the chip."  
+"A probing device is able to interact with a chip because the probe device interfaces with the boundary-scan interface present on the chip." --- this is a mouthy sentence... let's break it down with a lot of stories.  
 
-An SoC is made up of circuits. To test whether the circuits worked as exected, the designers of the past used to use [test fixtures][test-fixtures] but with time they settled for using on-chip test circuits.  
-An popular and standard example of on-chip test circuitry is the [Boundary-scan][what-is-a-boundary-scan].  
+An SoC is made up of circuits. To test whether the circuits worked as expected, the designers of the past used to use [test fixtures][test-fixtures] but with time they settled for using on-chip test circuits.  
+A popular and standard example of on-chip test circuitry is the [Boundary-scan][what-is-a-boundary-scan].  
 
 With time, it became clear that boundary scans could control and affect how the SoCs worked if connected properly. They could even be used to read and write to the RAM and ROM if attached to the DMA controller. They could be used to monitor the signals coming in and out of the Core. They could be used to inject stub data to the pins of the core and thus manipulate the core itself... Boundary-scans became the holy-grail of monitoring and manipulating SoCs.  
 
 With time people came up with boundary scan standards that roughly specified : 
-- How the circuitry was hooked up. 
-- How the physical interface between the scan and external probes was to b implemented. 
+- How the circuitry was hooked up in a way that integrates with the circuitry that is getting tested. In  way that it does not change the functionality of the circuit being tested.
+- How the physical interface between the scan and external probes was to be implemented. 
 - The communication protocol between the scan and external probes.
 
-One open and stadardized boundary scan is called the JTAG standard.  
+One open and standardized boundary scan is called the JTAG standard.  
 There is also another proprietary on-chip test circuitry called SWD.  
 
 All this info might not make sense on the go...    
-Go watch this [video by EEVBlog][jtag-video-by-EEVBlog], it puts things into persective.  
+Go watch this [video by EEVBlog][jtag-video-by-EEVBlog], it puts things into persective. He's a good teacher.  
 
 
 After that [video][jtag-video-by-EEVBlog], you might want to get your definitions and structures right by reading a more [formal but simple technical guide][jtag-technical-guide] by the xjtag organization.  
@@ -47,11 +47,18 @@ By the end of all that reading and video-watching, the figure below should make 
 
 ## The Probe/ Debug Adapter
 
-From here on, the term JTAG will be used a synonym for Boundary-scan-circuit.  
+From here on, the term JTAG will be used as a synonym for Boundary-scan-circuit.  
 
 The probe/debug adapter is the physical device that connects a normal computer to the JTAG interface. This is because the JTAG interface is not directly compatible to the ports found on a normal computer. For example the USB port found on a computer cannot directly connect to the 4 pins of the JTAG port.  
 
 ![Alt text](img/probe-core.png)
+
+From the above image....  
+The normal computer contains debugging software that issues out debugging commands. For example : "command : pause the program execution". These commands get sent out as usb-signals.   
+
+The normal computer sends out USB signals to the debug adapter. The Debug adapter receives the usb-signals via the USB-port.  
+Upon receiving the usb-signals, the debug adapter converts those usb-signals into JTAG-signals. The jtag-signal then get sent out via the 4 pins that have been attached to the JTAG-interface found at the core.  
+
 
 
 ## Open-OCD and its alternatives

@@ -1,17 +1,19 @@
-# draft_1
-
-This chapter covers theory on the uart.  
-
+# General Overview
 
 ## What is the UART?  
-Before tackling the meaning of UART, let's get the acronyms out of the way.  
+Before tackling the meaning of UART, let's get some acronyms out of the way.  
 - UART stands for `Universal Asynchronous Receiver/Transmitter`.  
 - *Tx* stands for `Transmitter`.  
 - *Rx* stands for `Receiver`.  
 
-The UART is an integrated circuit that takes in parallel data from one end and outputs serial data on the other end. It also receives serial data from one end and outputs parallel data on the other end.   
+We're done with the acronymns, now we are on the same jargon wavelength.  
 
-So it you connect two UARTs as seen below, you achieve serial communication between two devices that have parallel data buses.  
+
+
+The UART is an integrated circuit that takes in parallel data from one end and outputs serial data on the other end. It also receives serial data from one end and outputs parallel data on the other end.   
+So you can say that it is a *parallel-to-serial converter with a few extra steps*.  
+
+If you connect two UARTs as seen below, you achieve serial communication between two devices that have parallel data buses.  
 
 ![Alt text](img/uart_connection.png)  
 
@@ -27,7 +29,11 @@ The rate at which the bits of the data-packet are transmitted is referred to as 
 ### So is UART a serial-communication protocol?  
 Well... The UART is not a communication protocol itself but rather a hardware component or module that facilitates serial communication between devices. You could say that it is circuitry that serves as the underlying hardware mechanism for implementing various communication protocols such as RS-232, RS-485, MIDI, and others  
 
-Confusing... right? ha ha. 
+Confusing... right? ha ha.  
+
+UART == circuit.  
+UART != protocol.  
+You can implement asynchronous protocols using a UART circuitry. 
 
 
 ## How the UARTs work. 

@@ -6,16 +6,16 @@ There are many linkers in existence. However the two dominant linkers are :
 1. The [LD linker][ld-linker-page] (also called the GNU linker)
 2. The [LLD linker][lld-linker-page] (also called the LLVM linker)  
 
-The Rust toolchain is a modification of the LLVM toolchain, so it uses the LLVM linker by default. You can however configure it to use ld with the help of Cargo.  
+The Rust toolchain is a modification of the LLVM toolchain, so it uses the LLVM linker by default. You can however configure it to use the GNU linker with the help of Cargo.  
 
-## Subtle but important differences. 
+## Subtle but important differences between LD and LLD. 
 
 ### 1. Automatic linker-script generation.  
 The ld linker ALWAYS requires a manually-defined linker script to function. The LLD (the LLD linker) doesn't always use a manually-defined linker script like LD (the GNU linker).   
 
-In many cases, LD.LLD can automatically generate linker scripts internally based on the target architecture, format, and other parameters specified during the linking process. This means that LD.LLD can handle the linking process without requiring an explicit linker script provided by the user.
+In many cases, LLD can automatically generate linker scripts internally based on the target architecture, format, and other parameters specified during the linking process. This means that LLD can handle the linking process without requiring an explicit linker script provided by the user.
 
-However, LD.LLD does provide options to allow users to specify custom linker scripts if needed. Users can pass a custom linker script to LD.LLD using command-line options or configuration files, similar to how it's done with LD. This gives users flexibility in defining the linking behavior and organizing the output binary according to their specific requirements.  
+However, LLD does provide options to allow users to specify custom linker scripts if needed. Users can pass a custom linker script to LLD using command-line options or configuration files, similar to how it's done with LD. This gives users flexibility in defining the linking behavior and organizing the output binary according to their specific requirements.  
 
 ### 2. Cross linking and the existence of flavours
 The ld linker is a monolith. There is only one ld linker. If you want to compile something into an elf, you supply the linker with an elf-generating linker script. If you need a wasm binary file, you supply it with a corresponding linker script.  
@@ -32,9 +32,10 @@ There are currently 4 lld flavours :
 
 ## Implications of those subtle differences
 
-Adding a target using the `rustup target add` literally adds a LLVM back-end that includes an LLD-flavour configured for the subject target. Declaring linker scripts is optional.  
+1. Declaring linker scripts is optional.  
+2. Adding a target using the `rustup target add` literally adds a LLVM back-end that includes an LLD-flavour configured for the subject target. Declaring linker scripts is optional.  
 
-To view the defult lld flavour of a supproted target, run the following command :  
+To view the defult lld flavour of a supported target, run the following command :  
 ```bash
 # Replace `riscv32i-unknown-none-elf` with a target of your liking
 rustc -Z unstable-options --target riscv32i-unknown-none-elf --print target-spec-json

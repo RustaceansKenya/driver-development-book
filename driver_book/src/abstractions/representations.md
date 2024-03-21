@@ -1,13 +1,15 @@
 ## Representation
 
+reference : https://doc.rust-lang.org/nomicon/other-reprs.html
+
 - discuss 
   - why memory representation is immportant in driver development
   - The types of memory representation
     - #[repr(rust)]
     - #[repr(C)]
     - #[repr(transparent)]
-    - #[repr(u8)], #[repr(u16)], #[repr(u32)]
-    - #[repr(align)]
+    - #[repr(u8)], #[repr(u16)], #[repr(u32)]  // applied to an enum
+    - #[repr(align(2))]
   - When one should use certain memory representations
     - defining accurate register alignments/sizes
     - FFI-ing
@@ -38,8 +40,29 @@ For example:
 If the minimum alignment of a type is 8 bytes, it means that any object of that type must be located at a memory address that is divisible by 8.  
 
 
-#### Alignments and how they affect space occupied by data-types
-Alignment is not directly related to the space occupied by the data type, but rather to the requirements imposed by the hardware or ABI. However, the alignment can influence the amount of space occupied by data in memory, as padding may be inserted between fields of a struct or at the end of an array to ensure that each element meets the required alignment.  
+### Alignments and how they affect space occupied by data-types
+Alignment is not directly related to the space occupied by the data type. However, the alignment can influence the amount of space occupied by data in memory, as padding may be inserted between fields of a struct or at the end of an array to ensure that each element meets the required alignment.  
+
+for example :  
+```rust
+
+// These two structs occupy different sizes even though they have the same field types.  
+// This is because struct::s1 has added paddings to help align field_1 to the alignment of 6 ie (2^6 = u64)
+// s1 is 16 bytes long  
+// s2 is 12 bytes long
+
+#[repr(Rust)]
+struct s1{
+  field_1: u32,
+  field_2: u64
+}
+
+#[repr(packed)]
+struct s1{
+  field_1: u32,
+  field_2: u64
+}
+```
 
 
 ###  repr(transparent)

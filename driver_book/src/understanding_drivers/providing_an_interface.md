@@ -1,46 +1,37 @@
 # Role 2: Providing an Interface
 
-**TLDR**  
-- Just provide a well-thought out API.  
-- Err on the side of making communication between the kernel and the driver to be through message-passing.  
-- Err on the side of exporting structures that implement singletons.  
+The driver acts as an interface between the physical device and the kernel.  
+An interface consists of :  
+- callable functions exported by the driver
+- exported structs
+- exported traits
+- exported macros
+- ... some glue code or whatever
+
+It is up to the programmer to make the Interface to be : 
+1. Clear and Intuitive
+2. Complete and correct 
+4. Simple
+5. Modular (well structured)
+6. Well documented
 
 
-One of the crucial aspects of driver development is designing a clear and concise API that effectively communicates the functionality of the driver to higher-level software components, such as the kernel or user-space applications. A well-thought-out API not only simplifies the integration of the driver into larger systems but also enhances its reusability across different projects.  
+We will cover these concepts in a practical manner while writing our driver. So don't stress about finding the right guide or definition for writing 'the perfect API'. There is no perfect API. You just try your best to fulfill the above 6 vague goals and with time your APIs will get better and better.  
 
 
-## Principles of a Good Driver API
+Oh... here are the definitions of the above 6 goals.  
+1. Clear and Intuitive : the names of the Interface elements should be meaningful. They should be easy to undersand. For example, a function that switches off the device should have a name like `switch_off_device`. 
+
+2. Complete and correct : 
+   - A complete API is an interface that abstracts ALL the possible functions of the underlying device. Can you imagine an SSD driver that does not provide the `read` function?  
+   - A correct API does not expose functions that are wrong and sometimes produce undefined behavior. 
+
+3. Simple : Be simple... Dumb things down.
+
+4. Modular : A modular API is structured in such a way that a user can intuitively guess where things have been bundled up. For example, put error-codes in one module, put read functions in onother module... 
+
+5. Well documented.
 
 
-### 1. Clarity and Consistency
-
-The API should be intuitive and easy to understand, even for developers who are unfamiliar with the underlying hardware. Naming conventions, function signatures, and data structures should be consistent throughout the API to minimize confusion and improve readability.  
 
 
-### 2. Abstraction of Complexity
-
-The API should abstract away the low-level details of hardware interaction, providing a high-level interface that hides the intricacies of device communication. This allows software developers to focus on the task at hand without getting bogged down by hardware-specific implementation details.
-
-
-### 3. Modularity and Extensibility
-
-A well-designed API should be modular and extensible, allowing developers to add new features or support additional hardware configurations without major modifications to existing code. Modular design promotes code reuse and simplifies maintenance over time.
-
-
-### 4. Error Handling and Robustness
-
-Effective error handling is essential for a reliable driver API. Error codes, return values, and error reporting mechanisms should be clearly defined and well-documented to facilitate debugging and troubleshooting.  
-
-
-## Communication Patterns
-
-When designing the interface between the kernel and the driver, it's essential to choose the most appropriate communication pattern based on the requirements of the system. While there are various communication mechanisms available, such as function calls, callbacks, and shared memory, message passing is often preferred for its simplicity and reliability.
-
-### Message Passing
-
-Message passing involves sending structured data packets, or messages, between the kernel and the driver. This decouples the communication process from the underlying implementation details, making it easier to maintain and debug. Furthermore, message passing promotes a clear separation of concerns between the kernel and the driver, enhancing system stability and security.  
-
-
-### Singleton Structures
-
-In many cases, it's beneficial to export structures from the driver that implement the singleton pattern. Singleton structures represent a single instance of a particular resource or configuration, ensuring that there is only one instance of the structure across the system. This simplifies resource management and prevents conflicts or inconsistencies that may arise from multiple instances attempting to access the same resource simultaneously.

@@ -1,19 +1,16 @@
 # Linking
 
 
-**SOLID CHOICES** :  
-
 Linking is a VERY fundamental topic.  
 
-It is best to learn it **slowly** and **in full** from the [docs](#note-worthy-docs). It will be worth it; You will save yourself hundreds of hours in the future if you make the first read intentional. Be patient with yourself, restrain from skimming through the docs if it's your first time.  
-
+It is best to learn it **slowly** and **in full** from the [docs](#note-worthy-docs).     
 For this reason, this book will not spoil or water-down the purity of the [linking docs](#note-worthy-docs).  
 
 This book will however :
-  - assume that you have read [the docs](#note-worthy-docs).  
-  - Briefly explain LLD linker usage in Rust targets 
+  - Briefly explain LLD linker usage in Rust targets. 
   - Demonstrate how to fix the no-std linking error encountered in the previous chapter 
-  - Demonstrate how to build a full linker script for the Esp32c3 board. (found in a much ater chapter)
+  - Demonstrate how to build a full linker script for the Esp32c3 board. (found in a much later chapter)
+  <!-- undone: specify the exact chapter -->
 
 
 
