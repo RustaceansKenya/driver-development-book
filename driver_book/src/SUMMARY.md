@@ -14,6 +14,9 @@
 
 # BARE METAL PROGRAMMING
 - [No std preface](./bare_metal/the_no_std_preface.md)
+  - [Machine Code](./bare_metal/definition.md)
+  - [Dependencies](./bare_metal/dependencies.md)
+  - [The Standard Library](./bare_metal/the_std_library.md)
   - [No std](./bare_metal/no_std/the_no_std_intro.md)
   - [Disabling the Standard Library](./bare_metal/no_std/removing_std_lib.md)
   - [Pracs 1](./bare_metal/no_std/pracs_1.md)
@@ -95,6 +98,7 @@
   - [the-C-runtime](./misc/the_C_runtime.md)
   - [api-definition](./misc/API.md)
   - [abi-definition](./misc/abi.md)
+  - [isa-definition](./misc/isa.md)
   - [Building runtimes](./misc/building_runtime_crates.md)
   - [Panicking](./misc/panicking.md)
 - [To-do](todo.md)

@@ -1,0 +1,322 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>The Standard Library - driver development in Rust</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">INTRO</li><li class="chapter-item expanded "><a href="../intro/intro.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="../intro/prerequisites.html"><strong aria-hidden="true">2.</strong> Prerequisites for the Book</a></li><li class="chapter-item expanded affix "><li class="part-title">UNDERSTANDING DRIVERS (theory)</li><li class="chapter-item expanded "><a href="../understanding_drivers/understanding_drivers.html"><strong aria-hidden="true">3.</strong> Intro to Drivers</a></li><li class="chapter-item expanded "><a href="../understanding_drivers/controlling_the_device_below.html"><strong aria-hidden="true">4.</strong> Role 1: Controlling the device below</a></li><li class="chapter-item expanded "><a href="../understanding_drivers/providing_an_interface.html"><strong aria-hidden="true">5.</strong> Role 2: Providing an interface</a></li><li class="chapter-item expanded "><a href="../understanding_drivers/types_of_drivers.html"><strong aria-hidden="true">6.</strong> Types of Drivers</a></li><li class="chapter-item expanded affix "><li class="part-title">BARE METAL PROGRAMMING</li><li class="chapter-item expanded "><a href="../bare_metal/the_no_std_preface.html"><strong aria-hidden="true">7.</strong> No std preface</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../bare_metal/definition.html"><strong aria-hidden="true">7.1.</strong> Machine Code</a></li><li class="chapter-item expanded "><a href="../bare_metal/dependencies.html"><strong aria-hidden="true">7.2.</strong> Dependencies</a></li><li class="chapter-item expanded "><a href="../bare_metal/the_std_library.html" class="active"><strong aria-hidden="true">7.3.</strong> The Standard Library</a></li><li class="chapter-item expanded "><a href="../bare_metal/no_std/the_no_std_intro.html"><strong aria-hidden="true">7.4.</strong> No std</a></li><li class="chapter-item expanded "><a href="../bare_metal/no_std/removing_std_lib.html"><strong aria-hidden="true">7.5.</strong> Disabling the Standard Library</a></li><li class="chapter-item expanded "><a href="../bare_metal/no_std/pracs_1.html"><strong aria-hidden="true">7.6.</strong> Pracs 1</a></li><li class="chapter-item expanded "><a href="../bare_metal/no_std/pracs_2.html"><strong aria-hidden="true">7.7.</strong> Pracs 2</a></li></ol></li><li class="chapter-item expanded "><a href="../bare_metal/cross_compilation/cross_compilation.html"><strong aria-hidden="true">8.</strong> Cross-Compilation</a></li><li class="chapter-item expanded "><a href="../bare_metal/linking/linking.html"><strong aria-hidden="true">9.</strong> Linking</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../bare_metal/linking/rusty_linkers.html"><strong aria-hidden="true">9.1.</strong> Rusty Linkers</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">THE UART</li><li class="chapter-item expanded "><a href="../uart_theory/intro.html"><strong aria-hidden="true">10.</strong> Intro</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../uart_theory/draft_1.html"><strong aria-hidden="true">10.1.</strong> general overview</a></li><li class="chapter-item expanded "><a href="../uart_theory/draft_2.html"><strong aria-hidden="true">10.2.</strong> uart registers</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Understanding UART physical Implemetation in the esp32</div></li><li class="chapter-item expanded affix "><li class="part-title">THE UART IMPLEMENTATION (on Qemu and single-threaded)</li><li class="chapter-item expanded "><a href="../uart_implementations/on_qemu/intro.html"><strong aria-hidden="true">12.</strong> Intro</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../uart_implementations/on_qemu/setting_things_up.html"><strong aria-hidden="true">12.1.</strong> Setting Things Up</a></li><li class="chapter-item expanded "><a href="../uart_implementations/on_qemu/setting_up_the_compiler.html"><strong aria-hidden="true">12.2.</strong> Setting up the compiler</a></li><li class="chapter-item expanded "><a href="../uart_implementations/on_qemu/writing_a_bare_metal_rust_executable copy.html"><strong aria-hidden="true">12.3.</strong> No-std recap</a></li><li class="chapter-item expanded "><a href="../uart_implementations/on_qemu/setting_up_qemu.html"><strong aria-hidden="true">12.4.</strong> Setting up the Riscv Virtual environment</a></li><li class="chapter-item expanded "><a href="../uart_implementations/on_qemu/setting_up_LLD_linker.html"><strong aria-hidden="true">12.5.</strong> Setting up the linker</a></li><li class="chapter-item expanded "><a href="../uart_implementations/on_qemu/setting_up_build_automation.html"><strong aria-hidden="true">12.6.</strong> Automating build & run</a></li></ol></li><li class="chapter-item expanded "><a href="../uart_implementations/on_qemu/loaders_and_bootloaders/intro.html"><strong aria-hidden="true">13.</strong> Loaders and Bootloaders</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../uart_implementations/on_qemu/loaders_and_bootloaders/bootloader.html"><strong aria-hidden="true">13.1.</strong> The Bootloader</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.2.</strong> tutorial over a naive UART implementation on a Esp32 device</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">THE UART IMPLEMENTATION (less naive, with concurrency in mind)</li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.</strong> Concurrency</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">14.1.</strong> critical-sections in single-threaded cores</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.2.</strong> critical-secions above multi-cores</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.</strong> tutorial over a naive UART implementation on a Qemu device</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.</strong> tutorial over a naive UART implementation on a Esp32 device</div></li><li class="chapter-item expanded affix "><li class="part-title">OTHER STORIES</li><li class="chapter-item expanded "><div><strong aria-hidden="true">17.</strong> Driver Security</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">17.1.</strong> Common Security Issues in Driver Development</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">17.2.</strong> Rust's Safety Features for Driver Security</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">17.3.</strong> Best Practices for Secure Driver Development</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.</strong> Case Studies and Examples</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.</strong> Real-world Driver Development Examples</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.</strong> Analyzing an Existing Rust Driver</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">19.</strong> Iterative Implementation</div></li><li class="chapter-item expanded affix "><li class="part-title">APPENDIX</li><li class="chapter-item expanded "><a href="../notable_crates.html"><strong aria-hidden="true">20.</strong> Notable Crates</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.</strong> Notable Learning Resources</div></li><li class="chapter-item expanded "><a href="../misc/notable_core_crates.html"><strong aria-hidden="true">22.</strong> Notable core-crates</a></li><li class="chapter-item expanded "><a href="../why_embedded_rust.html"><strong aria-hidden="true">23.</strong> why use Rust?</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">24.</strong> Out of topic</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../misc/different_std_libs.html"><strong aria-hidden="true">24.1.</strong> different_std_libs</a></li><li class="chapter-item expanded "><a href="../misc/the_C_runtime.html"><strong aria-hidden="true">24.2.</strong> the-C-runtime</a></li><li class="chapter-item expanded "><a href="../misc/API.html"><strong aria-hidden="true">24.3.</strong> api-definition</a></li><li class="chapter-item expanded "><a href="../misc/abi.html"><strong aria-hidden="true">24.4.</strong> abi-definition</a></li><li class="chapter-item expanded "><a href="../misc/isa.html"><strong aria-hidden="true">24.5.</strong> isa-definition</a></li><li class="chapter-item expanded "><a href="../misc/building_runtime_crates.html"><strong aria-hidden="true">24.6.</strong> Building runtimes</a></li><li class="chapter-item expanded "><a href="../misc/panicking.html"><strong aria-hidden="true">24.7.</strong> Panicking</a></li></ol></li><li class="chapter-item expanded "><a href="../todo.html"><strong aria-hidden="true">25.</strong> To-do</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">driver development in Rust</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/RustaceansKenya/driver-development-book" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/RustaceansKenya/driver-development-book/edit/master/driver_book/src/bare_metal/the_std_library.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="the-standard-library"><a class="header" href="#the-standard-library">The Standard Library</a></h1>
+<p>The standard library is a library like any other... it is just that it contains definitions of things that help in very essential tasks. Tasks that are expected to be found in almost every OS.</p>
+<p>For example, it may contain declarations &amp; definitions of <code>file-handling functions</code>, <code>thread-handling functions</code>, <code>String struct definition</code>, ... etc</p>
+<p>You can find the documentation of the rust standard library <a href="https://doc.rust-lang.org/std/index.html">here</a>.</p>
+<p>Below is a story that explains more about standard libraries (the story does not explain the actual modules of the standard library). </p>
+<h1 id="story-time"><a class="header" href="#story-time">Story time</a></h1>
+<p>You can skip this page if you already understand ...</p>
+<ul>
+<li>What the standard library is</li>
+<li>Why it exists</li>
+<li>The different standards that may be followed</li>
+</ul>
+<h2 id="posix"><a class="header" href="#posix">Posix</a></h2>
+<p>Long ago ... once upon a time (in the 70s-80s), there were a lot of upcoming operating systems. Each operating system had its's own features. For example, some had graphical interfaces, some didn't. Some could run apps using multi-threading capabilities, others didn't. Some had file systems that contained like 100 functions... others had like 10 file-handling functions.</p>
+<p>It was chaos everywhere. For example : the <code>open_file()</code> function might have had different names across many operting systems. So if you wrote an app for 3 OSes, you would have re-written your code 3 times just because the <code>open_file</code> function was not universal. 
+It was a bad time to be an app developer. You either had to specialize in writing apps for one operating system OR sacrifice your sanity and learn the commands of multiple Operating systems.</p>
+<p>To make matters worse... the individual operting systems were improving FAST... so function names were changing, file_handling routines were changing, graphical output commands were changing. CHAOS! EVERYWHERE.</p>
+<p>So developers decided that they needed some form of decorum for the sake of their sanity.<br />
+They decided to create common rules and definitions on the three topics below : </p>
+<ol>
+<li>Basic definitions</li>
+<li>System interface</li>
+<li>Shell and utilities.</li>
+</ol>
+<p>So what the hell are these three things?</p>
+<h3 id="1-basic-definitions"><a class="header" href="#1-basic-definitions">1. Basic definitions</a></h3>
+<p>Just as the title says, before the devs made rules, they had to first know that they were speaking the same language. I mean... how can you make rules about something that you don't even have a description for?</p>
+<p>They had to define the meaning of words. Eg &quot;What is a <code>process</code>? What is an <code>integer</code>? What is a <code>file</code>? What is a <code>kernel</code> even?<br />
+Defining things explicitly reduced confusion. </p>
+<p>They had to </p>
+<ol>
+<li>Agree on the definition of things ie terminology. </li>
+<li>Agree on the exact representation of data-types and their behavior. This representation does not have to be the same as the ABI that you are using, you just have to make sure that your kernel interface <em>treats</em> data-types as defined here.</li>
+<li>Agree on the common constants : For example error_codes, port numbers of interes ...</li>
+</ol>
+<h3 id="2-system-interface"><a class="header" href="#2-system-interface">2. System Interface</a></h3>
+<p>As earlier mentioned, each kernel had different features and capabilities... some had dozens of advanced and uniquely named file-handling functions while others had like 2 poorly named and unique file-handling functions.</p>
+<p>This was a problem. It forced devs to have to re-write apps for each OS.<br />
+So the devs sat down and created a list of well-named function signatures... and declared that kernel developers should implement kernels that us those exact signatures. They also explicitly defined the purpose of each of those functions. eg </p>
+<pre><code class="language-bash">void _exit(int status); # A function that terminates a process
+
+</code></pre>
+<p>You can find the full description of the <code>_exit</code> function <a href="https://pubs.opengroup.org/onlinepubs/9699919799/functions/_exit.html">here</a> and see how explicit the definitions were.</p>
+<p>This ensured that all kernels, no matter how different, had a similar interface. Now devs did not need to re-write apps for each OS. They no longer had to learn the interfaces of each OS. They just had to learn ONE interface only.</p>
+<p>These set of functions became known as the System interface.<br />
+You can view the POSIX system interface <a href="https://pubs.opengroup.org/onlinepubs/9699919799/functions/contents.html">here</a></p>
+<h3 id="3-shell-and-its-utilities"><a class="header" href="#3-shell-and-its-utilities">3. Shell and its utilities</a></h3>
+<p>The Operating system is more than just a kernel. You need the command line. You may even need a Graphic User Interface like a Desktop.<br />
+In the 1980's, shells were the hit. So there were dozens of unique shells, each with their own commands and syntax.</p>
+<p>The devs sat down and declared the common commands that had to be implemented by all shells eg <code>ls</code>, <code>mv</code>, <code>grep</code>, <code>cd</code>...</p>
+<p>As for the shell syntax... well... I don't know... the devs tried to write a formal syntax. It somehow worked, but people still introduced 
+their own variations. (which is good, bash syntax is horrifying... I took years to get good at Rust/JS/C/C++, but I'm sure I'll take my whole life to get comfortable with bash)</p>
+<p>This specifications came to be known as the <a href="https://en.wikipedia.org/wiki/POSIX">POSIX standard</a>.</p>
+<h2 id="entry-of-the-standard-library"><a class="header" href="#entry-of-the-standard-library">Entry of the standard library</a></h2>
+<p>Why is this POSIX story relevant?<br />
+Well... because the standard libraries implement parts of the POSIX standard.</p>
+<p>For example...</p>
+<ol>
+<li>The standard library defines the definitions of the functions defined in the POSIX system interface.</li>
+<li>The data-types used in the above function definitions follow the data-type representation specified by the POSIX's basic deinitions chapter.</li>
+</ol>
+<p>Examples of standard libraries that adhere to the POSIX standard include : The C standard library(glibc) and The Rust standard library. They may not strictly adhere to the POSIX specifications but they come close to it.</p>
+<h2 id="posix-compliance"><a class="header" href="#posix-compliance">POSIX compliance</a></h2>
+<p>If you look at the <a href="https://pubs.opengroup.org/onlinepubs/9699919799/idx/functions.html">list of system functions specified by posix</a>, you might get a heart-attack. That list is LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOONG.</p>
+<p>What if I just wanted to create a small-specialized kernel that does not have a file-system or thread-management? Do I still have to define file-handling functions? Do I still have to define thread-management functions? - NO!, that would be a waste of everyone's time and RAM.</p>
+<p>That is why there are many versions of the C standard library. For example, we have <code>glibc</code> and <code>new-libc</code>.<br />
+<code>glibc</code> is more POSIX-compliant because it defines more system functions than <code>new-libc</code>.<br />
+<code>newlib-c</code> is a C standard library specifically made for <strong>minimalist</strong> kernels. <code>newlib-c</code> defines essential system functions only.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../bare_metal/dependencies.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../bare_metal/no_std/the_no_std_intro.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../bare_metal/dependencies.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../bare_metal/no_std/the_no_std_intro.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../ace.js"></script>
+        <script src="../editor.js"></script>
+        <script src="../mode-rust.js"></script>
+        <script src="../theme-dawn.js"></script>
+        <script src="../theme-tomorrow_night.js"></script>
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
