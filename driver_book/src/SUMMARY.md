@@ -17,7 +17,7 @@
   - [Machine Code](./bare_metal/definition.md)
   - [Dependencies](./bare_metal/dependencies.md)
   - [The Standard Library](./bare_metal/the_std_library.md)
-  - [No std](./bare_metal/no_std/the_no_std_intro.md)
+  - [Bare Metal](./bare_metal/no_std/the_no_std_intro.md)
   - [Disabling the Standard Library](./bare_metal/no_std/removing_std_lib.md)
   - [Pracs 1](./bare_metal/no_std/pracs_1.md)
   - [Pracs 2](./bare_metal/no_std/pracs_2.md)

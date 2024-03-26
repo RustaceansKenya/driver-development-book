@@ -1,11 +1,7 @@
-### The Standard Library  
+### Disabling the Standard Library
 
-The standard library is a group of common function declarations that get called by applications that run on top of an OS.  
-So each OS needs to provide implementations for all those common functions.   
 
-For example, the standard library declares the thread_spawn function. Linux OS provides an implementation of that function that is different from the Windows implementation... provided they all do the same thing.  
-
-So when you write drivers, you cannot use the standard library. But you can use the [core-library][lib-core-documentation].  
+A earlier mentioned, when you write drivers, you cannot use the standard library. But you can use the [core-library][lib-core-documentation].  
 
 How's that possible? How are we able to use the core library on bare metal?  
 well...Lib-core functions can be **directly** compiled to assembly and machine code without having to depend on OS-system files. Lib-core is dependency-free.  

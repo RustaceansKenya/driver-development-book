@@ -6,7 +6,7 @@ For example, it may contain declarations & definitions of `file-handling functio
 
 You can find the documentation of the rust standard library [here](https://doc.rust-lang.org/std/index.html).  
 
-Below is a story that explains more about standard libraries (the story does not explain the actual modules of the standard library). 
+Below is a story that explains more about standard libraries (disclaimer: the story does not even explain the actual modules of the standard library). 
 
 
 #  Story time
@@ -20,10 +20,11 @@ You can skip this page if you already understand ...
 
 Long ago ... once upon a time (in the 70s-80s), there were a lot of upcoming operating systems. Each operating system had its's own features. For example, some had graphical interfaces, some didn't. Some could run apps using multi-threading capabilities, others didn't. Some had file systems that contained like 100 functions... others had like 10 file-handling functions.
 
-It was chaos everywhere. For example : the `open_file()` function might have had different names across many operting systems. So if you wrote an app for 3 OSes, you would have re-written your code 3 times just because the `open_file` function was not universal. 
-It was a bad time to be an app developer. You either had to specialize in writing apps for one operating system OR sacrifice your sanity and learn the commands of multiple Operating systems.  
+It was chaos everywhere. For example : the `open_file()` function might have had different names across many operting systems. So if you wrote an app for 3 OSes, you would have re-written your code 3 times just because the `open_file` function was not universal.  
 
-To make matters worse... the individual operting systems were improving FAST... so function names were changing, file_handling routines were changing, graphical output commands were changing. CHAOS! EVERYWHERE.  
+It was a bad time to be an app developer. You either had to specialize in writing apps for one operating system OR sacrifice your sanity and learn the system functions of multiple Operating systems.  
+
+To make matters worse... the individual operating systems were improving FAST, it was a period when there were operating system wars... each new weekend introduced breaking changes in the OS API...so function names were changing, file_handling routines were changing, graphical output commands were changing. CHAOS! EVERYWHERE.  
 
 
 So developers decided that they needed some form of decorum for the sake of their sanity.  
@@ -40,7 +41,7 @@ Just as the title says, before the devs made rules, they had to first know that 
 They had to define the meaning of words. Eg "What is a `process`? What is an `integer`? What is a `file`? What is a `kernel` even?  
 Defining things explicitly reduced confusion. 
 
-They had to 
+They had to ...
 1. Agree on the definition of things ie terminology. 
 2. Agree on the exact representation of data-types and their behavior. This representation does not have to be the same as the ABI that you are using, you just have to make sure that your kernel interface *treats* data-types as defined here.  
 3. Agree on the common constants : For example error_codes, port numbers of interes ...
@@ -79,13 +80,10 @@ This specifications came to be known as the [POSIX standard](https://en.wikipedi
 
 ## Entry of the standard library
 Why is this POSIX story relevant?  
-Well... because the standard libraries implement parts of the POSIX standard.  
+Well... because the functions found in the standard library usually call system functions in the background. In other words, the source-code for the standard library may call POSIX-system functions in the background. 
+ 
+<!-- undone: draw image of levels of abstraction:  many oses // many Interfaces // POSIX interface // different_standard libraries -->
 
-For example...  
-1. The standard library defines the definitions of the functions defined in the POSIX system interface.
-2. The data-types used in the above function definitions follow the data-type representation specified by the POSIX's basic deinitions chapter.   
-
-Examples of standard libraries that adhere to the POSIX standard include : The C standard library(glibc) and The Rust standard library. They may not strictly adhere to the POSIX specifications but they come close to it.  
 
 
 ## POSIX compliance  
@@ -93,6 +91,4 @@ If you look at the [list of system functions specified by posix](https://pubs.op
 
 What if I just wanted to create a small-specialized kernel that does not have a file-system or thread-management? Do I still have to define file-handling functions? Do I still have to define thread-management functions? - NO!, that would be a waste of everyone's time and RAM.  
 
-That is why there are many versions of the C standard library. For example, we have `glibc` and `new-libc`.  
-`glibc` is more POSIX-compliant because it defines more system functions than `new-libc`.  
-`newlib-c` is a C standard library specifically made for **minimalist** kernels. `newlib-c` defines essential system functions only.  
+So we end up having kernels that are more Posix-compliant than others... it is up to the developers to know which level of tolerance they are fine with.  
