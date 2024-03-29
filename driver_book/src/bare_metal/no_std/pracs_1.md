@@ -1,6 +1,9 @@
-# Pracs 1
+# Practicals
 
-It is best to do things practically... you get error messages that engrain into you some PTSD.  
+This chapter will take you through the process of writing a no-std program.  
+We will try our very best to do things in a procedural manner...step by step... handling each error slowly.  
+
+If you do not wish to go through this chapter in a stepwise fashion, you can find the complete no-std template [here](undone)
 
 ## Step 1: Disabling the Std library
 
@@ -9,9 +12,10 @@ Go to your terminal and create a new empty project :
 cargo new hello_world --bin
 ```
 
-By default, rust programs depend on the standard library. To disable this dependence, you add the 'no_std attribute' to your code. The code however switches to depending on the 'core' crate.  
+Navigate to the `src/main.rs` file and open it.  
+By default, rust programs depend on the standard library. To disable this dependence, you add the 'no_std attribute' to your code. The no-std attribute makes your crate to stop depending on the `std` library and start depending on the [`core` library][core-library].  
 ```rust
-#![no_std]
+#![no_std] // added the no-std attribute at macro level (ie an attribute that affects the whole crate)
 
 fn main(){
     println!("Hello world!!");
@@ -19,25 +23,53 @@ fn main(){
 ```
 
 If you run this code, you get 3 compilation errors. 
-1. error: cannot find macro `println` in this scope
-2. error: `#[panic_handler]` function required, but not found
-3. error: unwinding panics are not supported without std
+1. error 1: cannot find macro `println` in this scope
+2. error 2: `#[panic_handler]` function required, but not found
+3. error 3: unwinding panics are not supported without std
+
+You can run this code by pressing the `play` button found at the top-right corner of the code block above. Or you can just write it yourself and run it on your local machine.  
 
 ## Step 2: Fixing the first Error
-The [println macro][println-macro-doc] is part of the standard library. That is why it cannot be found in the scope of the 'no_std' crate.  
-To fix the first error, we remove the println line.  
+
+The error that we are attempting to fix is...  
+```bash
+# ... snipped out somme lines here ... 
+
+error: cannot find macro `println` in this scope
+ --> src/main.rs:3:5
+  |
+3 |     println!("Hello, world!");
+  |     ^^^^^^^
+
+# ... snipped out somme lines here ... 
+```
+The [`println! macro`][println-macro-doc] is part of the `std` library. So when we removed the `std` library from our crate's scope using the `#![no_std]` attribute, we effectively made the `std::println` macro to also go out of scope.   
+
+To fix the first error, we either...
+1. Stop using `std::println` in our code  
+2. Define our own custom `println` 
+3. Bring `std` library back into scope. Println is part of std, we do not want bring back std (Doing this will go against the main aim of this chapter; to write a no-std program)
+
+We cannot choose option 3 because the aim of this chapter is to get rid of any dependence on the `std` library.  
+
+We could choose option 2 but implementing our own `println` will be cost us unnecessary hardwork. Right now we just want to get our no-std code compiling...  For the sake of simplicity, we will not choose this option. We will however write our own `println` in a later chapter.  
+
+So we choose the first option, we choose to comment out the line that uses the proverbial `println`.  
+This has been demonstrated below.  
+
 ```rust
 #![no_std]
 
 fn main(){
-    // println!("Hello world!!");
+    // println!("Hello world!!"); // we comment out this line.
 }
 ```
-Two errors remain...  
+Two compilation errors remain...  
 
-## Step 3: Fixing the second and third error  (theory)
+## Step 3: Fixing the second and third compilation errors
+
 This is going to be a short fix but with a lot of theory behind it.  
-To solve it, we have to understand the [core library requirements][core-library-requirements] first. 
+To solve it, we have to understand the [core library requirements][core-library-requirements] first.  
 
 The core library functions and definitions can get compiled for any target, provided that the target provides definitions of certain linker symbols. The symbols needed are :
 1. memcpy, memmove, memset, memcmp, bcmp, strlen. 
@@ -200,8 +232,8 @@ Bios :
 
 
 
-
-[core-library-requirements]: (https://doc.rust-lang.org/core/#how-to-use-the-core-library)  
+[core-library]: https://doc.rust-lang.org/core/
+[core-library-requirements]: https://doc.rust-lang.org/core/#how-to-use-the-core-library  
 [println-macro-doc]: https://doc.rust-lang.org/std/macro.println.html  
 [rust-eh-language-item]: https://os.phil-opp.com/freestanding-rust-binary/#the-eh-personality-language-item
 
