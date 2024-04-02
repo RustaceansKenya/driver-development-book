@@ -67,6 +67,8 @@ rustup target add x86_64-unknown-linux-gnu
 cargo build hello-world --target=x86_64-unknown-linux-gnu  
 ```  
 
+So what does the above command actually do?  [Read here](../../misc/rustup_target_add.md)
+
 ### Cross-compilation  
 *The host machine* is the machine on which you develop and compile your software.  
 *The target machine* is the machine that runs the compiled sotware.  

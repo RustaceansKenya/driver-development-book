@@ -89,7 +89,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">INTRO</li><li class="chapter-item expanded "><a href="intro/intro.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="intro/prerequisites.html"><strong aria-hidden="true">2.</strong> Prerequisites for the Book</a></li><li class="chapter-item expanded affix "><li class="part-title">UNDERSTANDING DRIVERS (theory)</li><li class="chapter-item expanded "><a href="understanding_drivers/understanding_drivers.html"><strong aria-hidden="true">3.</strong> Intro to Drivers</a></li><li class="chapter-item expanded "><a href="understanding_drivers/controlling_the_device_below.html"><strong aria-hidden="true">4.</strong> Role 1: Controlling the device below</a></li><li class="chapter-item expanded "><a href="understanding_drivers/providing_an_interface.html"><strong aria-hidden="true">5.</strong> Role 2: Providing an interface</a></li><li class="chapter-item expanded "><a href="understanding_drivers/types_of_drivers.html"><strong aria-hidden="true">6.</strong> Types of Drivers</a></li><li class="chapter-item expanded affix "><li class="part-title">BARE METAL PROGRAMMING</li><li class="chapter-item expanded "><a href="bare_metal/the_no_std_preface.html"><strong aria-hidden="true">7.</strong> No std preface</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bare_metal/definition.html"><strong aria-hidden="true">7.1.</strong> Machine Code</a></li><li class="chapter-item expanded "><a href="bare_metal/dependencies.html"><strong aria-hidden="true">7.2.</strong> Dependencies</a></li><li class="chapter-item expanded "><a href="bare_metal/the_std_library.html"><strong aria-hidden="true">7.3.</strong> The Standard Library</a></li><li class="chapter-item expanded "><a href="bare_metal/no_std/the_no_std_intro.html"><strong aria-hidden="true">7.4.</strong> Bare Metal</a></li><li class="chapter-item expanded "><a href="bare_metal/no_std/removing_std_lib.html"><strong aria-hidden="true">7.5.</strong> Disabling the Standard Library</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bare_metal/no_std/core_library.html"><strong aria-hidden="true">7.5.1.</strong> The Core library</a></li></ol></li><li class="chapter-item expanded "><a href="bare_metal/no_std/pracs_1.html"><strong aria-hidden="true">7.6.</strong> Practicals - part 1</a></li><li class="chapter-item expanded "><a href="bare_metal/no_std/pracs_2.html"><strong aria-hidden="true">7.7.</strong> Pracs 2</a></li></ol></li><li class="chapter-item expanded "><a href="bare_metal/cross_compilation/cross_compilation.html"><strong aria-hidden="true">8.</strong> Cross-Compilation</a></li><li class="chapter-item expanded "><a href="bare_metal/linking/linking.html"><strong aria-hidden="true">9.</strong> Linking</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bare_metal/linking/rusty_linkers.html"><strong aria-hidden="true">9.1.</strong> Rusty Linkers</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">THE UART</li><li class="chapter-item expanded "><a href="uart_theory/intro.html"><strong aria-hidden="true">10.</strong> Intro</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="uart_theory/draft_1.html"><strong aria-hidden="true">10.1.</strong> general overview</a></li><li class="chapter-item expanded "><a href="uart_theory/draft_2.html"><strong aria-hidden="true">10.2.</strong> uart registers</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Understanding UART physical Implemetation in the esp32</div></li><li class="chapter-item expanded affix "><li class="part-title">THE UART IMPLEMENTATION (on Qemu and single-threaded)</li><li class="chapter-item expanded "><a href="uart_implementations/on_qemu/intro.html"><strong aria-hidden="true">12.</strong> Intro</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="uart_implementations/on_qemu/setting_things_up.html"><strong aria-hidden="true">12.1.</strong> Setting Things Up</a></li><li class="chapter-item expanded "><a href="uart_implementations/on_qemu/setting_up_the_compiler.html"><strong aria-hidden="true">12.2.</strong> Setting up the compiler</a></li><li class="chapter-item expanded "><a href="uart_implementations/on_qemu/writing_a_bare_metal_rust_executable copy.html"><strong aria-hidden="true">12.3.</strong> No-std recap</a></li><li class="chapter-item expanded "><a href="uart_implementations/on_qemu/setting_up_qemu.html"><strong aria-hidden="true">12.4.</strong> Setting up the Riscv Virtual environment</a></li><li class="chapter-item expanded "><a href="uart_implementations/on_qemu/setting_up_LLD_linker.html"><strong aria-hidden="true">12.5.</strong> Setting up the linker</a></li><li class="chapter-item expanded "><a href="uart_implementations/on_qemu/setting_up_build_automation.html"><strong aria-hidden="true">12.6.</strong> Automating build & run</a></li></ol></li><li class="chapter-item expanded "><a href="uart_implementations/on_qemu/loaders_and_bootloaders/intro.html"><strong aria-hidden="true">13.</strong> Loaders and Bootloaders</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="uart_implementations/on_qemu/loaders_and_bootloaders/bootloader.html"><strong aria-hidden="true">13.1.</strong> The Bootloader</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.2.</strong> tutorial over a naive UART implementation on a Esp32 device</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">THE UART IMPLEMENTATION (less naive, with concurrency in mind)</li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.</strong> Concurrency</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">14.1.</strong> critical-sections in single-threaded cores</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.2.</strong> critical-secions above multi-cores</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.</strong> tutorial over a naive UART implementation on a Qemu device</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.</strong> tutorial over a naive UART implementation on a Esp32 device</div></li><li class="chapter-item expanded affix "><li class="part-title">OTHER STORIES</li><li class="chapter-item expanded "><div><strong aria-hidden="true">17.</strong> Driver Security</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">17.1.</strong> Common Security Issues in Driver Development</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">17.2.</strong> Rust's Safety Features for Driver Security</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">17.3.</strong> Best Practices for Secure Driver Development</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.</strong> Case Studies and Examples</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.</strong> Real-world Driver Development Examples</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.</strong> Analyzing an Existing Rust Driver</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">19.</strong> Iterative Implementation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">20.</strong> core::io</div></li><li class="chapter-item expanded affix "><li class="part-title">APPENDIX</li><li class="chapter-item expanded "><a href="notable_crates.html"><strong aria-hidden="true">21.</strong> Notable Crates</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">22.</strong> Notable Learning Resources</div></li><li class="chapter-item expanded "><a href="misc/notable_core_crates.html"><strong aria-hidden="true">23.</strong> Notable core-crates</a></li><li class="chapter-item expanded "><a href="why_embedded_rust.html"><strong aria-hidden="true">24.</strong> why use Rust?</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">25.</strong> Out of topic</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="misc/different_std_libs.html"><strong aria-hidden="true">25.1.</strong> different_std_libs</a></li><li class="chapter-item expanded "><a href="misc/the_C_runtime.html"><strong aria-hidden="true">25.2.</strong> the-C-runtime</a></li><li class="chapter-item expanded "><a href="misc/API.html"><strong aria-hidden="true">25.3.</strong> api-definition</a></li><li class="chapter-item expanded "><a href="misc/abi.html"><strong aria-hidden="true">25.4.</strong> abi-definition</a></li><li class="chapter-item expanded "><a href="misc/isa.html"><strong aria-hidden="true">25.5.</strong> isa-definition</a></li><li class="chapter-item expanded "><a href="misc/building_runtime_crates.html"><strong aria-hidden="true">25.6.</strong> Building runtimes</a></li><li class="chapter-item expanded "><a href="misc/panicking.html"><strong aria-hidden="true">25.7.</strong> Panicking</a></li></ol></li><li class="chapter-item expanded "><a href="todo.html"><strong aria-hidden="true">26.</strong> To-do</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">INTRO</li><li class="chapter-item expanded "><a href="intro/intro.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="intro/prerequisites.html"><strong aria-hidden="true">2.</strong> Prerequisites for the Book</a></li><li class="chapter-item expanded affix "><li class="part-title">UNDERSTANDING DRIVERS (theory)</li><li class="chapter-item expanded "><a href="understanding_drivers/understanding_drivers.html"><strong aria-hidden="true">3.</strong> Intro to Drivers</a></li><li class="chapter-item expanded "><a href="understanding_drivers/controlling_the_device_below.html"><strong aria-hidden="true">4.</strong> Role 1: Controlling the device below</a></li><li class="chapter-item expanded "><a href="understanding_drivers/providing_an_interface.html"><strong aria-hidden="true">5.</strong> Role 2: Providing an interface</a></li><li class="chapter-item expanded "><a href="understanding_drivers/types_of_drivers.html"><strong aria-hidden="true">6.</strong> Types of Drivers</a></li><li class="chapter-item expanded affix "><li class="part-title">BARE METAL PROGRAMMING</li><li class="chapter-item expanded "><a href="bare_metal/the_no_std_preface.html"><strong aria-hidden="true">7.</strong> No std preface</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bare_metal/definition.html"><strong aria-hidden="true">7.1.</strong> Machine Code</a></li><li class="chapter-item expanded "><a href="bare_metal/dependencies.html"><strong aria-hidden="true">7.2.</strong> Dependencies</a></li><li class="chapter-item expanded "><a href="bare_metal/the_std_library.html"><strong aria-hidden="true">7.3.</strong> The Standard Library</a></li><li class="chapter-item expanded "><a href="bare_metal/no_std/the_no_std_intro.html"><strong aria-hidden="true">7.4.</strong> Bare Metal</a></li><li class="chapter-item expanded "><a href="bare_metal/no_std/removing_std_lib.html"><strong aria-hidden="true">7.5.</strong> Disabling the Standard Library</a></li><li class="chapter-item expanded "><a href="bare_metal/no_std/core_library.html"><strong aria-hidden="true">7.6.</strong> The Core library</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bare_metal/no_std/panic_symbols.html"><strong aria-hidden="true">7.6.1.</strong> Panic Symbols</a></li><li class="chapter-item expanded "><a href="bare_metal/no_std/memory_symbols.html"><strong aria-hidden="true">7.6.2.</strong> Memory Symbols</a></li></ol></li><li class="chapter-item expanded "><a href="bare_metal/no_std/pracs_1.html"><strong aria-hidden="true">7.7.</strong> Practicals - part 1</a></li><li class="chapter-item expanded "><a href="bare_metal/no_std/pracs_2.html"><strong aria-hidden="true">7.8.</strong> Practicals - part 2</a></li></ol></li><li class="chapter-item expanded "><a href="bare_metal/cross_compilation/cross_compilation.html"><strong aria-hidden="true">8.</strong> Cross-Compilation</a></li><li class="chapter-item expanded "><a href="bare_metal/linking/linking.html"><strong aria-hidden="true">9.</strong> Linking</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bare_metal/linking/rusty_linkers.html"><strong aria-hidden="true">9.1.</strong> Rusty Linkers</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">THE UART</li><li class="chapter-item expanded "><a href="uart_theory/intro.html"><strong aria-hidden="true">10.</strong> Intro</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="uart_theory/draft_1.html"><strong aria-hidden="true">10.1.</strong> general overview</a></li><li class="chapter-item expanded "><a href="uart_theory/draft_2.html"><strong aria-hidden="true">10.2.</strong> uart registers</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Understanding UART physical Implemetation in the esp32</div></li><li class="chapter-item expanded affix "><li class="part-title">THE UART IMPLEMENTATION (on Qemu and single-threaded)</li><li class="chapter-item expanded "><a href="uart_implementations/on_qemu/intro.html"><strong aria-hidden="true">12.</strong> Intro</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="uart_implementations/on_qemu/setting_things_up.html"><strong aria-hidden="true">12.1.</strong> Setting Things Up</a></li><li class="chapter-item expanded "><a href="uart_implementations/on_qemu/setting_up_the_compiler.html"><strong aria-hidden="true">12.2.</strong> Setting up the compiler</a></li><li class="chapter-item expanded "><a href="uart_implementations/on_qemu/writing_a_bare_metal_rust_executable copy.html"><strong aria-hidden="true">12.3.</strong> No-std recap</a></li><li class="chapter-item expanded "><a href="uart_implementations/on_qemu/setting_up_qemu.html"><strong aria-hidden="true">12.4.</strong> Setting up the Riscv Virtual environment</a></li><li class="chapter-item expanded "><a href="uart_implementations/on_qemu/setting_up_LLD_linker.html"><strong aria-hidden="true">12.5.</strong> Setting up the linker</a></li><li class="chapter-item expanded "><a href="uart_implementations/on_qemu/setting_up_build_automation.html"><strong aria-hidden="true">12.6.</strong> Automating build & run</a></li></ol></li><li class="chapter-item expanded "><a href="uart_implementations/on_qemu/loaders_and_bootloaders/intro.html"><strong aria-hidden="true">13.</strong> Loaders and Bootloaders</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="uart_implementations/on_qemu/loaders_and_bootloaders/bootloader.html"><strong aria-hidden="true">13.1.</strong> The Bootloader</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.2.</strong> tutorial over a naive UART implementation on a Esp32 device</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">THE UART IMPLEMENTATION (less naive, with concurrency in mind)</li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.</strong> Concurrency</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">14.1.</strong> critical-sections in single-threaded cores</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.2.</strong> critical-secions above multi-cores</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.</strong> tutorial over a naive UART implementation on a Qemu device</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.</strong> tutorial over a naive UART implementation on a Esp32 device</div></li><li class="chapter-item expanded affix "><li class="part-title">OTHER STORIES</li><li class="chapter-item expanded "><div><strong aria-hidden="true">17.</strong> Driver Security</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">17.1.</strong> Common Security Issues in Driver Development</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">17.2.</strong> Rust's Safety Features for Driver Security</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">17.3.</strong> Best Practices for Secure Driver Development</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.</strong> Case Studies and Examples</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.</strong> Real-world Driver Development Examples</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.</strong> Analyzing an Existing Rust Driver</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">19.</strong> Iterative Implementation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">20.</strong> core::io</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.</strong> Custom Targets</div></li><li class="chapter-item expanded affix "><li class="part-title">APPENDIX</li><li class="chapter-item expanded "><a href="notable_crates.html"><strong aria-hidden="true">22.</strong> Notable Crates</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">23.</strong> Notable Learning Resources</div></li><li class="chapter-item expanded "><a href="misc/notable_core_crates.html"><strong aria-hidden="true">24.</strong> Notable core-crates</a></li><li class="chapter-item expanded "><a href="why_embedded_rust.html"><strong aria-hidden="true">25.</strong> why use Rust?</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">26.</strong> Out of topic</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="misc/different_std_libs.html"><strong aria-hidden="true">26.1.</strong> different_std_libs</a></li><li class="chapter-item expanded "><a href="misc/the_C_runtime.html"><strong aria-hidden="true">26.2.</strong> the-C-runtime</a></li><li class="chapter-item expanded "><a href="misc/the_Rust_runtime.html"><strong aria-hidden="true">26.3.</strong> the-Rust-runtime</a></li><li class="chapter-item expanded "><a href="misc/API.html"><strong aria-hidden="true">26.4.</strong> api-definition</a></li><li class="chapter-item expanded "><a href="misc/abi.html"><strong aria-hidden="true">26.5.</strong> abi-definition</a></li><li class="chapter-item expanded "><a href="misc/isa.html"><strong aria-hidden="true">26.6.</strong> isa-definition</a></li><li class="chapter-item expanded "><a href="misc/building_runtime_crates.html"><strong aria-hidden="true">26.7.</strong> Building runtimes</a></li><li class="chapter-item expanded "><a href="misc/panicking.html"><strong aria-hidden="true">26.8.</strong> Panicking</a></li><li class="chapter-item expanded "><a href="misc/rustup_target_add.html"><strong aria-hidden="true">26.9.</strong> rustup-target-add</a></li></ol></li><li class="chapter-item expanded "><a href="todo.html"><strong aria-hidden="true">27.</strong> To-do</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -527,16 +527,74 @@ The core library is NOT fully dependency free. It just depends on VERY FEW exter
 So there you go... Core is not 100% dependency-free.</p>
 <p>The undefined symbols include :</p>
 <ol>
-<li>Some memory routines : <code>memcopy</code>, <code>memmove</code>, <code>memset</code>, <code>memcmp</code>, <code>bcmp</code>, <code>strlen</code>.</li>
-<li><code>rust_begin_panic</code></li>
-<li><code>eh_personality</code></li>
+<li>Six Memory routine symbols : <code>memcopy</code>, <code>memmove</code>, <code>memset</code>, <code>memcmp</code>, <code>bcmp</code>, <code>strlen</code>.</li>
+<li>Two Panic symbols: <code>rust_begin_panic</code>, <code>eh_personality</code></li>
 </ol>
 <h2 id="what-are-these-symbols"><a class="header" href="#what-are-these-symbols">What are these symbols?</a></h2>
 <p>We will discuss the above symbols in the next 2 sub-chapters</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="panic-symbols"><a class="header" href="#panic-symbols">Panic Symbols</a></h1>
+<p>The panic symbols that the core library needs you to define are :</p>
+<ol>
+<li><code>rust_begin_panic</code></li>
+<li><code>eh_personality</code></li>
+</ol>
+<p>Before we discuss why those symbols are needed, we need to understand how panicking happens in Rust.<br />
+To understand panicking, please read <a href="https://rustc-dev-guide.rust-lang.org/panic-implementation.html">this page</a> from the <a href="https://rustc-dev-guide.rust-lang.org/"><code>rust-dev-guide</code> book</a></p>
+<p>From the chapter, you get the gist that when a panic happens the following events might occur depending on the situation...</p>
+<h2 id="situation-1-std-environment"><a class="header" href="#situation-1-std-environment">Situation 1 (std environment)</a></h2>
+<p>When you are in an std environment and the program reaches a state where it needs to panic....</p>
+<p>The program jumps to execute a <code>panic_hook</code>. A panic_hook is a function that gets executed before the actual panicking occurs. This function typically prints the expected panic_message to the <code>stderr</code> and checks for double panics before finally transferring control to the <code>panic_runtime</code>.</p>
+<p>A <code>panic_runtime</code> is the actual code block that handles the panic. This code block can either 'terminate the current thread' OR it can 'release the thread's stack memory before terminating the thread'.<br />
+The <code>panic_runtime</code> that terminates without clearing the stack is called <code>panic-abort</code> and the panic_runtime that clears the stack before terminating the thread is called <code>panic-unwind</code>.</p>
+<p>And that's it!! That's how panicking happens (... my knowledge ends there, everything else is a black-box to me)</p>
+<h2 id="situation-2-no-std-environment"><a class="header" href="#situation-2-no-std-environment">Situation 2 (no-std environment)</a></h2>
+<p>Panic handling in a no-std setup is a bit simpler.</p>
+<p>Before compilation, the programmer is given a choice to choose whether the no-std program will use the <code>panic-abort</code> runtime or the <code>panic-unwind</code> runtime. You choose one by denoting it in the <code>Config.toml</code> file.</p>
+<p>When a panic happens, the program jumps to the function that has been tagged with the <code>#[panic_handler]</code> attribute.<br />
+It is up to the programmer to tag a function of their choosing with the <code>#[panic_handler]</code> attribute before compilation. Like this :</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// your no-std code
+
+#[panic_handler]  // here is the tag
+fn whatever_name_you_choose ( _: &amp;PanicInfo ) -&gt; !{
+    // write whatever you want here.  
+    // Do you want to print to the stderr? Write code for that.  
+    // Do you want to restart the program?
+    // Point is, this is your playground. You determine the actions of the panic_handler
+}
+
+// your other pieces of buggy code
+<span class="boring">}</span></code></pre></pre>
+<p>During compilation, the above code gets blended with the chosen panic-runtime.</p>
+<p>So that's it. When a panic happens, the program executes the code inside the <code>whatever_name_you_choose</code> function above and then it executes the chosen <code>panic-runtime</code> (either panic-abort or panic-unwind)</p>
+<h1 id="so-what-about-the-symbols"><a class="header" href="#so-what-about-the-symbols">So what about the symbols?</a></h1>
+<p>You see the function that you tagged with the <code>#[panic_handler]</code> attribute? Yea, see it? During compilation, that function gets converted to be a function called <code>rust_begin_panic</code>. You do not have to explicitly define <code>rust_begin_panic</code> because the compiler will implicitly convert any function with the <code>#[panic_handler]</code> attribute to become <code>rust_begin_panic</code>.<br />
+This encourages portability since you can do conditional attribute assignation.</p>
+<p>So that takes care of the <code>rust_begin_panic</code> symbol.</p>
+<p>As for the <code>eh_personality</code> symbol, is not really a symbol. It is a languge item. Laguage items are special functions or types that the compiler have significance to the compiler. The eh_personality language item marks a function that is used for implementing stack unwinding. By default, Rust uses unwinding to run the destructors of all live stack variables in case of a panic. This ensures that all used memory is freed and allows the parent thread to catch the panic and continue execution. Unwinding, however, is a complicated process and requires some OS-specific libraries (e.g. libunwind on Linux or structured exception handling on Windows)</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="memory-symbols"><a class="header" href="#memory-symbols">Memory Symbols</a></h1>
+<p>This topic is undone</p>
+<p>The memory symbols required by the core library are six: <code>memcopy</code>, <code>memmove</code>, <code>memset</code>, <code>memcmp</code>, <code>bcmp</code>, <code>strlen</code>. These are core memory routines which are generated by Rust codegen backends.</p>
+<p>The definitions of memcpy, memmove, memset, memcmp, bcmp, and strlen are listed as requirements because they represent commonly used memory manipulation and string operation functions that are expected to be available for use by generated code in certain contexts. While they are not strictly required for every Rust program, they are often relied upon by code generated by Rust's compiler, especially in situations where low-level memory manipulation or string operations are necessary.</p>
+<p>Here are some reasons why these definitions are listed as requirements:</p>
+<ul>
+<li>
+<p>Common Usage in Rust Code: While Rust encourages safe and high-level programming practices, there are still scenarios where low-level memory manipulation or string operations are necessary. For example, when interacting with foreign code written in C or when implementing certain performance-critical algorithms, Rust code may need to use these functions directly or indirectly.</p>
+</li>
+<li>
+<p>Interoperability with C Code: Rust often needs to interoperate with existing C libraries or codebases. These C libraries commonly use functions like memcpy, memset, and strlen. Therefore, ensuring that Rust code can call these functions or be called from C code requires that their definitions are available.</p>
+</li>
+<li>
+<p>Compiler Optimizations: Even if a Rust program doesn't explicitly call these functions, the Rust compiler may internally use them as part of optimization passes. For example, when optimizing memory accesses or string manipulations in Rust code, the compiler may choose to use these functions or their equivalents to generate more efficient machine code.</p>
+</li>
+</ul>
+<p>This topic is undone. You can contribute to it if you vibe with it.  </p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="practicals"><a class="header" href="#practicals">Practicals</a></h1>
-<p>This chapter will take you through the process of writing a no-std program.<br />
+<p>Now that you know a little bit about the core library, we can start writing programs that depend on core instead of std.<br />
+This chapter will take you through the process of writing a no-std program.<br />
 We will try our very best to do things in a procedural manner...step by step... handling each error slowly.</p>
-<p>If you do not wish to go through this chapter in a stepwise fashion, you can find the complete no-std template <a href="bare_metal/no_std/undone">here</a></p>
+<p>If you do not wish to go through these practicals(1 &amp; 2) in a stepwise fashion, you can find the complete no-std template <a href="bare_metal/no_std/undone">here</a></p>
 <h2 id="step-1-disabling-the-std-library"><a class="header" href="#step-1-disabling-the-std-library">Step 1: Disabling the Std library</a></h2>
 <p>Go to your terminal and create a new empty project :</p>
 <pre><code class="language-bash">cargo new hello_world --bin
@@ -548,7 +606,7 @@ By default, rust programs depend on the standard library. To disable this depend
 fn main(){
     println!(&quot;Hello world!!&quot;);
 }</code></pre></pre>
-<p>If you run this code, you get 3 compilation errors. </p>
+<p>If you build this code, you get 3 compilation errors. </p>
 <ol>
 <li>error 1: cannot find macro <code>println</code> in this scope</li>
 <li>error 2: <code>#[panic_handler]</code> function required, but not found</li>
@@ -557,7 +615,7 @@ fn main(){
 <p>You can run this code by pressing the <code>play</code> button found at the top-right corner of the code block above. Or you can just write it yourself and run it on your local machine.</p>
 <h2 id="step-2-fixing-the-first-error"><a class="header" href="#step-2-fixing-the-first-error">Step 2: Fixing the first Error</a></h2>
 <p>The error that we are attempting to fix is...</p>
-<pre><code class="language-bash"># ... snipped out somme lines here ... 
+<pre><code class="language-bash"># ... snipped out some lines here ... 
 
 error: cannot find macro `println` in this scope
  --&gt; src/main.rs:3:5
@@ -565,7 +623,7 @@ error: cannot find macro `println` in this scope
 3 |     println!(&quot;Hello, world!&quot;);
   |     ^^^^^^^
 
-# ... snipped out somme lines here ... 
+# ... snipped out some lines here ... 
 </code></pre>
 <p>The <a href="https://doc.rust-lang.org/std/macro.println.html"><code>println! macro</code></a> is part of the <code>std</code> library. So when we removed the <code>std</code> library from our crate's scope using the <code>#![no_std]</code> attribute, we effectively made the <code>std::println</code> macro to also go out of scope.</p>
 <p>To fix the first error, we either...</p>
@@ -609,16 +667,17 @@ You could say that THIS symbol references the function that the Rust runtime cal
 <li>Link that file with your driver code when compiling.</li>
 </ol>
 <p>For the sake of ergonomics, the cool rust developers provided a 'panic-handler' attribute that you can attach to a divergent function. You do not have to do all the linking vodoo. This has been demonstrated later on... do not worry if this statement did not make sense.</p>
+<p>You can also revisit the <a href="bare_metal/no_std/./panic_symbols.html">subchapter on <code>panic symbols</code></a> to get a clear relationship between the <code>rust_begin_panic</code> symbol and the <code>#[panic_handler]</code> attribute.</p>
 <h3 id="3-the-rust_eh_personality"><a class="header" href="#3-the-rust_eh_personality">3. The rust_eh_personality</a></h3>
 <p>When a panic happens, the rust runtime starts unwinding the stack so that it can free the memory of the affected stack variables. This unwinding also ensures that the parent thread catches the panic and maybe deal with it.</p>
 <p>Unwinding is awesome... but complicated to implement without the help of the std library. <em>Coughs in soy-dev</em>.</p>
-<p>The rust_eh_personality is a language item that defines how the rust runtime behaves if a panic happens : &quot;does it unwind the stack? How does it unwind the stack? Or does it just refuse to unwind the stack and instead just end program execution?</p>
+<p>The rust_eh_personality is not a linker symbol. It is a language item that points to code that defines how the rust runtime behaves if a panic happens : &quot;does it unwind the stack? How does it unwind the stack? Or does it just refuse to unwind the stack and instead just end program execution?</p>
 <p>To set this language behaviour, we are faced with two solutions :</p>
 <ol>
 <li>Tell rust that it should not unwind the stack and instead, it should just abort the entire program.</li>
 <li>Tell rust that it should unwind the stack... and then offer it a pointer to a function definition that clearly implements the unwinding process. (we are soy-devs, this option is completely and utterly off the table!!)</li>
 </ol>
-<h2 id="step-3something-fixing-the-third-error"><a class="header" href="#step-3something-fixing-the-third-error">Step 3.something: Fixing the third Error</a></h2>
+<h2 id="step-3something-fixing-the-second-compiler-error"><a class="header" href="#step-3something-fixing-the-second-compiler-error">Step 3.something: Fixing the second compiler error</a></h2>
 <p>The remaining errors were ...</p>
 <pre><code class="language-bash">error: `#[panic_handler]` function required, but not found
 
@@ -629,27 +688,27 @@ error: language item required, but not found: `eh_personality`
 
 error: could not compile `playground` (bin &quot;playground&quot;) due to 2 previous errors
 </code></pre>
-<p>This is our third error...</p>
+<p>This is our second error...</p>
 <pre><code class="language-bash">error: `#[panic_handler]` function required, but not found
 </code></pre>
-<p>This is our fourth...</p>
+<p>This is our third...</p>
 <pre><code class="language-bash">error: language item required, but not found: `eh_personality`
 </code></pre>
-<p>Just like you guessed, the third error occured because the 'rust_begin_panic symbol' has not been defined. We solve this by pinning a '#[panic_handler]' attribute on a divergent function that takes 'panicInfo' as its input. This has been demonstrated below. A divergent function is a function that never returns.</p>
+<p>Just like you guessed, the second error occured because the 'rust_begin_panic symbol' has not been defined. We solve this by pinning a '#[panic_handler]' attribute on a divergent function that takes 'panicInfo' as its input. This has been demonstrated below. A divergent function is a function that never returns.</p>
 <pre><pre class="playground"><code class="language-rust">#![no_std]
 
 use core::panic::PanicInfo;
 
 
 #[panic_handler]
-// you can name this function any name...it does not matter. eg the_voice_breaker_the_original_copy_the_one_and_only_HIM
+// you can name this function any name...it does not matter. eg the_coolest_name_in_the_world
 // The function takes in a reference to the panic Info. 
-// Kid, go read the docs in core::panic module. You're a super soldier.  
+// Kid, go read the docs in core::panic module. It's short &amp; sweet. You will revisit it a couple of times though  
 fn default_panic_handler(_info: &amp;PanicInfo) -&gt; !{
     loop {  
         // function does nothing for now, but this is where you write your magic //
-        // This is where you typically call an exception handler, or call code that logs the error messages before aborting the program
-        // The function never returns, this is an endless loop... it is a divergent function
+        // This is where you typically call an exception handler, or call code that logs the error or panic messages before aborting the program
+        // The function never returns, this is an endless loop... The panic_handler is a divergent function
       }
 }
 
@@ -657,11 +716,10 @@ fn default_panic_handler(_info: &amp;PanicInfo) -&gt; !{
 fn main(){
     // println!(&quot;Hello world!!&quot;);
 }</code></pre></pre>
-<p>Would you look at that... if you compile this program, you'll notice that the third compilation error is f* gone!!! Hapa ni wapi!? Mwalimu wa maths!?</p>
-<p>[undone : remove this before you publish]</p>
-<h2 id="step-4-fixing-the-fourth-error"><a class="header" href="#step-4-fixing-the-fourth-error">Step 4: Fixing the Fourth Error</a></h2>
-<p>The fourth error states that the 'eh_personality' language item is missing.<br />
-But it is missing because we have not declared it anywhere... we havent even defined a stack unwinding function. So we just configure our program to never unwind the stack, that way... defining the 'eh_personality' becomes optional.</p>
+<p>Would you look at that... if you compile this program, you'll notice that the second compilation error is gone!!!</p>
+<h2 id="step-4-fixing-the-third-error"><a class="header" href="#step-4-fixing-the-third-error">Step 4: Fixing the Third Error</a></h2>
+<p>The third error states that the 'eh_personality' language item is missing.<br />
+It is missing because we have not declared it anywhere... we haven't even defined a stack unwinding function. So we just configure our program to never unwind the stack, that way... defining the 'eh_personality' becomes optional.</p>
 <p>We do this by adding the following lines in the cargo.toml file : </p>
 <pre><code class="language-toml"># this is the cargo.toml file
 [package]
@@ -711,28 +769,32 @@ Bios :
 - Source Material : https://riscv.org/wp-content/uploads/2019/12/Summit_bootflow.pdf
 - Multiboot standard -->
 <!-- [undone: more info needed on these memory routines specifies as libcore requirements and their integration] -->
-<div style="break-before: page; page-break-before: always;"></div><h1 id="pracs-2"><a class="header" href="#pracs-2">Pracs 2</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="practicals--part-2"><a class="header" href="#practicals--part-2">Practicals : Part 2</a></h1>
 <p>At the end of the last sub-chapter, we got the following error : </p>
 <pre><code class="language-bash">error: using `fn main` requires the standard library
   |
   = help: use `#![no_main]` to bypass the Rust generated entrypoint and declare a platform specific entrypoint yourself, usually with `#[no_mangle]`
 </code></pre>
 <p>Before we solve it, we need to cover some theory... </p>
-<h2 id="rust-init-code-theory"><a class="header" href="#rust-init-code-theory">Rust init code theory</a></h2>
-<p>'init code' is the code that gets called before the 'main()' function is called. 'init code' is not a standard name, it is just an informal name, but I hope you catch the meaning here. It is the code that gets executed in preparation for the main function.</p>
+<h2 id="init-code"><a class="header" href="#init-code">Init code</a></h2>
+<p>'init code' is the code that gets called before the 'main()' function gets called. 'Init code' is not a standard name, it is just an informal name that we will use in this book, but I hope you get the meaning here. Init_code is the code that gets executed in preparation for the main function.</p>
 <p><img src="bare_metal/no_std/img/init_code_birds_view.svg" alt="Alt text" /></p>
-<p>To understand 'init code', we need to understand how programs get loaded. Here we go...</p>
-<h3 id="understanding-program-flow-machine-boot"><a class="header" href="#understanding-program-flow-machine-boot">Understanding program flow; Machine boot.</a></h3>
-<p>When the power button of a machine(laptop) is pressed, the following events occur (an inaccurate description): </p>
+<p>To understand 'init code', we need to understand how programs get loaded into memory.<br />
+When you start your laptop, the kernel gets loaded into memory.<br />
+When you open the message_app in your phone, it gets loaded into memory.<br />
+When you open vlc on your laptop, it gets loaded into memory.</p>
+<p>To dive deeper into this loading business, let's look at how the kernel gets loaded.</p>
+<h3 id="loading-the-kernel"><a class="header" href="#loading-the-kernel">Loading the kernel.</a></h3>
+<p>When the power button of a machine(laptop) is pressed, the following events occur. (an inaccurate description): </p>
 <ol>
 <li>
 <p>Power flows into the processor. The processor immediately begins the fetch-execute cycle. Exept that the first fetch occurs from the ROM where the firmware is.</p>
 </li>
 <li>
-<p>So in short, the firmware starts getting executed. The firmware performs a power-on-self test. </p>
+<p>So in short, the firmware starts getting executed. The firmware performs a <a href="https://www.techtarget.com/whatis/definition/POST-Power-On-Self-Test">power-on-self test</a>. </p>
 </li>
 <li>
-<p>The firmware then makes the CPU to start fetching instructions from the ROM section that contains the <strong>loader</strong>. The loader is a program that can copy a program from memory and paste it in the RAM in an orderly way. By orderly way I mean ... it sets up the stack, adds some stack-control code to the RAM, it then loads up the different sections of the program. If the program has <a href="https://www.youtube.com/watch?v=lWVQsld8hMI">overlays</a> - it loads up the code that implements overlay control too.<br />
+<p>The firmware then makes the CPU to start fetching instructions from the ROM section that contains code for the <strong>loader</strong>. The loader is a program that can copy a program from memory and paste it in the RAM in an orderly way. By orderly way I mean ... it sets up the stack, adds some stack-control code to the RAM, it then loads up the different sections of the program. If the program has <a href="https://www.youtube.com/watch?v=lWVQsld8hMI">overlays</a> - it loads up the code that implements overlay control too.<br />
 Essentially, the loader can paste a program on the RAM in a <strong>complete</strong> way.</p>
 </li>
 <li>
@@ -742,38 +804,51 @@ Essentially, the loader can paste a program on the RAM in a <strong>complete</st
 <p>The loader then makes the CPU to point to the RAM section where the Bootloader is situated.</p>
 </li>
 <li>
-<p>The Bootloader on the other hand starts setting up the RAM sections in preparation for loading the kernel.</p>
+<p>The Bootloader then starts looking for the kernel code. The kernel might be in the hard-disk or even a bootable usb-flash.</p>
 </li>
 <li>
-<p>The Bootloader then copies the kernel onto the RAM and makes the CPU pointer to point to the entry point of the kernel. An entry-point is the memory address of the first instruction for any program.</p>
+<p>The Bootloader then copies the kernel code onto the RAM and makes the CPU pointer to point to the entry point of the kernel. An entry-point is the memory address of the first instruction for any program.</p>
 </li>
 <li>
-<p>The kernel then loads the apps that run on top of it...</p>
+<p>The kernel does takes full charge and does what it does best.</p>
+</li>
+<li>
+<p>The kernel can then load the apps that run on top of it... an endless foodchain.</p>
 </li>
 </ol>
 <p><strong>Why are we discussing all these?</strong><br />
 To show that programs get executed ONLY because : </p>
 <ol>
-<li>
-<p>They were loaded onto either the ROM or the RAM in a <strong>complete</strong> way. The stacks control, overlay-control and other control code routines were also copied onto the RAM together with the actual subject program. The action of copying 'control' code onto the RAM is part of <strong>Setting up the environment</strong> before program execution starts.</p>
-</li>
-<li>
-<p>The CPU's instruction pointer happened to point to the <strong>entry point</strong> of the loaded program. An entry-point is the memory address of the first instruction for a certain program.</p>
-</li>
+<li>They were loaded onto either the ROM or the RAM in a <strong>COMPLETE</strong> way.<br />
+The word <strong>Complete</strong> in this context means that the program code was not copied alone; The program code was copied together with control code segments like the stack control and overlay-control. The action of copying 'control' code onto the RAM is part of <strong>Setting up the environment</strong> before program execution starts.</li>
+</ol>
+<p>In the software world, this <em>control</em> code is typically called <a href="https://en.wikipedia.org/wiki/Runtime_system"><em>runtime code</em></a>.</p>
+<ol start="2">
+<li>The CPU's instruction pointer happened to point to the <strong>entry point</strong> of the loaded program. An entry-point is the memory address of the first instruction for a certain program.</li>
 </ol>
 <h3 id="loading-a-rust-program"><a class="header" href="#loading-a-rust-program">Loading a Rust Program</a></h3>
-<p>From the previous discussion, it became clear that to properly load a program, you have to setup its environment and identify its entrypoint.</p>
-<p>A typical Rust program that depends on the std library depends on a program called 'crt0' to setup its initial environment. 'crt0' is sometimes called 'the C runtime Zero'. The 'crt0' then transfers control to the 'Rust-runtime'. The rust-runtime does its thing and then it finally calls the usual 'main' function.</p>
+<p>From the previous discussion, it became clear that to run a program, you have to do the following :</p>
+<ol>
+<li>load the program to memory</li>
+<li>load the runtime for the program into memory. The runtime in this case means 'control code' that takes care of things like stack-overflow protection.</li>
+<li>make the CPU to point to the entry_point of the {program + runtime}</li>
+</ol>
+<p>A typical Rust program that depends on the std library is ran in exactly the same way. The runtime code for such programs includes files from the C-runtime and the Rust Runtime.</p>
 <p><img src="bare_metal/no_std/img/init_code_level_2.png" alt="Alt text" /><br />
-This is the <strong>normal entry point chain</strong>. ☝🏼</p>
-<h3 id="crt0-c-runtime"><a class="header" href="#crt0-c-runtime">CRT0 (C runtime)</a></h3>
-<p>So what does the C runtime actually do?<br />
-What does setting up the environment mean?<br />
-What does runtime support mean?</p>
-<p>Read about it <a href="bare_metal/no_std//src/misc/the_C_runtime.html">here</a></p>
-<h3 id="the-rust-runtime"><a class="header" href="#the-rust-runtime">The Rust Runtime</a></h3>
-<p>The entry-point of the Rust runtime is marked by the <strong>'start' language item</strong>.<br />
-Rust only has a very minimal runtime, which takes care of some small things such as setting up stack overflow guards or printing a backtrace on panic. The runtime then finally calls the main function.</p>
+This is the <strong>normal entry point chain</strong>. ☝🏼<br />
+When a Rust program gets loaded into memory, it gets loaded together with the C and Rust runtimes.<br />
+The C-runtime gets executed first. The entry_point function of the C-runtime is typically called <code>_start</code>.<br />
+After the C runtime does <a href="bare_metal/no_std/../../misc/the_C_runtime.html">its thing</a>, it transfers control to the Rust-runtime. The entrypoint of the Rust-runtime is labelled as a <code>start</code> language item.<br />
+The Rust runtime also does <a href="bare_metal/no_std/../../misc/the_Rust_runtime.html">its thing</a> and finally calls the <code>main</code> function.<br />
+And that's it! Magic!</p>
+<h3 id="understanding-runtimes"><a class="header" href="#understanding-runtimes">Understanding Runtimes</a></h3>
+<p>To understand exactly what the above two runtimes do, read these two chapters below. They are not perfect, but they are a good start.</p>
+<ol>
+<li><a href="bare_metal/no_std/../../misc/the_C_runtime.html">The C runtime (CRT-0)</a></li>
+<li><a href="bare_metal/no_std/../../misc/the_Rust_runtime.html">The Rust Runtime</a></li>
+</ol>
+<p>In summary, the C-runtime does most of the heavy-lifting, it sets up ...(undone).<br />
+The Rust Runtime takes care of some small things such as setting up stack overflow guards or printing a backtrace on panic.</p>
 <h2 id="fixing-the-error"><a class="header" href="#fixing-the-error">Fixing the Error</a></h2>
 <p>To save you some scrolling time, here is the error we are trying to fix.</p>
 <pre><code class="language-bash">error: using `fn main` requires the standard library
@@ -868,6 +943,7 @@ rustup target add x86_64-unknown-linux-gnu
 # cross-compile for any target whose backend has already been added
 cargo build hello-world --target=x86_64-unknown-linux-gnu  
 </code></pre>
+<p>So what does the above command actually do?  <a href="bare_metal/cross_compilation/../../misc/rustup_target_add.html">Read here</a></p>
 <h3 id="cross-compilation-1"><a class="header" href="#cross-compilation-1">Cross-compilation</a></h3>
 <p><em>The host machine</em> is the machine on which you develop and compile your software.<br />
 <em>The target machine</em> is the machine that runs the compiled sotware.</p>
@@ -1871,7 +1947,11 @@ Community Support: Rust has a vibrant community and ecosystem, with many librari
 Maintenance: While it's possible to use Rust with the Generic ELF/Newlib toolchain, maintaining Rust code alongside C code compiled with Newlib might introduce challenges, especially if you're not already familiar with both languages and their respective toolchains.
 </code></pre>
 <p>Instead, if you intend to write mostly in Rust, consider using toolchains and libraries that are specifically designed for Rust development in embedded systems or bare-metal environments. For example, you could use toolchains targeting libcore or libraries like cortex-m, embedded-hal, or vendor-specific hal crates, which provide idiomatic Rust interfaces for interacting with hardware and low-level system functionality. These options are more aligned with Rust's design principles and ecosystem and might provide a smoother development experience for Rust-centric projects.</p>
-<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="apis"><a class="header" href="#apis">APIs</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="the-c-runtime"><a class="header" href="#the-c-runtime">The C Runtime</a></h1>
+<p>undone</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="the-rust-runtime"><a class="header" href="#the-rust-runtime">The Rust Runtime</a></h1>
+<p>undone</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="apis"><a class="header" href="#apis">APIs</a></h1>
 <h2 id="what-is-an-api"><a class="header" href="#what-is-an-api">What is an API?</a></h2>
 <p>Application Programming Interface is a set of rules (diguised as functions), protocols, and tools that allows different software applications to communicate and interact with each other.</p>
 <p>It does so by defining the methods and data formats that developers can use to request and exchange information between software components.</p>
@@ -2039,6 +2119,33 @@ use panic_abort as _;
 
 // ..
 <span class="boring">}</span></code></pre></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="rustup-target-add"><a class="header" href="#rustup-target-add">rustup-target-add</a></h1>
+<p>What doe the command below actually do?</p>
+<pre><code class="language-bash">rustup target add riscvi32-unknown-none-elf
+</code></pre>
+<p>When you run rustup target add riscvi32-unknown-none-elf, Rustup performs several actions to add the specified target to your Rust toolchain. Let's break down what happens in technical terms:</p>
+<ol>
+<li>
+<p>Downloads Target Specification Files: Rustup downloads the target specification files for the specified target architecture (riscvi32-unknown-none-elf). These files define various attributes of the target, such as its architecture, ABI (Application Binary Interface), and features.</p>
+</li>
+<li>
+<p>Installs Associated Toolchain Components: Rustup installs the necessary components and tools required to compile Rust code for the added target. This includes:</p>
+<ul>
+<li>
+<p>Linker Script: Rustup may download a default linker script suitable for the target architecture. The linker script defines how the compiled code should be linked together and laid out in memory.</p>
+</li>
+<li>
+<p>Core Library (libcore): For bare metal targets like none, Rustup installs a precompiled core library (libcore) tailored for the target architecture. libcore contains essential language primitives and types required for Rust programs, such as basic types (u8, i32, etc.) and core language features. This library is stripped down compared to the standard library (std) and does not include platform-specific functionality or I/O operations.</p>
+</li>
+<li>
+<p>LLVM Flavour: Rustup may also download or configure the LLVM (Low-Level Virtual Machine) backend specific to the target architecture. LLVM is the compiler infrastructure used by Rust for code generation and optimization. Different target architectures may require different LLVM configurations or optimizations.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Updates Rust Toolchain Configuration: Rustup updates the configuration of your Rust toolchain to include the newly added target. This ensures that when you compile Rust code using this toolchain, the compiler knows about the added target and can generate code compatible with it.</p>
+</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div><ul>
 <li>learn and imitate : Riscv-rt and Cortex-m-rt</li>
 <li>learn and imitate : use cortex_m_semihosting::{debug, hprintln};</li>

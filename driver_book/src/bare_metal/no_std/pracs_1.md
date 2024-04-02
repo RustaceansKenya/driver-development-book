@@ -1,9 +1,10 @@
 # Practicals
 
+Now that you know a little bit about the core library, we can start writing programs that depend on core instead of std.  
 This chapter will take you through the process of writing a no-std program.  
 We will try our very best to do things in a procedural manner...step by step... handling each error slowly.  
 
-If you do not wish to go through this chapter in a stepwise fashion, you can find the complete no-std template [here](undone)
+If you do not wish to go through these practicals(1 & 2) in a stepwise fashion, you can find the complete no-std template [here](undone)
 
 ## Step 1: Disabling the Std library
 
@@ -22,7 +23,7 @@ fn main(){
 }
 ```
 
-If you run this code, you get 3 compilation errors. 
+If you build this code, you get 3 compilation errors. 
 1. error 1: cannot find macro `println` in this scope
 2. error 2: `#[panic_handler]` function required, but not found
 3. error 3: unwinding panics are not supported without std
@@ -33,7 +34,7 @@ You can run this code by pressing the `play` button found at the top-right corne
 
 The error that we are attempting to fix is...  
 ```bash
-# ... snipped out somme lines here ... 
+# ... snipped out some lines here ... 
 
 error: cannot find macro `println` in this scope
  --> src/main.rs:3:5
@@ -41,7 +42,7 @@ error: cannot find macro `println` in this scope
 3 |     println!("Hello, world!");
   |     ^^^^^^^
 
-# ... snipped out somme lines here ... 
+# ... snipped out some lines here ... 
 ```
 The [`println! macro`][println-macro-doc] is part of the `std` library. So when we removed the `std` library from our crate's scope using the `#![no_std]` attribute, we effectively made the `std::println` macro to also go out of scope.   
 
@@ -101,20 +102,22 @@ This means that you have to...
 
 For the sake of ergonomics, the cool rust developers provided a 'panic-handler' attribute that you can attach to a divergent function. You do not have to do all the linking vodoo. This has been demonstrated later on... do not worry if this statement did not make sense.  
 
+You can also revisit the [subchapter on `panic symbols`](./panic_symbols.md) to get a clear relationship between the `rust_begin_panic` symbol and the `#[panic_handler]` attribute.  
+
 ### 3. The rust_eh_personality 
 
 When a panic happens, the rust runtime starts unwinding the stack so that it can free the memory of the affected stack variables. This unwinding also ensures that the parent thread catches the panic and maybe deal with it.  
 
 Unwinding is awesome... but complicated to implement without the help of the std library. *Coughs in soy-dev*.  
 
-The rust_eh_personality is a language item that defines how the rust runtime behaves if a panic happens : "does it unwind the stack? How does it unwind the stack? Or does it just refuse to unwind the stack and instead just end program execution?  
+The rust_eh_personality is not a linker symbol. It is a language item that points to code that defines how the rust runtime behaves if a panic happens : "does it unwind the stack? How does it unwind the stack? Or does it just refuse to unwind the stack and instead just end program execution?  
 
 To set this language behaviour, we are faced with two solutions :  
 1. Tell rust that it should not unwind the stack and instead, it should just abort the entire program.
 2. Tell rust that it should unwind the stack... and then offer it a pointer to a function definition that clearly implements the unwinding process. (we are soy-devs, this option is completely and utterly off the table!!)  
 
 
-## Step 3.something: Fixing the third Error  
+## Step 3.something: Fixing the second compiler error  
 
 The remaining errors were ...
 ```bash
@@ -128,19 +131,19 @@ error: language item required, but not found: `eh_personality`
 error: could not compile `playground` (bin "playground") due to 2 previous errors
 ```
 
-This is our third error...
+This is our second error...
 ```bash
 error: `#[panic_handler]` function required, but not found
 ```
 
-This is our fourth...
+This is our third...
 ```bash
 error: language item required, but not found: `eh_personality`
 ```
 
 
 
-Just like you guessed, the third error occured because the 'rust_begin_panic symbol' has not been defined. We solve this by pinning a '#[panic_handler]' attribute on a divergent function that takes 'panicInfo' as its input. This has been demonstrated below. A divergent function is a function that never returns.  
+Just like you guessed, the second error occured because the 'rust_begin_panic symbol' has not been defined. We solve this by pinning a '#[panic_handler]' attribute on a divergent function that takes 'panicInfo' as its input. This has been demonstrated below. A divergent function is a function that never returns.  
 ```rust
 #![no_std]
 
@@ -148,14 +151,14 @@ use core::panic::PanicInfo;
 
 
 #[panic_handler]
-// you can name this function any name...it does not matter. eg the_voice_breaker_the_original_copy_the_one_and_only_HIM
+// you can name this function any name...it does not matter. eg the_coolest_name_in_the_world
 // The function takes in a reference to the panic Info. 
-// Kid, go read the docs in core::panic module. You're a super soldier.  
+// Kid, go read the docs in core::panic module. It's short & sweet. You will revisit it a couple of times though  
 fn default_panic_handler(_info: &PanicInfo) -> !{
     loop {  
         // function does nothing for now, but this is where you write your magic //
-        // This is where you typically call an exception handler, or call code that logs the error messages before aborting the program
-        // The function never returns, this is an endless loop... it is a divergent function
+        // This is where you typically call an exception handler, or call code that logs the error or panic messages before aborting the program
+        // The function never returns, this is an endless loop... The panic_handler is a divergent function
       }
 }
 
@@ -165,14 +168,13 @@ fn main(){
 }
 ```
 
-Would you look at that... if you compile this program, you'll notice that the third compilation error is f* gone!!! Hapa ni wapi!? Mwalimu wa maths!?  
+Would you look at that... if you compile this program, you'll notice that the second compilation error is gone!!!
 
-[undone : remove this before you publish]
  
 
-## Step 4: Fixing the Fourth Error
-The fourth error states that the 'eh_personality' language item is missing.  
-But it is missing because we have not declared it anywhere... we havent even defined a stack unwinding function. So we just configure our program to never unwind the stack, that way... defining the 'eh_personality' becomes optional.  
+## Step 4: Fixing the Third Error
+The third error states that the 'eh_personality' language item is missing.  
+It is missing because we have not declared it anywhere... we haven't even defined a stack unwinding function. So we just configure our program to never unwind the stack, that way... defining the 'eh_personality' becomes optional.  
 
 We do this by adding the following lines in the cargo.toml file : 
 ```toml

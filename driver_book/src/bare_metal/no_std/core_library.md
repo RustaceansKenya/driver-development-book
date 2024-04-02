@@ -36,9 +36,8 @@ The compiled core code typically contains undefined linker symbols. It is up to 
 So there you go... Core is not 100% dependency-free.  
 
 The undefined symbols include :  
-1. Some memory routines : `memcopy`, `memmove`, `memset`, `memcmp`, `bcmp`, `strlen`.
-2. `rust_begin_panic`
-3. `eh_personality`
+1. Six Memory routine symbols : `memcopy`, `memmove`, `memset`, `memcmp`, `bcmp`, `strlen`.
+2. Two Panic symbols: `rust_begin_panic`, `eh_personality`
 
 ## What are these symbols?  
 We will discuss the above symbols in the next 2 sub-chapters
