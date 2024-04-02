@@ -2004,15 +2004,31 @@ However, here are some of the typical functions of any C-runtime variation.</p>
 <li>Set up overlay code</li>
 <li>undone : add other features found in advanced CRTs</li>
 </ol>
-<p>Quite a mouthful ha? So many functions.</p>
+<p>Quite a mouthful ha? So many functions.<br />
+To understand the above functions, read these 2 resources : </p>
+<ul>
+<li><a href="http://bravegnu.org/gnu-eprog/c-startup.html">c_startup</a> by Vijay Kumar B on <a href="http://bravegnu.org">bravegnu.com</a></li>
+<li><a href="https://developerhelp.microchip.com/xwiki/bin/view/software-tools/c-programming/c-runtime-enviorment/">The C Runtime Environment</a> by microchip.com</li>
+</ul>
 <h3 id="examples-of-c-runtimes"><a class="header" href="#examples-of-c-runtimes">Examples of C runtimes</a></h3>
 <p>You can look at the code found in these repos in order to get a gist of what the Crt does.</p>
 <ul>
-<li>An implementation in Rust : <a href="https://github.com/rust-embedded/r0/blob/master/src/lib.rs">here</a></li>
-<li>An implementation in Assembly + Rust targeting Riscv boards : <a href="https://github.com/rust-embedded/riscv-rt/blob/master/src/lib.rs">here</a> </li>
+<li>An implementation in Rust : <a href="https://github.com/rust-embedded/r0/blob/master/src/lib.rs">r0 by rust-embedded group</a></li>
+<li>An implementation in Assembly + Rust targeting Riscv boards : <a href="https://github.com/rust-embedded/riscv-rt/blob/master/src/lib.rs">riscv-rt by rust-embedded group</a> </li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="the-rust-runtime"><a class="header" href="#the-rust-runtime">The Rust Runtime</a></h1>
-<p>undone</p>
+<p>undone chapter.</p>
+<p>I do not undertand exactly what the Rust-runtime does.<br />
+Here is the source code for the Runtime : <a href="https://github.com/rust-lang/rust/blob/master/library/std/src/rt.rs">link to page</a><br />
+Here is a page that tries to explain what the runtime does : The Rust Reference book: <a href="https://doc.rust-lang.org/reference/runtime.html">The Rust runtime</a></p>
+<p>I am currently assuming that the functions of the Runtime are...</p>
+<ol>
+<li>Sets up threading and creates a new special thread for 'main'</li>
+<li>Inserts <code>clean_up</code> code. This is code that <strong>MAY</strong> get executed at the end of the <code>main</code> function. It clears up memory.</li>
+<li>Sets up backtracing functions</li>
+<li>Sets up panicking  behavior by locating and doing some linking magic on the function tagged with the <code>#[panic_handler]</code> function</li>
+<li></li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="apis"><a class="header" href="#apis">APIs</a></h1>
 <h2 id="what-is-an-api"><a class="header" href="#what-is-an-api">What is an API?</a></h2>
 <p>Application Programming Interface is a set of rules (diguised as functions), protocols, and tools that allows different software applications to communicate and interact with each other.</p>

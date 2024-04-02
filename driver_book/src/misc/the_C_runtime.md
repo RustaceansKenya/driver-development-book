@@ -55,10 +55,13 @@ Extra functions include :
 2. undone : add other features found in advanced CRTs
 
 Quite a mouthful ha? So many functions.  
+To understand the above functions, read these 2 resources : 
+- [c_startup](http://bravegnu.org/gnu-eprog/c-startup.html) by Vijay Kumar B on [bravegnu.com](http://bravegnu.org)
+- [The C Runtime Environment](https://developerhelp.microchip.com/xwiki/bin/view/software-tools/c-programming/c-runtime-enviorment/) by microchip.com
 
 
 ### Examples of C runtimes 
 You can look at the code found in these repos in order to get a gist of what the Crt does.  
-- An implementation in Rust : [here](https://github.com/rust-embedded/r0/blob/master/src/lib.rs)
-- An implementation in Assembly + Rust targeting Riscv boards : [here](https://github.com/rust-embedded/riscv-rt/blob/master/src/lib.rs) 
+- An implementation in Rust : [r0 by rust-embedded group](https://github.com/rust-embedded/r0/blob/master/src/lib.rs)
+- An implementation in Assembly + Rust targeting Riscv boards : [riscv-rt by rust-embedded group](https://github.com/rust-embedded/riscv-rt/blob/master/src/lib.rs) 
 
