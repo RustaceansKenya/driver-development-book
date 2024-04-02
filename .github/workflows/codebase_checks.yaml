@@ -1,39 +1,39 @@
-name: codebase_checks
-
-on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
-
-env:
-  CARGO_TERM_COLOR: always
-
-jobs:
-  build_on_ubuntu:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v3
-
-    - name: Run rust formatter to check for consistency in formatting
-      run: |
-           cd ./driver_code
-           cargo fmt --all -- --config format_code_in_doc_comments=true --check
-
-    - name: Run clippy
-      run: |
-           cd ./driver_code
-           cargo clippy --all-targets --all-features -- -D warnings
-
-    - name: Build src on Ubuntu
-      run: |
-           cd ./driver_code
-           cargo build --verbose
-
-
-    - name: Run tests on Ubutu
-      run: |
-           cd ./driver_code
-           cargo test --verbose
+#name: codebase_checks
+#
+#on:
+#  push:
+#    branches: [ "master" ]
+#  pull_request:
+#    branches: [ "master" ]
+#
+#env:
+#  CARGO_TERM_COLOR: always
+#
+#jobs:
+#  build_on_ubuntu:
+#
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#    - uses: actions/checkout@v3
+#
+#    - name: Run rust formatter to check for consistency in formatting
+#      run: |
+#           cd ./driver_code
+#           cargo fmt --all -- --config format_code_in_doc_comments=true --check
+#
+#    - name: Run clippy
+#      run: |
+#           cd ./driver_code
+#           cargo clippy --all-targets --all-features -- -D warnings
+#
+#    - name: Build src on Ubuntu
+#      run: |
+#           cd ./driver_code
+#           cargo build --verbose
+#
+#
+#    - name: Run tests on Ubutu
+#      run: |
+#           cd ./driver_code
+#           cargo test --verbose

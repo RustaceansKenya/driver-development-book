@@ -1929,8 +1929,17 @@ Check out the defmt book at https://defmt.ferrous-systems.com for more informati
 <li>many helpful tools &amp; crates... especially the compiler itself. </li>
 </ul>
 <p>Naive but somehow true perspective : Rust enables you to write complex software (even as a junior), your implementation is not 100% dependent on your experience level.</p>
-<div style="break-before: page; page-break-before: always;"></div><h3 id="newlib"><a class="header" href="#newlib">Newlib</a></h3>
-<p>Newlib is a lightweight and efficient C library primarily designed for embedded systems and other resource-constrained environments. It provides standard C library functionality, including input/output, string manipulation, memory management, and more, while prioritizing small size and minimal overhead. Although it aims to offer POSIX compatibility, Newlib may not implement the full range of POSIX functions found in larger libraries like glibc. Suitable for standalone usage or integration into embedded development toolchains, Newlib serves as a practical choice for projects where conserving resources is paramount and where comprehensive POSIX compliance is not a strict requirement.</p>
+<div style="break-before: page; page-break-before: always;"></div><p>There are many C-libraries.</p>
+<ul>
+<li>glibc</li>
+<li>musl</li>
+<li>uClibc</li>
+<li>newlib</li>
+<li>MinGW-w64</li>
+</ul>
+<h3 id="newlib"><a class="header" href="#newlib">Newlib</a></h3>
+<p>Newlib is a lightweight and efficient C library primarily designed for embedded systems and other resource-constrained environments. It provides standard C library functionality, including input/output, string manipulation, memory management, and more, while prioritizing small size and minimal overhead.<br />
+Although it aims to offer POSIX compatibility, Newlib does not implement the full range of POSIX functions found in larger libraries like glibc. Suitable for bare-metal environments, Newlib serves as a practical choice for projects where conserving resources is paramount and where comprehensive POSIX compliance is not a strict requirement.</p>
 <p><a href="https://sourceware.org/newlib/">newlib official homepage</a></p>
 <h3 id="glibc-gnu-c-library"><a class="header" href="#glibc-gnu-c-library">glibc (GNU C Library):</a></h3>
 <p>glibc is the standard C library for the GNU operating system and most Linux distributions.<br />
@@ -1948,7 +1957,60 @@ Maintenance: While it's possible to use Rust with the Generic ELF/Newlib toolcha
 </code></pre>
 <p>Instead, if you intend to write mostly in Rust, consider using toolchains and libraries that are specifically designed for Rust development in embedded systems or bare-metal environments. For example, you could use toolchains targeting libcore or libraries like cortex-m, embedded-hal, or vendor-specific hal crates, which provide idiomatic Rust interfaces for interacting with hardware and low-level system functionality. These options are more aligned with Rust's design principles and ecosystem and might provide a smoother development experience for Rust-centric projects.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="the-c-runtime"><a class="header" href="#the-c-runtime">The C Runtime</a></h1>
-<p>undone</p>
+<p>What is the C runtime? What is a runtime?</p>
+<h2 id="100-meanings"><a class="header" href="#100-meanings">100 Meanings</a></h2>
+<p>Well, the word runtime is a dense word, with multiple meanings that vary with context. Here are some of the definitions :</p>
+<p><strong>Meaning 1</strong> :<br />
+Runtime refers to the duration of time consumed when a program was executing.<br />
+For example, if you played a videogame for 12 hours, you could say that that videogame had a 12-hour runtime.</p>
+<p><strong>Meaning 2</strong> :<br />
+Runtime refers to a piece of software that continuously tends to the needs of another running program.</p>
+<p>For example :</p>
+<ol>
+<li>
+<p>If you are playing an online video game that links up with a remote game server, you could say that that game-server is your runtime device.</p>
+</li>
+<li>
+<p>In the case of programs written with languages with garbage-collection, you could say that those programs depend on a runtime-software to continuously collect the dead variables as a background service. In this case, the garbage-collector is part of the runtime.</p>
+</li>
+<li>
+<p>In the case of Intepreted languages, you could say that the intepreter IS the runtime service. This is because the intepreter needs to continuously compile and execute the program as it runs.</p>
+</li>
+</ol>
+<p><strong>Meaning 3</strong> :<br />
+Programs usually dont start getting executed just like that. There has to be code that makes the CPU to point to the right lines of code, make sure that there is enough stack space, make sure that some CPU registers are okay...</p>
+<p>Point is, there is some code that gets executed before the actual program ie. Init code or control code.</p>
+<p>In this context, Runtime means init-code. Runtime means control code.<br />
+In this context, runtime code only gets executed once. It does not get executed continuously as the other program runs. It just gets executed at the very beginning.</p>
+<h2 id="c-runtime"><a class="header" href="#c-runtime">C runtime</a></h2>
+<p>The C runtime follows the third meaning. ie The C runtime is the startup code that gets executed in preperation for calling the main program.</p>
+<p>This C runtime is usually nick-nammed CRT-0 and is typically written in assembly code.<br />
+It is not an independent application, it is just a library file that can get linked and compiled together with the program that you are writing.</p>
+<h3 id="functions-of-the-c-runtime-code"><a class="header" href="#functions-of-the-c-runtime-code">Functions of the C runtime code</a></h3>
+<p>It is a free-world. It is up to you to decide what your C-runtime does.<br />
+However, here are some of the typical functions of any C-runtime variation.</p>
+<ol>
+<li>Loading elf programs from ROM/secondary_memory to RAM. ie (elf_loading)</li>
+<li>Allocate space for a software stack and initialize the stack pointer</li>
+<li>Allocate space for a heap (if used)</li>
+<li>Copy values from Flash into variables declared with initial values</li>
+<li>Zero out all uninitialized global varibles.</li>
+<li>Clear uninitialized RAM</li>
+<li>Set up exception and interrupt handling</li>
+<li>Call the <code>main()</code> function </li>
+</ol>
+<p>Extra functions include :</p>
+<ol>
+<li>Set up overlay code</li>
+<li>undone : add other features found in advanced CRTs</li>
+</ol>
+<p>Quite a mouthful ha? So many functions.</p>
+<h3 id="examples-of-c-runtimes"><a class="header" href="#examples-of-c-runtimes">Examples of C runtimes</a></h3>
+<p>You can look at the code found in these repos in order to get a gist of what the Crt does.</p>
+<ul>
+<li>An implementation in Rust : <a href="https://github.com/rust-embedded/r0/blob/master/src/lib.rs">here</a></li>
+<li>An implementation in Assembly + Rust targeting Riscv boards : <a href="https://github.com/rust-embedded/riscv-rt/blob/master/src/lib.rs">here</a> </li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="the-rust-runtime"><a class="header" href="#the-rust-runtime">The Rust Runtime</a></h1>
 <p>undone</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="apis"><a class="header" href="#apis">APIs</a></h1>
