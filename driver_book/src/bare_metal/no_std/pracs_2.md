@@ -85,12 +85,12 @@ error: using `fn main` requires the standard library
 ```  
 
 This error occurs because we have not specified the entrypoint chain of our program.  
-If we had used the std library, the default entry-point chain could have been chosen automatically ie the entry point could have been assumed to be the 'start' symbol that directly references the Rust runtime entrypoint.  
+If we had used the std library, the default entry-point chain could have been chosen automatically ie the entry point could have been assumed to be the '_start' symbol that directly references the C-runtime entrypoint.  
 
-To tell the Rust compiler that we don’t want to use the normal entry point chain, we add the '#![no_main]' attribute. Here's a demo : 
+To tell the Rust compiler that we don’t want to use the normal entry point chain, we add the `#![no_main]` attribute. Here's a demo : 
 ```rust
-#[no_std]
-#[no_main]
+#![no_std]
+#![no_main]  // here is the new line. We have added the no_main macro attribute
 
 use core::panic::PanicInfo;
 
@@ -99,7 +99,7 @@ fn default_panic_handler(_info: &PanicInfo) -> !{
     loop { /* magic goes here */ }
 }
 
-// main has just been trashed... coz... why not? It's pointless
+// main function has just been trashed... coz... why not? It's pointless
 ```
 
 But when we compile this, we get a linking error, something like this ...
@@ -118,18 +118,19 @@ error: linking with `cc` failed: exit status: 1
   = note: use the `cargo:rustc-link-lib` directive to specify the native libraries to link with Cargo (see https://doc.rust-lang.org/cargo/reference/build-scripts.html#cargorustc-link-libkindname)
 ```
 
-This error occurs because the toolchain thinks that we are compiling for our host machine... which in this case happens to be a x86_64-unknown-linux-gnu machine.  
+This error occurs because the toolchain thinks that we are compiling for our host machine... which in this case happens to be a linux-mint machine with a x86_64 CPU.  
 
 
 To fix this error, we execute one of the following solutions :
 1. Specify a cargo-build for a triple target that has 'none' in its OS description. eg `riscv32i-unknown-none-elf`. This is the easier of the two solutions, and it is the most flexible.  
 2. Supply a new linker script that defines our custom entry-point and section layout. If this method is used, the build process will still treat the host's triple-target as the compilation target.   
 
-If the above 2 paragraphs made complete sense to you, and you were even able to implement them, skip to the [Debugging chapter]() <!-- undone: provide link -->  
+If the above 2 paragraphs made complete sense to you, and you were even able to implement them, just skim through the next few sub-chapters as a way to humor yourself.
 
+If they did not make sense, then you got some reading to do in the next immediate sub-chapters...  
 
-If they did not make sense, then you got some reading to do in the next immediate chapters... `Cross compilation and linking`.  
-Don't worry, we will get to a point where our bare-metal code will run without a hitch... but it's a long way to go. And its fun. Rainbows, uniorns and excalibars everywhere!!  
+Don't worry, we will get to a point where our bare-metal code will run without a hitch... but it's a long way to go. And its fun.  
+See all these Rainbows, unicorns and excalibars everywhere!!  
 
 
 

@@ -1,18 +1,4 @@
-Reference crates : 
-- cortex-m-rt
-- riscv-rt
-
-
-- combiation of startupcode + runtime code
-
-
-### Functions of startup code 
-
-- Sets up the memory layout of the program. In particular, it populates the vector table so the device can boot correctly, and properly dispatch exceptions and interrupts.
-
-- Initializing static variables before the program entry point.
-
-- Enabling the FPU before the program entry point if the target is thumbv7em-none-eabihf
+# How to build runtimes
 
 - Provides the following attributes for the no-std programer : 
   - #[entry] 

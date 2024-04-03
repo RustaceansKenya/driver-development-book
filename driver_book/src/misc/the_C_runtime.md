@@ -44,10 +44,10 @@ However, here are some of the typical functions of any C-runtime variation.
 1. Loading elf programs from ROM/secondary_memory to RAM. ie (elf_loading)
 2. Allocate space for a software stack and initialize the stack pointer
 3. Allocate space for a heap (if used)
-4. Copy values from Flash into variables declared with initial values
+4. nitializing static variables before the program entry point. This is achieved by copying values from Flash into variables declared with initial values
 5. Zero out all uninitialized global varibles.
 6. Clear uninitialized RAM
-7. Set up exception and interrupt handling
+7. It populates the vector table so the device can properly dispatch exceptions and interrupts
 8. Call the `main()` function 
 
 Extra functions include :  

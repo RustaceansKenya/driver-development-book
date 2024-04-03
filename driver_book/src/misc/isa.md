@@ -1,3 +1,6 @@
+# Instruction Set Architectures (ISAs)
+
+
 An ISA specification is a piece of document that elaborates on how a certain processor functions. It does so by explaining the things listed below :  
 
 - Supported Instructions:

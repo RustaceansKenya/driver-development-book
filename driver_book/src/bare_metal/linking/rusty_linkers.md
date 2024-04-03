@@ -1,6 +1,6 @@
 # Rusty Linkers  
 
-This chapter assumes that you have understood the [LD docs](../linking/linking.md#note-worthy-docs)  
+This chapter assumes that you already know how to write a linker script.  
 
 There are many linkers in existence. However the two dominant linkers are :  
 1. The [LD linker][ld-linker-page] (also called the GNU linker)

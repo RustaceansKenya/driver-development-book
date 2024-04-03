@@ -1,3 +1,0 @@
-- learn and imitate : Riscv-rt and Cortex-m-rt
-- learn and imitate : use cortex_m_semihosting::{debug, hprintln};
-- learn and fix probe-rs issue with esp32

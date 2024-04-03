@@ -25,18 +25,9 @@
   - [Practicals - part 1](./bare_metal/no_std/pracs_1.md)
   - [Practicals - part 2](./bare_metal/no_std/pracs_2.md)
 - [Cross-Compilation](./bare_metal/cross_compilation/cross_compilation.md)
-- [Linking](./bare_metal/linking/linking.md)
-  - [Rusty Linkers](./bare_metal/linking/rusty_linkers.md)
-<!-- - [Probing](./bare_metal/probing/probing_preface.md)
-  - [Probing Theory](./bare_metal/probing/probing_theory_1.md)
-  - [Probing Pracs](./bare_metal/probing/pracs.md)
-   - [udev](./bare_metal/probing/udev.md)
-   - [Flashing](./bare_metal/probing/flashing.md)
-   - [Monitoring and Logging](./bare_metal/probing/logging_and_monitoring/monitoring_1.md)
-     - [draft_1](./bare_metal/probing/logging_and_monitoring/monitoring_2.md)
-   - [Debugging]()
-  - [No-std testing]()
-- [Performance testing]() -->
+- [Linkers and Linking](./bare_metal/linking/linking.md)
+- [Practicals - part 3](./bare_metal/no_std/pracs_3.md)
+
 
 
 <!-- # ABSTRACTIONS
@@ -72,6 +63,16 @@
   - [The Bootloader](./uart_implementations/on_qemu/loaders_and_bootloaders/bootloader.md)
   - [tutorial over a naive UART implementation on a Esp32 device]()
 
+# Probing
+- [Probing](./bare_metal/probing/probing_preface.md)
+  - [Probing Theory](./bare_metal/probing/probing_theory_1.md)
+  - [Probing Pracs](./bare_metal/probing/pracs.md)
+   - [udev](./bare_metal/probing/udev.md)
+   - [Flashing](./bare_metal/probing/flashing.md)
+   - [Monitoring and Logging](./bare_metal/probing/logging_and_monitoring/monitoring_1.md)
+     - [draft_1](./bare_metal/probing/logging_and_monitoring/monitoring_2.md)
+  - [Debugging]()
+  - [No-std testing]()
 
 # THE UART IMPLEMENTATION (less naive, with concurrency in mind)
 - [Concurrency]()
@@ -82,6 +83,7 @@
 
 
 # OTHER STORIES
+- [Performance testing]()
 - [Driver Security]()
   - [Common Security Issues in Driver Development]()
   - [Rust's Safety Features for Driver Security]()
@@ -98,14 +100,15 @@
 - [Notable Learning Resources]()
 - [Notable core-crates](./misc/notable_core_crates.md)
 - [why use Rust?](./why_embedded_rust.md)
-- [Out of topic]()
+- [The Rust Toolchain](./bare_metal/the_rust_toolchain.md)
+- [Further Explanations](./misc/further_explanations.md)
   - [different_std_libs](./misc/different_std_libs.md)
   - [the-C-runtime](./misc/the_C_runtime.md)
   - [the-Rust-runtime](./misc/the_Rust_runtime.md)
+  - [execution-environment](./misc/execution_environment.md)
   - [api-definition](./misc/API.md)
   - [abi-definition](./misc/abi.md)
   - [isa-definition](./misc/isa.md)
-  - [Building runtimes](./misc/building_runtime_crates.md)
-  - [Panicking](./misc/panicking.md)
+  - [factors affecting object file](./misc/target_factors.md)
+  - [How to build runtimes](./misc/building_runtime_crates.md)
   - [rustup-target-add](./misc/rustup_target_add.md)
-- [To-do](todo.md)

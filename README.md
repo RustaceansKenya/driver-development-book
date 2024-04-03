@@ -5,21 +5,7 @@
 
 This book is on driver development using Rust. You get to procedurally write a UART driver for two chips: 
 -  a RISCV chip called ESP32C3.  
--  a riscv virtual qemu board.
-
-The chip costs less than 8 dollars, kindly... politely...with utmost humility... burn that cash. BURN THAT CAAAASHHH!!! Money machine go BRRRR!!!
-
-
-## If You are coming from the freestyle classes...  
-
-If you are currently taking the [gdsc course](https://gdsc.community.dev/events/details/developer-student-clubs-university-of-nairobi-presents-introduction-to-rust-on-embedded/), then take a look at [this paper](./driver_book/src/direction/course_outline.md)
-
-This book is currently in active development, chapters will be updated as we go through the [gdsc course](https://gdsc.community.dev/events/details/developer-student-clubs-university-of-nairobi-presents-introduction-to-rust-on-embedded/).  
-Here is the :  
-- [Course outline](./driver_book/src/direction/course_outline.md).  
-- The class recordings can be found in [this youtube playlist][driver-development-playlist].  
-
-
+-  a riscv virtual qemu board.  
 
 
 ### Why the UART?
@@ -40,28 +26,7 @@ This book does not explain driver development for a particular Operating System 
 
 
 ### Quick links
-
 To access the tutorial book, visit : [this link][driver-development-book-website]  
-To access the source-code, visit [this repo's sub-folder][driver-code]  
-To access the mdbook source files, visit [this-repo/driver_book/src][driver-book-src]  
-If you wish to be a contributor, skim through this guide: [book][contribution-book]
-
-
-## Communication
-
-You can air your thoughts or ask questions at the [dicussion section][discussion-section].  
-If you find an issue in the DOCs or CODE, you can raise it [here][issues-section]  
-
-
-
-## Notes to the contributors
-
-To intrested contributors, you can go through this very short tiny microscopic brief informative [book][contribution-book].  
-The book takes you through the project structure and explains how tasks get suggested & assigned.    
-It also helps you troubleshoot any stalled pull-requests by explaining the pull-request requirement-checks.
-
-It is the ["contribution book"][contribution-book]
-
 
 
 <!-- hard-link -->
@@ -74,7 +39,7 @@ It is the ["contribution book"][contribution-book]
 [issues-section]: https://github.com/RustaceansKenya/driver-development-book/issues
 
 <!-- hard link -->
-[contribution-book]: https://rustaceanskenya.github.io/driver-development-book/contribution_book/book/index.html
+[contribution-book]: https://rustaceanskenya.github.io/driver-development-book/contribution_book/book/index.html  
 [driver-development-book-website]: https://rustaceanskenya.github.io/driver-development-book/  
 [driver-code]: https://github.com/RustaceansKenya/driver-development-book/tree/master/driver_code  
-[driver-development-playlist]: https://www.youtube.com/playlist?list=PL1KAn4vVH-J47SBytmsfVyKYP84pSlfUG
+[driver-development-playlist]: https://www.youtube.com/playlist?list=PL1KAn4vVH-J47SBytmsfVyKYP84pSlfUG  
