@@ -14,14 +14,19 @@ When you plug in a device to your linux pc...
  - Udev continuously listens and detects events induced by the external device and relays this info to the kernel.  
  - The kernel on the other hand, returns action responses to udev. Udev then invokes the necessary action given by the kernel responses.  
 
-The above description is somehow inaccurate and is given to provide a high-level overview of what happens. To read on the exact order and definitions of things, consult official udev docs.  
+The above description is somehow inaccurate and is given to provide a high-level overview of what happens. To read on the exact order and definitions of things, consult official [udev docs](https://www.freedesktop.org/software/systemd/man/latest/udev.html).  
+
+You can also read the offline docs by running the following cmd command : 
+```bash
+man udev
+```
 
 ## Listing attached devices  
 The process of detecting and abstracting attached devices as files in the `/dev` directory happens automatically.  
 To view attached devices, you can browse through the `/dev` directory OR use the following cmd commands :  
 
 ```bash
-lsusb# List all the devices that have been attached to the USB-controllers
+lsusb # List all the devices that have been attached to the USB-controllers
 lsblk # List all block devives
 
 lscpu # List all CPUs
@@ -47,11 +52,11 @@ Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 ```  
 
 The above output depicts that...
-- There are at least three USB controllers denoted by the term BUS [1 - 3]. Note that a USB-port is not synonymous to USB-controller.  
-- The `Ltd USB Optical Mouse` has a device ID of `4d22`
-- The `Ltd USB Optical Mouse` has a Vendor ID of `0461`
-- The `Ltd USB Optical Mouse` has been attached USB-port 005 of the second USB-controller
-- The file that abstracts `Ltd USB Optical Mouse` is `/dev/bus/usb/002/005`.
+- There are at least three USB controllers that have been attached to the BUS. This phenomenon has been denoted by the term BUS [1 - 3] in the above output. Note that a USB-port is not synonymous to USB-controller. A usb controller acts as an interface between the BUS and the USB-hub. The USB-hub contains multiple usb-ports. The usb-ports can be either virtual or physical.    
+- The `Primax Electronics, Ltd USB Optical Mouse` has a device ID of `4d22`
+- The `Primax Electronics, Ltd USB Optical Mouse` has a Vendor ID of `0461`
+- The `Primax Electronics, Ltd USB Optical Mouse` has been attached USB-port 005 that has association with the second USB-controller
+- The file that abstracts `Primax Electronics, Ltd USB Optical Mouse` is `/dev/bus/usb/002/005`.
 
 ## Udev's Real-time monitoring of device-events
 With the udevadm monitor command, you can tap into udev in real time and see what it sees when you plug in different devices. Become root and try it.  

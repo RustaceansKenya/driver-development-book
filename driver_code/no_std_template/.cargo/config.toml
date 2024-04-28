@@ -1,2 +1,3 @@
 # [build]
+# target = riscv32i-unknown-none-elf
 # rustflags = ["-Clink-arg=-Tsrc/lds/script.lds"]

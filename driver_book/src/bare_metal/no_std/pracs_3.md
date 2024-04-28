@@ -53,12 +53,24 @@ cargo rustc -- -C link-arg=-nostartfiles # learn more about these commands by re
 ```  
 
 ### Solution 3.  
-Solution 3 can be implemnted by running the command below :  
+Solution 3 can be implemented by running the command below :  
 ```bash
 cargo build --target=riscv32i-unknown-none-elf
 # You can replace `riscv32i-unknown-none-elf` with a target that you have already installed
 # The target here should have the value 'none' in place of the Operating system
-```
+```  
+
+The point is to build for bare-metal targets.  
+
+<br><br>
+# FINALLY
+And if you compile your program, it compiles without any errors.  
+That's it! A bare-metal program that literally does nothing, just boiler-plate.  
+was it anti-climatic? Ha ha   
+
+Now you've learnt how to build bare-metal programs. You are yet to learn bare-metal debugging, functional-testing, performance-testing and monitoring. Those chapters will be covered later on.  
+
+For now, the next chapters will be about the UART. We are so far away from writing UART code. It's a long way off, but we'll get there slowly.  
 
 
 

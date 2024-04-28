@@ -21,7 +21,7 @@ If you connect two UARTs as seen below, you achieve serial communication between
 
 **What does asynchronous mean in this case?**  
 "Asynchronous" refers to the method by which data is transmitted and received between two independent devices without requiring a shared clock signal between the transmitting and receiving devices.  
-Instead of using a clock to synchronize the rate at rate at which bits are exchanged, the two communicating devices agree on the data-packet format and the rate of transmitting the bits of that data-packet.  
+Instead of using a clock to synchronize the rate at which bits are exchanged, the two communicating devices agree on the data-packet format and the rate of transmitting the bits of that data-packet.  
 
 The rate at which the bits of the data-packet are transmitted is referred to as `baud rate` in this context.  
 
@@ -33,7 +33,7 @@ Confusing... right? ha ha.
 
 UART == circuit.  
 UART != protocol.  
-You can implement asynchronous protocols using a UART circuitry. 
+You can implement various asynchronous protocols on top of the UART circuitry. 
 
 
 ## How the UARTs work. 

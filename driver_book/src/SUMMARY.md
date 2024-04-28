@@ -30,23 +30,10 @@
 
 
 
-<!-- # ABSTRACTIONS
-- [MMIO programming]()
-  - [Registers and MMIO programming](./registers_and_mmio_programming.md)
-- [The datasheet](./knowing_your_hardware.md)
-- [Abstraction]()
-  - [Abstracting a peripheral](./abstractions/abstracting_a_peripheral.md)
-  - [svd2rust](./svd2rust.md)
-  - [vcell](./abstractions/vcell.md)
-  - [representations](./abstractions/representations.md)
-- [random](./abstractions/random.md) -->
-
-
 # THE UART
 - [Intro](./uart_theory/intro.md)
-  - [general overview](./uart_theory/draft_1.md)
-  - [uart registers](./uart_theory/draft_2.md)
-- [Understanding UART physical Implemetation in the esp32]()
+- [general overview](./uart_theory/draft_1.md)
+- [uart registers](./uart_theory/draft_2.md)
 
 
 # THE UART IMPLEMENTATION (on Qemu and single-threaded)
@@ -62,6 +49,20 @@
 - [Loaders and Bootloaders](./uart_implementations/on_qemu/loaders_and_bootloaders/intro.md)
   - [The Bootloader](./uart_implementations/on_qemu/loaders_and_bootloaders/bootloader.md)
   - [tutorial over a naive UART implementation on a Esp32 device]()
+
+# Testing
+- [no-std testing](./testing_theory/intro.md)
+
+# ABSTRACTIONS
+- [MMIO programming]()
+  - [Registers and MMIO programming](./registers_and_mmio_programming.md)
+- [The datasheet](./knowing_your_hardware.md)
+- [Abstraction]()
+  - [Abstracting a peripheral](./abstractions/abstracting_a_peripheral.md)
+  - [svd2rust](./svd2rust.md)
+  - [vcell](./abstractions/vcell.md)
+  - [representations](./abstractions/representations.md)
+- [random](./abstractions/random.md)
 
 # Probing
 - [Probing](./bare_metal/probing/probing_preface.md)
@@ -93,6 +94,7 @@
   - [Analyzing an Existing Rust Driver]()
 - [Iterative Implementation]()
 - [core::io]()
+  - [display and debuging structure]()
 - [Custom Targets]()
 
 # APPENDIX
@@ -112,3 +114,11 @@
   - [factors affecting object file](./misc/target_factors.md)
   - [How to build runtimes](./misc/building_runtime_crates.md)
   - [rustup-target-add](./misc/rustup_target_add.md)
+
+
+# DRAFTS
+- [bench-marking](./drafts/bench_marking.md)
+- [more on no-std](./drafts/more_on-no-std/intro.md)
+  - [core::mem](./drafts/more_on-no-std/core_mem.md)
+  - [core::iter](./drafts/more_on-no-std/core_iter.md)
+- [macros](./drafts/macros.md)
