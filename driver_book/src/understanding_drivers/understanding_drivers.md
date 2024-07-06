@@ -4,12 +4,16 @@ This chapter is filled with definitions.
 
 And as you all know, there are NO right definitions in the software world. People still debate what 'kernel' means. People are okay using the word 'serverless' apps. What does AI even mean? It's chaos everywhere.  
 
-So the definitions used here are constrained in the context of this book.  
+So the definitions used here are constrained in the context of ***this*** book.  
 
-### What's a driver?
+### What's a driver?  What's firmware?  
 
-A driver is the **first** piece of software that abstracts the circuitry a physical device. We have used the word **first** because technically... even the browser indirectly abstracts hardware.  
+In simple terms. Firmware is the code engrained on a device's motherboard. The driver is code that sits in between the kernel and the device(inclusive of the firmware).  
 
+Firmware is a piece of software that typically gets engrained so close to the hardware and it controls the physical functions of the hardware.  
+Okay, that was an exageration. Firmware usually gets stored in the ROM of a device. And yes, it may control the circuitry of the device, thereby controlling the physical device.  
+
+A driver is a piece of software that abstracts away the device for other pieses of software like the kernel. 
 So the first piece of software on top of a physical device is called a driver.  
 
 
