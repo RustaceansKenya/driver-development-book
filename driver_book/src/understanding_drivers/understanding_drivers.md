@@ -16,18 +16,30 @@ But here goes the watered down definitions...
 
 **Firmware** is software that *majorly* controls the hardware. It *typically* gets stored in the ROM of the hardware  
 
-For example, an external hard-disk device has firmware that controls how the disks spin and how the actuator arms do their thing.  
-That firmeare code is independent of any OS or Runtime... it was code specifically built for that hard-disk's internal components.  
-You may find that the motherboard of the hard-disk has a small processor that fetches the firmware code from the embedded ROM amd processes it.  
+For example, an external hard-disk device has firmware that controls how the disks spin and how the actuator arms of the hard-disk do their thing.  
+That firmware code is independent of any OS or Runtime... it is code specifically built for that hard-disk's internal components. The 0s and 1s of the firmware are stored in a place where the circuitry of the hard-disk can access and process.   
+
+You may find that the motherboard of the hard-disk has a small processor that fetches the firmware code from the embedded ROM amd processes it. See the figure below.  
+
+<figure>
+  <img src="img/hard_disk.svg" alt="Hard-disk Firmware">
+  <figcaption>Hard-disk Firmware.</figcaption>
+</figure>
+
 
 #### Driver
 
-On the other hand, a **Driver** is software that *also* controls the hardware AND provides a higher level interface for something like a kernel or a runtime. The driver is typically stored as part of the kernel.  
+On the other hand, a **Driver** is software that *also* controls the hardware AND provides a higher level interface for something like a kernel or a runtime. The driver is *typically* stored as part of the kernel.  
 
 
 The above definitions are confusing? Ha?  
 Here is an image to confuse you further...  
-![alt text](img/driver_vs_firmware.png)
+
+<figure>
+  <img src="img/driver_vs_firmware.png" alt="driver_vs_firmware">
+  <figcaption>Hard-disk Firmware in relation to Hard-disk driver.</figcaption>
+</figure>
+
 
 
 

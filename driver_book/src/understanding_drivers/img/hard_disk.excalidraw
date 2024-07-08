@@ -889,8 +889,8 @@
     },
     {
       "type": "text",
-      "version": 130,
-      "versionNonce": 1051106894,
+      "version": 131,
+      "versionNonce": 200910844,
       "isDeleted": false,
       "id": "txSj2tYfk-C5AI4Y4CfRg",
       "fillStyle": "hachure",
@@ -917,7 +917,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1720381850293,
+      "updated": 1720422627884,
       "link": null,
       "locked": false,
       "fontSize": 20,
@@ -932,8 +932,8 @@
     },
     {
       "type": "arrow",
-      "version": 223,
-      "versionNonce": 661982674,
+      "version": 260,
+      "versionNonce": 1157820540,
       "isDeleted": false,
       "id": "hv9dQz9ouAIsZcac1ULWh",
       "fillStyle": "hachure",
@@ -943,7 +943,7 @@
       "opacity": 100,
       "angle": 0,
       "x": 941.6544254847933,
-      "y": 401.18931158796335,
+      "y": 401.6760669344933,
       "strokeColor": "#1971c2",
       "backgroundColor": "transparent",
       "width": 409.9999999999998,
@@ -953,7 +953,7 @@
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1720381850647,
+      "updated": 1720422673958,
       "link": null,
       "locked": false,
       "startBinding": {
@@ -972,18 +972,18 @@
         ],
         [
           -187.14285714285688,
-          28.571428571428555
+          28.08467322489861
         ],
         [
           -409.9999999999998,
-          -27.142857142857224
+          -27.62961248938717
         ]
       ]
     },
     {
       "type": "text",
-      "version": 108,
-      "versionNonce": 1559724946,
+      "version": 146,
+      "versionNonce": 534138876,
       "isDeleted": false,
       "id": "4mS4CamOuCJmZMBf5NZbm",
       "fillStyle": "hachure",
@@ -996,8 +996,8 @@
       "y": 396.903597302249,
       "strokeColor": "#1971c2",
       "backgroundColor": "transparent",
-      "width": 254.11972045898438,
-      "height": 75,
+      "width": 333.41961669921875,
+      "height": 100,
       "seed": 1059473166,
       "groupIds": [],
       "frameId": null,
@@ -1008,18 +1008,18 @@
           "type": "arrow"
         }
       ],
-      "updated": 1720381850647,
+      "updated": 1720422673953,
       "link": null,
       "locked": false,
       "fontSize": 20,
       "fontFamily": 1,
-      "text": "Processor found\nwithin the Hard-disk.\nIt executes the Firmware",
+      "text": "Processor found\nwithin the Hard-disk.\nIt processes the Firmware found \nin the ROM",
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "Processor found\nwithin the Hard-disk.\nIt executes the Firmware",
+      "originalText": "Processor found\nwithin the Hard-disk.\nIt processes the Firmware found \nin the ROM",
       "lineHeight": 1.25,
-      "baseline": 68
+      "baseline": 93
     },
     {
       "type": "arrow",
@@ -1065,8 +1065,8 @@
     },
     {
       "type": "text",
-      "version": 143,
-      "versionNonce": 804515214,
+      "version": 146,
+      "versionNonce": 1209983940,
       "isDeleted": false,
       "id": "nE7U558UGsjzAQLe7N97a",
       "fillStyle": "hachure",
@@ -1086,16 +1086,16 @@
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1720381850294,
+      "updated": 1720422637574,
       "link": null,
       "locked": false,
       "fontSize": 20,
       "fontFamily": 1,
-      "text": "Circuitry that controls\nthe arn and disks.\nCircuitry gets orders from\nprocessor.",
+      "text": "Circuitry that controls\nthe arm and disks.\nCircuitry gets orders from\nprocessor.",
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "Circuitry that controls\nthe arn and disks.\nCircuitry gets orders from\nprocessor.",
+      "originalText": "Circuitry that controls\nthe arm and disks.\nCircuitry gets orders from\nprocessor.",
       "lineHeight": 1.25,
       "baseline": 93
     }
