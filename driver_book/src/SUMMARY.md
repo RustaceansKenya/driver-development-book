@@ -104,6 +104,7 @@
 - [why use Rust?](./why_embedded_rust.md)
 - [The Rust Toolchain](./bare_metal/the_rust_toolchain.md)
 - [Further Explanations](./misc/further_explanations.md)
+  - [Firmware versus Drivers](./misc/drivers_vs_firmware.md)
   - [different_std_libs](./misc/different_std_libs.md)
   - [the-C-runtime](./misc/the_C_runtime.md)
   - [the-Rust-runtime](./misc/the_Rust_runtime.md)
