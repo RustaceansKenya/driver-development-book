@@ -15,11 +15,9 @@ An ISA specification is a piece of document that elaborates on how a certain pro
 - Hardware Support for Managing Main Memory:
     ISA specifies how the processor interacts with main memory (RAM). This includes mechanisms for loading and storing data from/to memory, handling memory access permissions, cache management, and mechanisms for memory protection to prevent unauthorized access.
 
-- Fundamental Features:
-    These are core aspects of the ISA that define its behavior and capabilities.
-        Memory Consistency: Specifies how memory accesses by different parts of a program are ordered and synchronized.
-        Addressing Modes: Defines the various ways in which memory addresses can be specified in instructions (e.g., direct addressing, indirect addressing, indexed addressing).
-        Virtual Memory: Defines how the processor interacts with virtual memory systems, including mechanisms for address translation between virtual and physical memory, page tables, and memory protection.
 
-- Input/Output Model:
-    This refers to how the processor communicates with peripheral devices such as keyboards, displays, storage devices, and network interfaces. ISA specifies the instructions and mechanisms for transferring data between the processor and these devices, often through dedicated I/O instructions or memory-mapped I/O.
+Think of the ISA as a manual for your processor.  
+There are no rules as to what an ISA should entail, the creator chooses how to write the manual.  
+If you build a nano-processor that uses DNA-magic, it will be up to you define your own unique manual.  
+
+For reference, here are the [Riscv ISA specifications](https://riscv.org/technical/specifications/)

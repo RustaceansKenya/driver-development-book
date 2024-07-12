@@ -1,10 +1,16 @@
 # Bare Metal Programming
 
-Bare Metal Programming !!!!!!!!!!🥳🥳🥳🥳 
-
+Bare Metal Programming !!!!!!!!!!🥳🥳🥳🥳  
 Welcome to the first cool chapter.  
 
-This chapter takes you through the process of writing a program that does not depend on the standard library/crate. A program that can be loaded and ran on any board with a processor and some bit of memory... be it an arduino, an esp or a custom board that you manufactured in your teenage bedroom.    
+
+Bare metal programming is the act of writing code that can run on silicon without any fancy dependencies such as a kernel.  
+
+This chapter is important because Firmware and Drivers are Bare-metal programs themselves.  
+
+
+
+This chapter takes you through the process of writing a program that does not depend on the standard library; A program that can be loaded and ran on any board with a processor and some bit of memory... be it an arduino, an esp, a pregnancy-test-device or a custom board that you manufactured in your bedroom.    
 
 
 [Philipp Oppermann's blog][writing-an-os-in-rust] covered Bare-metal programming very well. Philipp's blog covers the topic across two chapters, you can read them here 👇🏽: 
@@ -13,7 +19,7 @@ This chapter takes you through the process of writing a program that does not de
 
 
 It would be an **UNDERSTATEMENT** to call those 2 chapters legendary.  
-Just go give them a read... waste your time well.  
+Just go give them a read...  
 
 
 
