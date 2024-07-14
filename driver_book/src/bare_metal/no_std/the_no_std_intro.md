@@ -6,9 +6,9 @@ You somehow understand its modules and functions.
 
 
 You understand that the standard library calls system functions in the background.  
-You understand that the interface of a standard library is *constant*. (standardized, versionized and consistent across different platforms)  
+You understand that the interface of a standard library is *'constant'*. ( i.e standardized, versionized and consistent across different platforms)  
 
-You understand that the implementation of a standard library *is NOT constant*; It is OS-dependent. For example the interfaces of the libc library is *constant* across all OSes but libc's implementations is different across all OSes; In fact the libc implementations have different names ... we have `glibc` for GNU-Linux's libc and `CRT` for windows' libc. GNU-inux even has extra implementations such as `musl-libc`. Windows has another alternative implementation called `MinGW-w64`  
+You understand that the implementation of a standard library *is also NOT constant*; It is OS-dependent. For example the interfaces of the libc library is *constant* across all OSes but libc's implementations is different across all OSes; In fact the libc implementations have different names ... we have `glibc` for GNU-Linux's libc and `CRT` for windows' libc. GNU-inux even has extra implementations such as `musl-libc`. Windows has another alternative implementation called `MinGW-w64`  
 
 
 
@@ -30,6 +30,23 @@ Bare metal programming is the art of writing code that assumes zero or almost-no
 We will procedurally create a bare metal program in the next few sub-chapters.  
 
 
-*Chips and boards are mostly made from silicon and other alloys that are not particularly metallic... I guess we should say `bare-silicon` programming instead of `bare-metal`?*
+## Execution Environments
+
+An Execution environment is the context where a program runs. It encompasses all the resources needed to make a program run.  
+For example, if you build a video-game-plugin, then that plugin's execution environment is that video-game.  
+
+In general software development, the word execution environment usually refers to the description of the processor-architecture, the operating system, avalable system libraries, environment variables, and other dependencies.  
+
+Here is more jargon that you can keep at the back of your head:  
+
+The processor itself is an execution environment.  
+If you write a bare-metal program that is not dependent on any OS or runtime, you could say that the processor is the only execution environment that you are targeting.  
+
+The kernel is also an execution environment. So if you write a program that depends on the availability of a kernel, you could say that your program has two exeution environments; The Kernel and the Processor.  
+
+The Browser is also an execution environment. If you write a JS program, then your program has 3 execution environments: The Browser, the kernel and the Processor.  
+
+
+>*Chips and boards are mostly made from silicon and other alloys that are not particularly metallic... I guess we should say `bare-silicon` programming instead of `bare-metal`?*
 
 

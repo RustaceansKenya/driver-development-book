@@ -8,7 +8,7 @@ Core is a library like any other. Meaning that your code can **depend on it**. Y
 
 ## What does the Core library contain? What does it do?
 
-1. Core contains the definitions and impementations of primitive types like `i32`, `char`, `bool` etc. So you need the core library if you are going to use primitives in your code.  
+1. Core contains the definitions and implementations of primitive types like `i32`, `char`, `bool` etc. So you need the core library if you are going to use primitives in your code.  
 2. Core contains the declaration and definitions of basic macros like `assert` and `assert_eq`.  
 3. Core contains modules that provide basic functionalities. For example, the `array` module provides you with methods that will help you in manipulating an array primitive.  
 
@@ -19,12 +19,17 @@ Core lacks libraries that depend on OS-system files and OS-level services.
 For example, core lacks the following modules that are found in the std library ... mostly because the modules deal with OS-level functionalities.
 1. `std::thread` module. Threading is a service that is typically provided by a kernel.
 2. `std::env` module. This module provides you with ways to Inspect and manipulate a process’ environment. Processes are usually an abstration provided by an OS.
+3. `std::backtrace`
+4. `std::boxed`
+5. `std::os`
+6. `std::string`
 
-Look for the rest of the missing modules and try to answer the questions : "why isn't this module not found in core?", "if it were to be implemented in core, how would the module interface look like?".  
+Look for the rest of the missing modules and try to answer the following questions : "why isn't this module not found in core?", "if it were to be implemented in core, how would the module interface look like?".  
 
 For example, there is currently no `core::thread` but there is `std::thread`. `core::thread` does not exist because if it did, it would have depended on the availability of a thread manager; a thread manager is typically a part of a kernel. `std::thread` depends on that, so it is my assumption that `core::thread` might require the availability of a thread-manager.  
+If maybe the Rust team decided to create a `core::thread`, then the library API might have focused on attaching an external thread manager.  
 
-Also, just because a module is found in both std and core does not guarantee that the module is identical. Modules with the same names have different contents.  
+Also, just because a module's name is found in both std and core, it is not a guarantee that both the modules contain identical contents. Modules with the same names have different contents.  
 For example, `core::panic` exposes ZERO functions while `std::panic` exposes around 9 functions.  
 
 

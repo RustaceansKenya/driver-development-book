@@ -1,5 +1,24 @@
 # ABIs
 
+Tbh, the current author is really having a hard time defining what an ABI really is. 
+- What it entails, 
+- what it doesnt entail, 
+- why it has what it has, 
+- which components are affected by the ABI specifications {compiler, linker, language-runtime, processor, loader}
+
+The author is also having a hard time differentiating the different ABI standards and defining their trade-offs in different situations.  
+
+So far, [this document](https://d3s.mff.cuni.cz/files/teaching/nswi200/202324/doc/riscv-abi.pdf) has been helpful.
+
+(undone)
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br>
+
+
+
+
 ## What is an ABI?  
 
 An ABI (Application Binary Interface) is a set of specifications defining.... 
@@ -28,8 +47,7 @@ THe ABI defines the :
     - endianness
     - lengths
     - encode pattern (eg characters use UTF-8)
-    - 
- 7. ddsd
+
 
 
 ### The C ABI?  

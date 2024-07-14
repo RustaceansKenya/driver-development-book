@@ -5,7 +5,7 @@ The panic symbols that the core library needs you to define are :
 2. `eh_personality`
 
 Before we discuss why those symbols are needed, we need to understand how panicking happens in Rust.  
-To understand panicking, please read [this page](https://rustc-dev-guide.rust-lang.org/panic-implementation.html) from the [`rust-dev-guide` book](https://rustc-dev-guide.rust-lang.org/)  
+To understand panicking, please read [this chapter](https://rustc-dev-guide.rust-lang.org/panic-implementation.html) from the [`rust-dev-guide` book](https://rustc-dev-guide.rust-lang.org/)  
 
 From the chapter, you get the gist that when a panic happens the following events might occur depending on the situation...
 

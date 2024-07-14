@@ -44,7 +44,7 @@ Defining things explicitly reduced confusion.
 They had to ...
 1. Agree on the definition of things ie terminology. 
 2. Agree on the exact representation of data-types and their behavior. This representation does not have to be the same as the ABI that you are using, you just have to make sure that your kernel interface *treats* data-types as defined here.  
-3. Agree on the common constants : For example error_codes, port numbers of interes ...
+3. Agree on the common constants : For example error_codes, port numbers of interest ...
 
 ### 2. System Interface  
 As earlier mentioned, each kernel had different features and capabilities... some had dozens of advanced and uniquely named file-handling functions while others had like 2 poorly named and unique file-handling functions.  
@@ -73,21 +73,22 @@ The devs sat down and declared the common commands that had to be implemented by
 
 As for the shell syntax... well... I don't know... the devs tried to write a formal syntax. It somehow worked, but people still introduced 
 their own variations. (which is good, bash syntax is horrifying... I took years to get good at Rust/JS/C/C++, but I'm sure I'll take my whole life to get comfortable with bash)
+<br><br><br><br>
 
 
-This specifications came to be known as the [POSIX standard](https://en.wikipedia.org/wiki/POSIX).  
+The above three specifications came to be known as the [POSIX standard](https://en.wikipedia.org/wiki/POSIX).  
 
 
 ## Entry of the standard library
 Why is this POSIX story relevant?  
-Well... because the functions found in the standard library usually call system functions in the background. In other words, the source-code for the standard library may call POSIX-system functions in the background. 
+Well... because the functions found in the standard library usually call Operating system functions in the background(i.e POSIX-like functions). In other words, the source-code for the standard library may call POSIX-system functions in the background.  
  
 <!-- undone: draw image of levels of abstraction:  many oses // many Interfaces // POSIX interface // different_standard libraries -->
 
 
 
 ## POSIX compliance  
-If you look at the [list of system functions specified by posix](https://pubs.opengroup.org/onlinepubs/9699919799/idx/functions.html), you might get a heart-attack. That list is LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOONG.  
+If you look at the [list of system functions specified by posix](https://pubs.opengroup.org/onlinepubs/9699919799/idx/functions.html), you might get a heart-attack. That list is so Long!!.  
 
 What if I just wanted to create a small-specialized kernel that does not have a file-system or thread-management? Do I still have to define file-handling functions? Do I still have to define thread-management functions? - NO!, that would be a waste of everyone's time and RAM.  
 
