@@ -13,55 +13,67 @@ Before we solve it, we need to cover some theory...
 ## Init code 
 'init code' is the code that gets called before the 'main()' function gets called. 'Init code' is not a standard name, it is just an informal name that we will use in this book, but I hope you get the meaning here. Init_code is the code that gets executed in preparation for the main function.  
 
-![Alt text](img/init_code_birds_view.svg)
+![Alt text](img/init_code_birds_view.png)
 
 To understand 'init code', we need to understand how programs get loaded into memory.  
 When you start your laptop, the kernel gets loaded into memory.  
-When you open the message_app in your phone, it gets loaded into memory.  
-When you open vlc on your laptop, it gets loaded into memory.  
+When you open the message_app in your phone, the message_app gets loaded into memory.  
+When you open VLC media player on your laptop, the VLC media player gets loaded into memory (The RAM).  
 
 To dive deeper into this loading business, let's look at how the kernel gets loaded.  
 
 
 ### Loading the kernel.  
-When the power button of a machine(laptop) is pressed, the following events occur. (an inaccurate description): 
-1. Power flows into the processor. The processor immediately begins the fetch-execute cycle. Exept that the first fetch occurs from the ROM where the firmware is.  
+When the power button on a machine(laptop) is pressed, the following events occur. (this is just a summary; there are entire books on kernel loading): 
+1. Power flows into the processor. The processor immediately begins the fetch-execute cycle. Except that the first fetch occurs from the ROM where the firmware is.  
 
 2. So in short, the firmware starts getting executed. The firmware performs a [power-on-self test](https://www.techtarget.com/whatis/definition/POST-Power-On-Self-Test). 
 
-3. The firmware then makes the CPU to start fetching instructions from the ROM section that contains code for the **loader**. The loader is a program that can copy a program from memory and paste it in the RAM in an orderly way. By orderly way I mean ... it sets up the stack, adds some stack-control code to the RAM, it then loads up the different sections of the program. If the program has [overlays][overlay-explanation-video] - it loads up the code that implements overlay control too.  
+3. The firmware then makes the CPU to start fetching instructions from the ROM section that contains code for the **primary loader**. The primary loader in this case is a program that can copy another program from ROM and paste it in the RAM in an orderly pre-defined way. By orderly way I mean ... it sets up space for the the stack, adds some stack-control code to the RAM(eg stack-protection code), it then loads up the different sections of the program that's getting loaded. If the program has [overlays][overlay-explanation-video] - it loads up the code that implements overlay control too.  
 Essentially, the loader can paste a program on the RAM in a **complete** way.  
 
-4. The loader loads the Bootloader onto the RAM.  
+4. The loader loads the **Bootloader** onto the RAM.  
 5. The loader then makes the CPU to point to the RAM section where the Bootloader is situated.  
-6. The Bootloader then starts looking for the kernel code. The kernel might be in the hard-disk or even a bootable usb-flash.    
+6. The Bootloader then starts looking for the kernel code. The kernel might be in the hard-disk or even in a bootable usb-flash.    
 7. The Bootloader then copies the kernel code onto the RAM and makes the CPU pointer to point to the entry point of the kernel. An entry-point is the memory address of the first instruction for any program.  
-8. The kernel does takes full charge and does what it does best.  
-9. The kernel can then load the apps that run on top of it... an endless foodchain.
+8. From there, the kernel code takes full charge and does what it does best.  
+9. The kernel can then load the apps that run on top of it... an endless foodchain.  
 
 **Why are we discussing all these?**  
-To show that programs get executed ONLY because : 
+To show that programs run ONLY because these two conditions get fulfilled: 
 1. They were loaded onto either the ROM or the RAM in a **COMPLETE** way.  
-The word **Complete** in this context means that the program code was not copied alone; The program code was copied together with control code segments like the stack control and overlay-control. The action of copying 'control' code onto the RAM is part of **Setting up the environment** before program execution starts.  
+The word **Complete** in this context means that the program code was not copied alone; The program code was copied together with control code segments that deal with things like stack control and overlay-control. The action of copying 'control' code onto the RAM is part of **Setting up the environment** before program execution starts.  
 
-In the software world, this *control* code is typically called [*runtime code*](https://en.wikipedia.org/wiki/Runtime_system).  
+    In the software world, this *control* code is typically called [*runtime code*](https://en.wikipedia.org/wiki/Runtime_system).  
 
-2. The CPU's instruction pointer happened to point to the **entry point** of the loaded program. An entry-point is the memory address of the first instruction for a certain program.  
+2. The CPU's instruction pointer happened to point to the **entry point** of the already loaded program. An entry-point is the memory address of the first instruction for a certain program.  
 
 ### Loading a Rust Program
 From the previous discussion, it became clear that to run a program, you have to do the following :  
-1. load the program to memory
+1. load the program to memory ie where the CPU can fetch from (typically the RAM or ROM.).
 2. load the runtime for the program into memory. The runtime in this case means 'control code' that takes care of things like stack-overflow protection.  
-3. make the CPU to point to the entry_point of the {program + runtime}
+3. make the CPU to point to the entry_point of the (loaded program + loaded runtime)
 
-A typical Rust program that depends on the std library is ran in exactly the same way. The runtime code for such programs includes files from the C-runtime and the Rust Runtime.  
+A typical Rust program that depends on the std library is ran in exactly the same way. The runtime code for such programs includes files from both the C-runtime and the Rust Runtime.  
 
-![Alt text](img/init_code_level_2.png)  
-This is the **normal entry point chain**. ☝🏼  
+<figure>
+  <img src="./img/init_code_level_2.png" alt="init_code">
+  <figcaption>Init code vs normal code while in memory.</figcaption>
+</figure>
+
+
+<!-- This is the **normal entry point chain**. ☝🏼   -->
 When a Rust program gets loaded into memory, it gets loaded together with the C and Rust runtimes.  
-The C-runtime gets executed first. The entry_point function of the C-runtime is typically called `_start`.  
+
+#### The normal entry point chain
+The `normal entry point chain` describes the order in which code gets executed and their respective entry-point labels.  
+
+In Rust the C-runtime gets executed first, then the Rust runtime and finally the normal code.  
+The entry_point function of the C-runtime is the function named `_start`.  
+
 After the C runtime does [its thing][the-c-runtime], it transfers control to the Rust-runtime. The entrypoint of the Rust-runtime is labelled as a `start` language item.  
-The Rust runtime also does [its thing][the-rust-runtime] and finally calls the `main` function.  
+
+The Rust runtime also does [its thing][the-rust-runtime] and finally calls the `main` function found in the normal code.  
 And that's it! Magic!
 
 
@@ -129,9 +141,8 @@ If the above 2 paragraphs made complete sense to you, and you were even able to 
 
 If they did not make sense, then you got some reading to do in the next immediate sub-chapters...  
 
-Don't worry, we will get to a point where our bare-metal code will run without a hitch... but it's a long way to go. And its fun.  
-See all these Rainbows, unicorns and excalibars everywhere!!  
-
+Don't worry, we will get to a point where our bare-metal code will run without a hitch... but it's a long way to go.  
+The next subchapters will be just theory...we'll fix the compiler error soon.
 
 
 [overlay-explanation-video]: https://www.youtube.com/watch?v=lWVQsld8hMI

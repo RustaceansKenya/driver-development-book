@@ -34,11 +34,11 @@ It is up to the programmer to tag a function of their choosing with the `#[panic
 fn whatever_name_you_choose ( _: &PanicInfo ) -> !{
     // write whatever you want here.  
     // Do you want to print to the stderr? Write code for that.  
-    // Do you want to restart the program?
+    // Do you want to restart the program? Write code for that. 
     // Point is, this is your playground. You determine the actions of the panic_handler
 }
 
-// your other pieces of buggy code
+// your other pieces of sh*tty code
 ```
 
 During compilation, the above code gets blended with the chosen panic-runtime.   
@@ -53,7 +53,11 @@ This encourages portability since you can do conditional attribute assignation.
 
 So that takes care of the `rust_begin_panic` symbol.  
 
-As for the `eh_personality` symbol, is not really a symbol. It is a languge item. Laguage items are special functions or types that the compiler have significance to the compiler. The eh_personality language item marks a function that is used for implementing stack unwinding. By default, Rust uses unwinding to run the destructors of all live stack variables in case of a panic. This ensures that all used memory is freed and allows the parent thread to catch the panic and continue execution. Unwinding, however, is a complicated process and requires some OS-specific libraries (e.g. libunwind on Linux or structured exception handling on Windows)   
+As for the `eh_personality` symbol, is not really a symbol. It is a languge item. In Rust, "language items" are special functions, types, and traits that the Rust compiler needs to know about in order to implement certain fundamental language features. These items are usually defined in the standard library (std) or the core library (core) and are marked with the #[lang = "..."] attribute.  
+
+Think of language items as 'tokens that affect the functionality of the compiler'.  
+
+The eh_personality language item marks a function that is used for implementing stack unwinding. By default, Rust uses unwinding to run the destructors of all live stack variables in case of a panic. This ensures that all used memory is freed and allows the parent thread to catch the panic and continue execution. Unwinding, however, is a complicated process and requires some OS-specific libraries (e.g. libunwind on Linux or structured exception handling on Windows)   
 
 
 

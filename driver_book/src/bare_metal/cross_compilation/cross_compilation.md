@@ -1,6 +1,8 @@
 # Cross-Compilation
 
-**Compilation** is the process of converting source code into machine code. ie. converting text into zeroes-and-ones.  
+**Compilation** is the process of converting high level code into low-level code. This typically involves converting source code into machine code. ie. converting text into zeroes-and-ones.  
+
+In less typical cases, you can convert high-level code into less-high-level code. eg Rust to LLVM-IR ([Intermediate representation](https://en.wikipedia.org/wiki/Intermediate_representation)). Point is, compilation isn't always about translating source code into binary.   
 
 The compilation process for a single file roughly looks like this ...  
 ![Alt text](img/compilation.png)
@@ -34,7 +36,7 @@ Each ISA has its own machine code syntax, semantics and encoding. This means tha
 
 2. The Vendor-specific implementations on both the software and hardware of the target machine. (undone: this sentence needs further explanations)
 
-3. The **Execution environment** on which the compiled program is supposed to run on. In most cases the Execution environment is usually the OS. The execution environment affects the kind of symbls that get used in the object files. For example, a program that relies on the availability of a full-featured POSIX OS may have more symbols than those found in an object file meant for bare metal.  
+3. The **Execution environment** on which the compiled program is supposed to run on. In most cases the Execution environment is usually the OS. The execution environment affects the kind of symbols that get used in the object files. For example, a program that relies on the availability of a full-featured POSIX OS may have more symbols than those found in an object file meant for bare metal.  
 
 4. The [**ABI**](../../misc/abi.md) of the execution environment. Depending on your definition of the ABI, the structure and content of the object file is almost entirely dependent on the ABI. 
 
@@ -49,8 +51,8 @@ So people started describing targets based on the state of the above 4 factors. 
 **Target riscv32-unknown-none-elf** means that the target machine contains a Riscv32 CPU, the vendor is unknown and inconsequential, the execution environment is nothing but bare metal, the execution environment can interact with object files ONLY if they follow the elf specification.  
 
 
-People usually call this target specifications **triple targets**...  
-Don't let the name fool you, some names contain 2 parameters, others 4 ... others 5. Triple-target does not refer to 3-parameter names.  
+People usually call these target specifications **triple targets**...  
+Don't let the name fool you, some names contain 2 parameters, others 4 ... others 5. The name `Triple-target` is a misnomer. Triple-target don't refer to 3-parameter names alone.  
 
 The software world has a naming problem...once you notice it, you see it everywhere. For example, what is a toolchain? Is it a combination of the compiler, linker and assembler? Or do we throw in the debugger? or maybe even the IDE? What is an IDE?? Is a text Editor with plugins an IDE?? You see? Madness everywhere!! Naming things is a big problem. 
 
@@ -59,7 +61,7 @@ The software world has a naming problem...once you notice it, you see it everywh
 Because they help you in choosing and configuring your compiler, assembler and linker in such a way that allows you to build object files that are compatible with the target.  
 
 For example, if you were planning to compile program `x` for a `x86_64-unknown-linux-gnu` target....
-1. You would look for a x86_64 compiler, and install it. A riscv compiler would be useless.  
+1. You would look for a x86_64 compiler, and install it. A riscv compiler would be useless. An ARM compiler would be useless.   
 2. You would look for a x86_64 assembler, and install it. Any other assembler would be useless.  
 3. You would then look for system files that were made specifically for the Linux kernel. For example, system files with an implementation of the C standard library such as glibc, newlib and musl. 
 4. You would look for a linker that can process and output GNU-ABI-compliant object files

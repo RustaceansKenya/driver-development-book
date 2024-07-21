@@ -1,6 +1,6 @@
 # Practicals
 
-Now that you know a little bit about the core library, we can start writing programs that depend on core instead of std.  
+Now that you know a little bit about the core library, we can start writing programs that depend on `core` instead of `std`.  
 This chapter will take you through the process of writing a no-std program.  
 We will try our very best to do things in a procedural manner...step by step... handling each error slowly.  
 
@@ -62,12 +62,12 @@ This has been demonstrated below.
 #![no_std]
 
 fn main(){
-    // println!("Hello world!!"); // we comment out this line.
+    // println!("Hello world!!"); // we comment out this line. println is indeed undefined
 }
 ```
 Two compilation errors remain...  
 
-## Step 3: Fixing the second and third compilation errors
+## Fixing the second and third compilation errors
 
 This is going to be a short fix but with a lot of theory behind it.  
 To solve it, we have to understand the [core library requirements][core-library-requirements] first.  
@@ -117,7 +117,7 @@ To set this language behaviour, we are faced with two solutions :
 2. Tell rust that it should unwind the stack... and then offer it a pointer to a function definition that clearly implements the unwinding process. (we are soy-devs, this option is completely and utterly off the table!!)  
 
 
-## Step 3.something: Fixing the second compiler error  
+## Step 3: Fixing the second compiler error  
 
 The remaining errors were ...
 ```bash

@@ -1,0 +1,16 @@
+# The Rust Compiler
+
+This book is about writing code that runs on bare-metal machines. At one point, you may be writing code for a completely new ISA or custom runtime.  
+So it makes sense to understand how you can use the Rust compiler to produce custom machine code.  
+
+
+The best resources are the usual suspects :  
+1. The Rustc Book. 
+   Make sure you got a handle of the following selected chapters:  
+   1. `Commandline arguments` chapter
+   2. Under the `Platform support chapter`, read the `intro` and `Target Tier Policy` subchapter.
+   3. The `Targets` chapter
+2. The Embedonomicon
+
+
+After you have got a grasp of the compiler's functionality, you might be tempted to learn more about LLVM or Cranelift in a bid to understand the Rust Compiler's implementation. You are highly encouraged to do so. 
