@@ -2,19 +2,23 @@
 
 This chapter is filled with definitions.  
 
-And as you all know, there are NO right definitions in the software world. People still debate what 'kernel' means. People are okay using the word 'serverless' apps. What does AI even mean? It's chaos everywhere.  
+And as you all know, there are NO right definitions in the software world. Naming things is hard. Defining things is even harder.  
 
-So the definitions used here are constrained in the context of ***this*** book.  
+People still debate what 'kernel' means. People are okay using the word 'serverless' apps. What does AI even mean? What is a port? What is a computer even? It's chaos everywhere.  
+
+So the definitions used in ***this*** book are constrained in the context of ***this*** book.  
 
 ### What's a driver?  What's firmware?  
 
-Drivers and firmwares do so many things. It is an injustice to define them like how I have defined them below. In truth, the line between drivers and firmware is thin. (we'll get back to this... just forget that I mentioned it).   
+Drivers and firmwares do so many things. It is an injustice to define them like how I have defined them below.  
+
+In truth, the line between drivers and firmware is very thin. (we'll get back to this... just forget that I mentioned it).   
 
 But here goes the watered down definitions... 
 
 #### Firmware  
 
-**Firmware** is software that *majorly* controls the hardware. It *typically* gets stored in the ROM of the hardware  
+**Firmware** is software that *majorly* controls the hardware. It *typically* gets stored in the ROM of the hardware.  
 
 For example, an external hard-disk device has firmware that controls how the disks spin and how the actuator arms of the hard-disk do their thing.  
 That firmware code is independent of any OS or Runtime... it is code specifically built for that hard-disk's internal components. The 0s and 1s of the firmware are stored in a place where the circuitry of the hard-disk can access and process.   

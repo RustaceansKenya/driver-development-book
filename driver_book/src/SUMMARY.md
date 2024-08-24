@@ -29,6 +29,7 @@
   - [LLVM](./bare_metal/cross_compilation/LLVM.md)
 - [Linkers and Linking](./bare_metal/linking/linking.md)
 - [Practicals - part 3](./bare_metal/no_std/pracs_3.md)
+- [Binary Inspection](./bare_metal/binary_tools/bin_tools.md)
 
 
 
@@ -128,3 +129,4 @@
   - [core::iter](./drafts/more_on-no-std/core_iter.md)
 - [macros](./drafts/macros.md)
 - [untouched](./drafts/untouched.md)
+- [Codegen](./drafts/codegen.md)

@@ -2,7 +2,9 @@
 
 This book is on driver development using Rust. You get to procedurally write a UART driver for a RISCV chip called [ESP32C3][ESP32C3-datasheet-link] and a [Qemu-riscv-virt board][qemu-riscv-virt-board].  
 
-This is not a book on embedded-development but it will touch up on some embedded-concepts here and there.  
+If you have no idea what a UART driver is, then you have nothing to worry about. You'll get a hang of it along the way.  
+
+This is NOT a book on embedded-development but it will touch up on some embedded-development concepts here and there.  
 To learn about Rust on embedded, you are better off reading [The Embedded Rust Book][the-embedded-rust-book].  
 
 
@@ -13,7 +15,7 @@ The book will take you through 5 phases :
 ### Phase 1:  
 <hr>
 
-You get to build a UART driver for a qemu-riscv virtual board. This will be our first phase because it will take you through the fundamentals without having to deal with the intricacies of handling a physical board or writing flashing algorithms that suite specific hardware.  
+Under phase 1, you get to build a UART driver for a qemu-riscv virtual board. This will be our first phase because it will take you through the fundamentals without having to deal with the intricacies of handling a physical board. You won't have to write flashing algorithms that suite specific hardware. You won't have to read hardware schematics.  
 
 The code here will be suited for a general virtual environment.  
 
@@ -23,7 +25,9 @@ The resultant UART driver at the end of this phase will NOT be multi_thread-safe
 ### Phase 2:  
 <hr>
 
-We will try to improve our UART driver code to conform to standard APIs like PAC and HAL. This phase will try to show devs how to make standard drivers that are more portable.   
+We will try to improve our UART driver code to conform to standard APIs like **PAC** and **HAL**. This phase will try to show devs how to make standard drivers that are more portable.   
+
+If you have no idea what HAL and PACs are, you hav nothing to worry about. You'll learn about them along the way.  
 
 
 ### Phase 3:  
@@ -31,7 +35,7 @@ We will try to improve our UART driver code to conform to standard APIs like PAC
 
 Both Phase 1 and 2 focus on building a UART driver for a virtual riscv board, BUT phase 3 changes things up and focusses on porting that UART code to a physical board.  
 
-We will modify the previously built UART driver so that it can run on the esp32 **physical** board. We'll set up code harnesses that assist in flashing, debugging, logging and testing the driver-code on the physical board.  
+We will modify the previously built UART driver so that it can run on an esp32 **physical** board. We'll set up code harnesses that assist in flashing, debugging, logging and testing the driver-code on the physical board.  
 
 On normal circumstances, people use common pre-made and board-specific tools to do the above processes : ie testing, logging, debugging and flashing.   
 For example, developers working with Espressif Boards usually use Espressif tools like [esptool.py](https://docs.espressif.com/projects/esptool/en/latest/esp32/).  

@@ -375,6 +375,6 @@ If the rt Cargo feature of the svd2rust generated crate is enabled, the crate wi
 
 
 
-[espressif_svd_file_samples]: [https://github.com/espressif/svd/tree/main/svd]  
-[esp32c3_svd_file]: [https://github.com/espressif/svd/tree/main/svd]
+[espressif_svd_file_samples]: https://github.com/espressif/svd/tree/main/svd  
+[esp32c3_svd_file]: https://github.com/espressif/svd/tree/main/svd
 

@@ -6,7 +6,7 @@ Welcome to the first cool chapter.
 
 Bare metal programming is the act of writing code that can run on silicon without any fancy dependencies such as a kernel.  
 
-This chapter is important because Firmware and Drivers are Bare-metal programs themselves.  
+This chapter is important because both Firmware and Drivers are Bare-metal programs themselves.  
 
 
 
@@ -21,6 +21,8 @@ This chapter takes you through the process of writing a program that does not de
 It would be an **UNDERSTATEMENT** to call those 2 chapters legendary.  
 Just go give them a read...  
 
+
+You could also read the Embedonomicon
 
 
 [writing-an-os-in-rust]: https://os.phil-opp.com/

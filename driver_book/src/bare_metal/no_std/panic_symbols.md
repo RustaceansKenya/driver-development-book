@@ -51,6 +51,8 @@ So that's it. When a panic happens, the program executes the code inside the `wh
 You see the function that you tagged with the `#[panic_handler]` attribute? Yea, see it? During compilation, that function gets converted to be a function called `rust_begin_panic`. You do not have to explicitly define `rust_begin_panic` because the compiler will implicitly convert any function with the `#[panic_handler]` attribute to become `rust_begin_panic`.  
 This encourages portability since you can do conditional attribute assignation.   
 
+The function marked with the `#[panic_handler]` attribute defines the behavior of panics, both library level panics (core::panic!) and language level panics (out of bounds indexing).  
+
 So that takes care of the `rust_begin_panic` symbol.  
 
 As for the `eh_personality` symbol, is not really a symbol. It is a languge item. In Rust, "language items" are special functions, types, and traits that the Rust compiler needs to know about in order to implement certain fundamental language features. These items are usually defined in the standard library (std) or the core library (core) and are marked with the #[lang = "..."] attribute.  
