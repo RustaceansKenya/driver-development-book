@@ -24,18 +24,21 @@ For example, core lacks the following modules that are found in the std library 
 5. `std::os`
 6. `std::string`
 
-Look for the rest of the missing modules and try to answer the following questions : "why isn't this module not found in core?", "if it were to be implemented in core, how would the module interface look like?".  
+Look for the rest of the missing modules and try to answer the following questions : 
+1. "why isn't this module not found in core?", 
+2. "if it were to be implemented in core, how would the module interface look like?".  
 
-For example, there is currently no `core::thread` but there is `std::thread`. `core::thread` does not exist because if it did, it would have depended on the availability of a thread manager; a thread manager is typically a part of a kernel. `std::thread` depends on that, so it is my assumption that `core::thread` might require the availability of a thread-manager.  
-If maybe the Rust team decided to create a `core::thread`, then the library API might have focused on attaching an external thread manager.  
+The above 2 questions are hard.  
+In the past, the experimental `core::io` did not exist, but now it does because the above two questions were answered(partially). It is still an ongoing answer.  
 
-Also, just because a module's name is found in both std and core, it is not a guarantee that both the modules contain identical contents. Modules with the same names have different contents.  
+
+Something to note, just because a module's name is found in both std and core, it is not a guarantee that both the modules contain identical contents. Modules with the same names have different contents.  
 For example, `core::panic` exposes ZERO functions while `std::panic` exposes around 9 functions.  
 
 
 ## Is the Core really dependency free?  
 A dependency-free library is a library that does not depend on any other external library or file. It is a library that is complete just by itself.  
-The core library is NOT fully dependency free. It just depends on VERY FEW external definitions.  
+The core library is **NOT fully dependency free**. It just depends on VERY FEW external definitions.  
 
 The compiled core code typically contains undefined linker symbols. It is up to the programmer to provide extra libraries that contain the definitions of those undefined symbols.  
 So there you go... Core is not 100% dependency-free.  

@@ -91,7 +91,7 @@ Rust integrates with LLVM nicely.
 **What do we mean by integration?**  
 Parsing and analyzing Binary files can be a headache when building binary tools like llvm-readobj because each target architecture has its own unique intricacies in its binary files even when they use standard file formats such as ELF.  
 
-Rust binaries make it *worse*/*better* by introducing new memory layouts, additional debugging symbols and additional linking symbols just to name a few parsing headaches. (I named a few because my knnowledge ends there, Help! 😂).  
+Rust binaries make it *worse*/*better* by introducing new memory layouts, new symbol-mangling techniques, additional debugging symbols and additional linking symbols just to name a few parsing headaches. (I named a few because my knnowledge ends there, Help! 😂).  
 
 So in short, the resultant rust-made elf files are not really standard elf files, they contain additional rust-specific info. Normal Elf tools like `llvm-readobj` have the ability to parse these rust-made files, but they miss out on the rust-specific analysis.  
 

@@ -8,6 +8,6 @@ As long as you can compile high level code into machine code that is within the 
 
 The main point here is that : "Machine code that follows a certain ISA can run on any processor that implements that ISA." This is because the processor is a DIRECT implementation of the ISA specifications.  
 
-So the processor that you built in your room can run Rust code as long as that rust code gets compiled into machine code that follows the ISA specifications of your custom processor.  
+So a home-made processor that you built in your room can run Rust code as long as that rust code gets compiled into machine code that follows the ISA specifications of your custom processor.  
 
 

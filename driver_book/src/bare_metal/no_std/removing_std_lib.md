@@ -3,7 +3,7 @@
 
 A earlier mentioned, when you write drivers, you cannot use the standard library. But you can use the [core-library][lib-core-documentation].  
 
-So what is this core library?
+So what is this core library? (also known as lib-core).
 
 Even before we discuss what the core library entails, lets answer this first:  
 How is it possible that the core library can get used as a dependency by bare-metal apps while the `std` library cannot get used as a dependency? How are we able to use the core library on bare metal?  
@@ -12,7 +12,7 @@ well...Lib-core functions can be **directly** compiled to pure assembly and mach
 
 Lib-core is lean. It is a subset of the std library. This means that you lose a lot of functionalities if you decide to use lib-core ONLY.  
 
-Losing the std library's support means you forget about thread managemnt, handling the file system, heap memory allocation, the network, random numbers, standard output, or any other features requiring OS abstractions or specific hardware. If you need them, you have to implement them yourself. The table below summarizes what you lose...  
+Losing the std library's support means you forget about OS-supported functions like thread management, handling the file system, heap memory allocation, the network, random numbers, standard output, or any other features requiring OS abstractions or specific hardware. If you need them, you have to implement them yourself. The table below summarizes what you lose...  
 
 
 | feature                                                   | no\_std | std |
@@ -20,7 +20,7 @@ Losing the std library's support means you forget about thread managemnt, handli
 | heap (dynamic memory)                                     |   *    |  ✓  |
 | collections (Vec, BTreeMap, etc)                          |  **    |  ✓  |
 | stack overflow protection                                 |   ✘    |  ✓  |
-| runs init code before main                                |   ✘    |  ✓  |
+| init code before main                                |   ✘    |  ✓  |
 | libstd available                                          |   ✘    |  ✓  |
 | libcore available                                         |   ✓    |  ✓  |
 

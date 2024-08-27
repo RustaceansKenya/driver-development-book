@@ -1,14 +1,17 @@
 # Bare-metal
 
-So now you understand what the standard library is.  
+So by now you understand what the standard library is.  
 You understand why it exists.  
 You somehow understand its modules and functions.  
 
 
-You understand that the standard library calls system functions in the background.  
-You understand that the interface of a standard library is *'constant'*. ( i.e standardized, versionized and consistent across different platforms)  
+You understand that the standard library references and calls system functions in its source code. The Std assumes that the underlying operating system will provide the implementations of those system functions.  
+These system function definitions can be found in files found somewhere in the OS. 
 
-You understand that the implementation of a standard library *is also NOT constant*; It is OS-dependent. For example the interfaces of the libc library is *constant* across all OSes but libc's implementations is different across all OSes; In fact the libc implementations have different names ... we have `glibc` for GNU-Linux's libc and `CRT` for windows' libc. GNU-inux even has extra implementations such as `musl-libc`. Windows has another alternative implementation called `MinGW-w64`  
+
+You understand that the interface definition of a standard library is *'constant'*. ( i.e it is standardized, versionized and consistent across different platforms)  
+
+You understand that the implementation of a standard library *is NOT constant* because It is OS-dependent. For example the interfaces of the libc library is *constant* across all OSes but libc's implementations is different across all OSes; In fact the libc implementations have different names ... we have `glibc` for GNU-Linux's libc and `CRT` for windows' libc. GNU-linux even has extra implementations such as `musl-libc`. Windows has another alternative implementation called `MinGW-w64`  
 
 
 
@@ -35,7 +38,7 @@ We will procedurally create a bare metal program in the next few sub-chapters.
 An Execution environment is the context where a program runs. It encompasses all the resources needed to make a program run.  
 For example, if you build a video-game-plugin, then that plugin's execution environment is that video-game.  
 
-In general software development, the word execution environment usually refers to the description of the processor-architecture, the operating system, avalable system libraries, environment variables, and other dependencies.  
+In general software development, the word `execution-environment` usually refers to the combination of the processor-architecture, the kernel, available system libraries, environment variables, and other dependencies needed to make apps run.  
 
 Here is more jargon that you can keep at the back of your head:  
 
@@ -46,7 +49,10 @@ The kernel is also an execution environment. So if you write a program that depe
 
 The Browser is also an execution environment. If you write a JS program, then your program has 3 execution environments: The Browser, the kernel and the Processor.  
 
+I hope you get the drift, the systems underneath any sotware you write is part of the execution environment.  
 
->*Chips and boards are mostly made from silicon and other alloys that are not particularly metallic... I guess we should say `bare-silicon` programming instead of `bare-metal`?*
+
+>*Chips and boards are mostly made from silicon and fibreglass. Metal forms a small percentage(dopants, connections).   
+I guess we should say `bare-silicon programming` instead of `bare-metal programming`?*
 
 

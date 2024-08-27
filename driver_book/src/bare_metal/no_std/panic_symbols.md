@@ -63,4 +63,4 @@ The eh_personality language item marks a function that is used for implementing 
 
 
 
-
+<!-- (undone(help neded): this chapter needs more simple and correct explanations. I, the initial author(@kiarie404), is completely confused about how panicking happens in Rust) -->
