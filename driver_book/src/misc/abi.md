@@ -1,6 +1,6 @@
 # ABIs
 
-Tbh, the current author is really having a hard time defining what an ABI really is. 
+Tbh, the current author is really having a hard time defining what an ABI really is. Contributions are welcome
 - What it entails, 
 - what it doesnt entail, 
 - why it has what it has, 
@@ -8,7 +8,7 @@ Tbh, the current author is really having a hard time defining what an ABI really
 
 The author is also having a hard time differentiating the different ABI standards and defining their trade-offs in different situations.  
 
-So far, [this document](https://d3s.mff.cuni.cz/files/teaching/nswi200/202324/doc/riscv-abi.pdf) has been helpful.
+So far, [the Riscv ABI specs](https://d3s.mff.cuni.cz/files/teaching/nswi200/202324/doc/riscv-abi.pdf) have been helpful.
 
 (undone)
 

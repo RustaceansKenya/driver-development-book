@@ -17,15 +17,15 @@ There are many linkers in existence. However the two dominant linkers are :
 1. The [LD linker][ld-linker-page] (also called the GNU linker)
 2. The [LLD linker][lld-linker-page] (also called the LLVM linker)  
 
-The Rust toolchain is a modification of the LLVM toolchain, so it uses the LLVM linker by default. You can however configure it to use the GNU linker after some tweaks to the cargo configuration file.  
+The Rust toolchain is built using the LLVM toolchain, so it uses the LLVM linker by default. You can however configure it to use the GNU linker after some tweaks to the cargo configuration file.  
 
 <br><br>
-The GNU linker and the LLVM linker have differences. Two subtle and important differences have been listed below.  
+The GNU linker and the LLVM linker have two subtle and important differences have been listed below.  
 
 ### 1. Automatic linker-script generation.  
-The GNU linker ALWAYS requires a manually-defined linker script to function. The LLD (the LLVM linker) doesn't always require a manually-defined linker script like LD (the GNU linker).   
+The GNU linker ALWAYS requires a manually-defined linker script to function while the LLD (the LLVM linker) doesn't always require a manually-defined linker script to function.   
 
-In many cases, LLD can automatically generate linker scripts internally based on the specified triple-target, format, and other parameters specified during the linking process. This means that LLD can handle the linking proces s without requiring an explicit linker script provided by the user.
+In many cases, LLD can automatically generate linker scripts internally based on the specified triple-target, format, and other parameters specified before & during the linking process. This means that LLD can handle the linking process without requiring an explicit linker script provided by the user.
 
 However, LLD does provide a way for users to specify custom linker scripts if needed. Users can pass a custom linker script to LLD using command-line options or configuration files, similar to how it's done with LD. This gives users flexibility in defining the linking behavior and organizing the output binary according to their specific requirements.  
 
@@ -33,11 +33,11 @@ However, LLD does provide a way for users to specify custom linker scripts if ne
 The GNU linker is compact and straight-foward. There is only one GNU linker. If you want to compile something into an elf, you supply the linker with an elf-generating linker script. If you need a wasm binary file, you supply it with a corresponding linker script.  
 This may seem simple at first, but writing a correct linker script is usually not an easy task. To solve this problem, the LLVM linker implemented the concept of ***linker-flavours***.  
 
-The LLVM linker is not a monolith, it is made up of different specialized linkers within itself. These sub-linkers are called flavours. The flavours are linkers that are specialized in producing object files for specific targets.  
+The LLVM linker is not a monolith, it is made up of different specialized linkers that are typically called flavours. The flavours produce object files for specific targets ONLY.  
 
-For example, Let's say you want to produce a unix elf file, instead of writing a complex & erronous linker script, you could use the LD.LLD linker flavour and it will automatically generate an internal unix-elf-focussed script for you. This is what makes LLD a cross-linker by default.  
+For example, Let's say you want to produce a unix elf file, instead of writing a complex & erronous linker script, you could use the `LD.LLD linker flavour` and it will automatically generate an internal unix-elf-focussed script for you. This is what makes LLD a cross-linker by default.  
 
-There are currently 4 LLVM-linker flavours : 
+There are currently 4 mainstream LLVM-linker flavours : 
 1. **LD.LLD (unix)** : specializes in generating object files and executables for Unix-like operating systems, such as Linux and FreeBSD. It supports formats like ELF (Executable and Linkable Format) and handles symbol resolution, linking libraries, and generating debug information specific to Unix environments.  
 
 2. **ld64.lld (macOS)** : specializes in producing object files and executables for macOS and other Apple platforms. It supports the Mach-O (Mach Object) file format used on macOS. 

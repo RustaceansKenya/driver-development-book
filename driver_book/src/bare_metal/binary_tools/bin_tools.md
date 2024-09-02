@@ -1,9 +1,9 @@
 # Binary File Inspection in Rust
 
 We will be dealing with binary files in our development, so it's better to get comfortable with them.  
-For in depth understanding, just read the book recommended at the bottom of the page.  
+For an in depth understanding, just read the first 2 chapters of the book recommended at the bottom of the page.  
 
-Oh well, here goes the shallow explanation...   
+Oh well, here goes the shallow explanation for those who won't read the book...   
 
 ## What's a binary file?  
 A binary file is a file filled with zeroes and ones. End of story.  
@@ -16,7 +16,7 @@ There're many kinds of binary files but we'll just cover binary files that are r
 
 1. An **executable binary** is a binary file that gets produced by a compilation toolchain, this file is fully executable and self-contained. (eg main.out on linux)  
 
-2. A **Relocatable object file** is a specific type of binary file produced by a compiler or assembler. It contains machine code, but it is not a complete executable program. Instead, it represents a single translation unit (e.g, a compiled source file) that needs to be linked with other object files and libraries to create a final executable. (eg lib.o). It is called relocatable because it contains symbols that references memory addresses that are NOT FINAL. This was covered in the Linking chapter.  
+2. A **Relocatable object file** is a specific type of binary file produced by a compiler or assembler. It contains machine code, but it is not a complete executable program. Instead, it represents a single translation unit (e.g, a compiled source file) that needs to be linked with other object files and libraries to create a final executable. (eg lib.o). It is called relocatable because it contains symbols that references memory addresses that are NOT FINAL.  
 
 3. A **dynamic binary file** is a shared library produced by a compilation toolchain too. It is fully compiled and linked, but it is designed to be loaded at runtime rather than being fully self-contained. (e.g., .so on Linux, .dll on Windows)  
 
@@ -25,7 +25,7 @@ A bunch of 0's and 1's can be meaningless unless they are structured, parsable a
 
 Binary file formats define the structure and encoding of data within a binary file. These formats specify how sequences of bits and bytes are organized to represent different types of data such as executable code, images, or multimedia.  
 
-Common binary file formats include Executable and Linkable Format (ELF) for executables, Portable Executable (PE) for Windows programs, and various proprietary formats for firmware and custom applications. Understanding these formats is key to interpreting and manipulating binary data effectively.  
+Common binary file formats include **"Executable and Linkable Format (ELF)"** for unix-like systems and "**Portable Executable (PE)**" for Windows programs, and various proprietary formats for firmware and custom applications. Understanding these formats is key to interpreting and manipulating binary data effectively.  
 
 You can read about Elf file format from specifications, for example, here are some [ELF reference docs from the Linux Foundation][linux-foundation-elf-references].  
 Forget about Portable Executable (PE), we wont need it. You can read about it if you wanna.  
@@ -85,8 +85,8 @@ Most of them come pre-installed with your linux box. Here's an incomplete list :
 The above info is shallow, you can access the manuals of each of the tools above and mess around with them.  
 
 
-### Integration with Rust  
-Rust integrates with LLVM nicely.  
+## Rust and LLVM-tools
+Rust easily integrates with the  LLVM-binary tools
 
 **What do we mean by integration?**  
 Parsing and analyzing Binary files can be a headache when building binary tools like llvm-readobj because each target architecture has its own unique intricacies in its binary files even when they use standard file formats such as ELF.  
@@ -95,7 +95,7 @@ Rust binaries make it *worse*/*better* by introducing new memory layouts, new sy
 
 So in short, the resultant rust-made elf files are not really standard elf files, they contain additional rust-specific info. Normal Elf tools like `llvm-readobj` have the ability to parse these rust-made files, but they miss out on the rust-specific analysis.  
 
-For this reason, the Rust community provides modded versions of the LLVM-tools in form of a toolchain componet called `llvm-tools-preview`. This component contains a bunch of modded llvm-tools that can completely parse and inspect both standard and rust-made elf files.  
+For this reason, the Rust community provides modded versions of the LLVM-tools in form of a toolchain componet called `llvm-tools-preview`. This component contains a bunch of modded llvm-tools that can completely parse and inspect both normal and rust-made elf files.  
 
 The word "`preview`" in the name "`llvm-tools-preview`" is important because it indicates that the component is currently not stable and is under active development. You can view the development progress through this [tracking issue][tracking-issue].  
 
@@ -104,13 +104,19 @@ You can add the `llvm-tools-preview` components to your Nightly toolchain by run
 rustup component add llvm-tools-preview
 ```
 
-**Cargo integration**  
-To avoid leaving your cargo environment when programming, you can integrate llvm-tools with cargo by running the following command :  
+### **Cargo integration**  
+To avoid leaving your cargo environment when programming, you can integrate llvm-tools-preview with cargo by running the following command :  
 ```bash
 cargo install cargo-binutils
 ```
 
-That's it!   
+That's it! Now you can churn out commands like these: 
+```bash
+cargo readobj --all 
+cargo objdump --bin hello-world -- -d
+cargo objdump --bin hello-world -- --segment
+# ... read the cargo-binutils doc ...
+```
 
 
 

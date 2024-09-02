@@ -1,17 +1,14 @@
 # LLVM
 
-read the docs at the [LLVM's main website.](https://llvm.org/)  
+LLVM is a huge topic on its own, you can read the docs at the [LLVM's main website](https://llvm.org/) or check out the alternative resources listed at the bottom of the page.  
 
-Modern modular Toolchain components: Compilers, optimizers, linkers, assemblers, code-generators.  
+LLVM is a set of modular Toolchain components such as Compilers, optimizers, linkers, assemblers, code-generators.  
 
 
-Originally began as a Compiler with the following novel qualities :  
-1. Used **Single Static Assignment strategy (SSA strategy)**. Ie To make optimizations easier, any variable in the intermediate optimization could only be assigned once.  
-2. The compiler could be tweaked to compile any language.  
-
-But now it has transformed from being just a compiler, to being a toolchain comprising of many components with different functions.  
+Originally, it began as a Compiler-builder/ compiler-framework for any language...
+But now it has transformed from being just a compiler-framework, to being a toolchain comprising of many components with different functions.  
 The unique features across the board are that :  
-1. The components can be tweaked to suit different languages and execution environments.  s
+1. The components can be tweaked to suit different languages and execution environments.    
 2. The components are independent of each other.  
 
 ### LLVM components
@@ -26,9 +23,10 @@ The unique features across the board are that :
 5. **libclc**: an implementation of the OpenCL standard library. (OpenCL == Open Computer Language)
 
 
-### Learning.  
+### Learning Resources.  
 
-The best way to get a hang of LLVM is to go through [this tutorial](https://llvm.org/docs/tutorial/), trust me bro.  
-- Rust tutorial that goes all the way but is not working : https://github.com/jauhien/iron-kaleidoscope
-- Rust tutorial that cuts out the frontend part and assumes you know LLVM. (uses pest and inkwell libraries) : https://createlang.rs/intro.html  
-- llvm IR explained by McYoung : https://mcyoung.xyz/2023/08/01/llvm-ir/
+- [My First Language Frontend with LLVM Tutorial](https://llvm.org/docs/tutorial/).  
+- [Rust tutorial that goes all the way but is curently deprecated](https://github.com/jauhien/iron-kaleidoscope)
+- [Rust tutorial that cuts out the frontend part and assumes you know LLVM. (uses pest and inkwell libraries)](https://createlang.rs/intro.html)  
+- [llvm IR explained by McYoung](https://mcyoung.xyz/2023/08/01/llvm-ir/)
+

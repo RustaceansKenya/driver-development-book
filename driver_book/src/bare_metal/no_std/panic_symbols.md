@@ -1,23 +1,23 @@
 # Panic Symbols  
 
-> Disclaimer: The initial author had limited and inaccurate info about panicking, any experienced dev can correct and modify this chapter. This was as best as I could explain the internals of panicking in Rust.
+> Disclaimer: The author is not completely versed with the internals of panic. Improvement contributions are highly welcome, you can edit this page however you wish.   
 
-The panic symbols that the core library needs you to define are :  
+The core library requires the following panic symbols to be defined :  
 1. `rust_begin_panic`
 2. `eh_personality`
 
 Before we discuss why those symbols are needed, we need to understand how panicking happens in Rust.  
 To understand panicking, please read [this chapter](https://rustc-dev-guide.rust-lang.org/panic-implementation.html) from the [`rust-dev-guide` book][`rust-dev-guide` book].  
-It would also be nice to have a copy of the Rust source-code so thhat you can peek into the internals of both `core::panic` and `std::panic`.   
+It would also be nice to have a copy of the Rust source-code so that you can peek into the internals of both `core::panic` and `std::panic`.   
 
 But before, you read those resources... let me try to explain panicking.  
 
 ## Understanding panic from the ground up.  
-Panics can occur explicitly or implicitly. If this statement does not make sense, read this [Rust-book-chapter][Rust-book-chapter]
+Panics can occur explicitly or implicitly. If this statement does not make sense, read this [Rust-book-chapter][Rust-book-chapter].
 
 We will deal with explicit panics for the sake of uniformity and simplicity. Explicit panics are invoked by the `panic!()` macro.  
 
-So when a `panic!` macro is encountered during program execution by the Rust language runtime, the first action the runtime does is to document that it has found a panic. It documents this info internally by instantiating a struct called [`Location`][location-struct]. `location` stores the path-name of the bad file, the faulty line and the exact column of the 'source token parser'.  
+When the Rust language runtime encounters a `panic!` macro during program execution, it immediately documents it. It documents this info internally by instantiating a struct called [`Location`][location-struct]. `location` stores the path-name of the file containing `panic!()`, the faulty line and the exact column of the 'source token parser'.  
 Here is the struct definition of `Location`:  
 ```rust
 pub struct Location<'a> {
@@ -80,7 +80,7 @@ fn my_custom_panic_handler (_info: &PanicInfo) -> !{
 }
 ```  
 
-If you are in an std environment, implementing step 2 is optional. This is beccause the std library already defines a default function called `panic_hook` that prints the panic message and location to the stdout.  
+If you are in an std environment, implementing step 2 is optional. This is because the std library already defines a default function called `panic_hook` that prints the panic message and location to the stdout.  
 This means that if you define a `#[panic_handler]` function in an std environment, you will get a duplication compilation error. A program can only have one `#[panic_handler]`.  
 The only way to define a new custom panic_hook in an std environment is to use the [set_hook][set-hook] function.  
 

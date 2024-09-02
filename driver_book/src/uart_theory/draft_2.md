@@ -18,7 +18,7 @@ The UART circuit gets manipulated through a set of registers.
 This chapter is meant to describe each of those registers.  
 You do not have to memorize each register, just know that they exist. This chapter is best used as a reference-chapter instead of a prose-chapter.  
 
-The UART has 12 virtual registers built on top of 8 physical registers. This might sound confusing but it actually makes sense. This is because a physical register can be used differently under different contexts. For example, the first Register can be used as a logical write-buffer register when the user is writing to the UART, but when the UART is reading from the same register, will be treated as a logical read-buffer register.  
+The UART has 12 virtual registers built on top of 8 physical registers. This might sound confusing but it actually makes sense. This is because a physical register can be used differently under different contexts. For example, the first Register can be used as a logical write-buffer register when the user is writing to the UART, but when the UART is reading from the same register, it will be treated as a logical read-buffer register.  
 
 Below is a diagramatic representation of the 12 UART registers :    
 ![The UART Registers](./img/UART%20registers%20official%20DOCS.png)  
@@ -27,7 +27,7 @@ Below is a diagramatic representation of the 12 UART registers :
 Notice that there are registers that share the same physical space. For example.... see below   
 ![](./img/UART_registers_expreted.png)  
 
-To understand registers, it's better to first understand the operations that they try to achieve.  
+To understand registers, it's better to first understand the operations that they try to achieve in unison.  
 So here are the operations...
 1. Setting the Baud rate during configuration
 2. Modem control

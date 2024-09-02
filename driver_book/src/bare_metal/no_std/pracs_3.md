@@ -30,21 +30,21 @@ Well, if we scroll to some lower sections of the error, we see the `crt1.o` file
 Mystery two: Why are C runtime files getting involed in our code-base even after we had added the `#![no_main]` attribute?  
 The C runtime files got involved because the Rust compiler still thinks that we are compiling for the host's triple-target. The reason why it still thinks that is because we used the command `cargo build` instead of `cargo build --target=<a_different_target>`  
 
-Compiling for the host's triple-target means that the linker will by default use a pre-defined linker-script that had been made specifically for the host. In my case, the linker-script had information relating to the C runtime and that is how the C-runtime files got involved in the drama.  
+Compiling for the host's triple-target means that the linker will by default use a pre-defined linker-script that had been made specifically for the host. In our case, the pre-defined linker-script had information relating to the C runtime and that is how the C-runtime files got involved in the drama.  
 
 To fix this error, we have to stop the usage of that linker-script that has C-runtime affiliations.  
-We can do either of the following :  
+We can implement one of the following solutions:  
 
-**Solution 1.** Provide our very own linker-script that does not have affiliations to the C-runtime.  
+**Solution 1.** Provide our very own linker-script that does not have affiliations to the C-runtime files (also called start files).  
 
 **Solution 2.** Instruct the linker to stop including C-runtime file symbols to our object files. 
 
-**Solution 3.** We can stop compiling for any target that has a faulty linker-script and instead, only compile for targets that have linker-scripts that do not reference the C-runtime. All triple-targets that have Operating systems specified are more likely to call the C-runtime. All triple-targets that do not have the operating-system specified are less likely to call the C runtime. In short, triple-targets that use the `std` library are out of our radar.  
+**Solution 3.** We can stop compiling for any target that has a C-affiliated-linker-script and instead, only compile for targets that have linker-scripts that do not reference the C-runtime. All triple-targets that have Operating systems specified are almost assured to call the C-runtime. All triple-targets that do not have the operating-system specified are less likely to call the C runtime. In short, triple-targets that use the `std` library are out of our radar.  
 
 
 ### Solution 1.  
 Solution 1 is about writing our own linker-script as a solution since a manual linker-script usually overides the default auto-generated script.  
-I tried it, it didn't work. If anyone cracks this, kindly update this page on github (undone)  
+Try to implement this on your own. You can view the linker-script used in the [no-std-template](undone) to get some ideas.  
 
 ### Solution 2.  
 Solution 2 is achieved by running the following command. 
@@ -60,13 +60,13 @@ cargo build --target=riscv32i-unknown-none-elf
 # The target here should have the value 'none' in place of the Operating system
 ```  
 
-The point is to build for bare-metal targets.  
+The point of Solution 3 is to build for bare-metal targets only.  
 
 <br><br>
 # FINALLY
 And if you compile your program, it compiles without any errors.  
 That's it! A bare-metal program that literally does nothing, just boiler-plate.  
-was it anti-climatic? Ha ha   
+Quite anti-climatic.   
 
 Now you've learnt how to build bare-metal programs. You are yet to learn bare-metal debugging, functional-testing, performance-testing and monitoring. Those chapters will be covered later on.  
 

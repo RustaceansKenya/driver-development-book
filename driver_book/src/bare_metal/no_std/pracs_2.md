@@ -24,20 +24,20 @@ To dive deeper into this loading business, let's look at how the kernel gets loa
 
 
 ### Loading the kernel.  
-When the power button on a machine(laptop) is pressed, the following events occur. (this is just a summary; there are entire books on kernel loading): 
+When the power button on a machine(laptop) is pressed, the following events occur. (this is just a summary, you could write an entire book on kernel loading): 
 1. Power flows into the processor. The processor immediately begins the fetch-execute cycle. Except that the first fetch occurs from the ROM where the firmware is.  
 
 2. So in short, the firmware starts getting executed. The firmware performs a [power-on-self test](https://www.techtarget.com/whatis/definition/POST-Power-On-Self-Test). 
 
-3. The firmware then makes the CPU to start fetching instructions from the ROM section that contains code for the **primary loader**. The primary loader in this case is a program that can copy another program from ROM and paste it in the RAM in an orderly pre-defined way. By orderly way I mean ... it sets up space for the the stack, adds some stack-control code to the RAM(eg stack-protection code), it then loads up the different sections of the program that's getting loaded. If the program has [overlays][overlay-explanation-video] - it loads up the code that implements overlay control too.  
-Essentially, the loader can paste a program on the RAM in a **complete** way.  
+3. The firmware then makes the CPU to start fetching instructions from the ROM section that contains code for the **`primary loader`**. The primary loader in this case is a program that can copy another program from ROM and paste it in the RAM in an orderly pre-defined way. By orderly way I mean ... it sets up space for the the stack, adds some stack-control code to the RAM(eg stack-protection code), and then loads up the different sections of the program that's getting loaded. If the program has [overlays][overlay-explanation-video] - it loads up the code that implements overlay control too.  
+Essentially, the loader pastes a program on the RAM in a **complete** way.  
 
-4. The loader loads the **Bootloader** onto the RAM.  
-5. The loader then makes the CPU to point to the RAM section where the Bootloader is situated.  
-6. The Bootloader then starts looking for the kernel code. The kernel might be in the hard-disk or even in a bootable usb-flash.    
-7. The Bootloader then copies the kernel code onto the RAM and makes the CPU pointer to point to the entry point of the kernel. An entry-point is the memory address of the first instruction for any program.  
-8. From there, the kernel code takes full charge and does what it does best.  
-9. The kernel can then load the apps that run on top of it... an endless foodchain.  
+1. The **`primary loader`** loads the **Bootloader** onto the RAM.  
+2. The **`primary loader`** then makes the CPU instruction pointer to point to the RAM section where the Bootloader got pasted. This results in the execution of the bootloader.   
+3. The Bootloader then starts looking for the kernel code. The kernel might be in the hard-disk or even in a bootable usb-flash.    
+4. The Bootloader then copies the kernel code onto the RAM and makes the CPU pointer to point to the entry point of the kernel. An entry-point is the memory address of the first instruction for any program.  
+5. From there, the kernel code takes full charge and does what it does best.  
+6. The kernel can then load the apps that run on top of it... an endless foodchain.  
 
 **Why are we discussing all these?**  
 To show that programs run ONLY because these two conditions get fulfilled: 
@@ -50,7 +50,7 @@ The word **Complete** in this context means that the program code was not copied
 
 ### Loading a Rust Program
 From the previous discussion, it became clear that to run a program, you have to do the following :  
-1. load the program to memory ie where the CPU can fetch from (typically the RAM or ROM.).
+1. load the program to a memory where the CPU can fetch from (typically the RAM or ROM.).
 2. load the runtime for the program into memory. The runtime in this case means 'control code' that takes care of things like stack-overflow protection.  
 3. make the CPU to point to the entry_point of the (loaded program + loaded runtime)
 
@@ -58,7 +58,7 @@ A typical Rust program that depends on the std library is ran in exactly the sam
 
 <figure>
   <img src="./img/init_code_level_2.png" alt="init_code">
-  <figcaption>Init code vs normal code while in memory.</figcaption>
+  <figcaption><i>Init code vs normal code while in memory.</i></figcaption>
 </figure>
 
 
@@ -74,7 +74,9 @@ The entry_point function of the C-runtime is the function named `_start`.
 After the C runtime does [its thing][the-c-runtime], it transfers control to the Rust-runtime. The entrypoint of the Rust-runtime is labelled as a `start` language item.  
 
 The Rust runtime also does [its thing][the-rust-runtime] and finally calls the `main` function found in the normal code.  
-And that's it! Magic!
+And that's it! Magic!  
+
+During program execution, the instruction pointer occasionally jumps to appropriate Rust runtime sections. For example, during a panic, the instruction pointer will jump to the `rust_begin_panic` symbol that is part of the Rust runtime.   
 
 
 
@@ -130,14 +132,16 @@ error: linking with `cc` failed: exit status: 1
   = note: use the `cargo:rustc-link-lib` directive to specify the native libraries to link with Cargo (see https://doc.rust-lang.org/cargo/reference/build-scripts.html#cargorustc-link-libkindname)
 ```
 
-This error occurs because the toolchain thinks that we are compiling for our host machine... which in this case happens to be a linux-mint machine with a x86_64 CPU.  
+This error occurs because the toolchain thinks that we are compiling for our host machine and therefore decides to use the default linker script targeting the host machine... which in this case happens to be a linux-mint machine with a x86_64 CPU.  
+The reason this is a problem is because that linker script references start files that reference undefined symbols like `__libc_start_main` and `start`.  
+To view the default linker script that gets used, you can follow [these steps](undone)
 
 
-To fix this error, we execute one of the following solutions :
+To fix this error, we implement one of the following solutions :
 1. Specify a cargo-build for a triple target that has 'none' in its OS description. eg `riscv32i-unknown-none-elf`. This is the easier of the two solutions, and it is the most flexible.  
 2. Supply a new linker script that defines our custom entry-point and section layout. If this method is used, the build process will still treat the host's triple-target as the compilation target.   
 
-If the above 2 paragraphs made complete sense to you, and you were even able to implement them, just skim through the next few sub-chapters as a way to humor yourself.
+If the above 2 possible solutions made complete sense to you, and you were even able to implement them, just skim through the next few sub-chapters as a way to humor yourself.  
 
 If they did not make sense, then you got some reading to do in the next immediate sub-chapters...  
 

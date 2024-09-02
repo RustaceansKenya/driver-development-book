@@ -10,7 +10,10 @@ The best resources are the usual suspects :
    1. `Commandline arguments` chapter
    2. Under the `Platform support chapter`, read the `intro` and `Target Tier Policy` subchapter.
    3. The `Targets` chapter
-2. The Embedonomicon
+2. The [Embedonomicon][embedonomicon]
 
 
-After you have got a grasp of the compiler's functionality, you might be tempted to learn more about LLVM or Cranelift in a bid to understand the Rust Compiler's implementation. You are highly encouraged to do so. 
+After you have got a grasp of the compiler's functionality, you might be tempted to learn more about LLVM or Cranelift in a bid to understand the Rust Compiler's implementation. You are highly encouraged to do so.  
+
+
+[embedonomicon]: https://docs.rust-embedded.org/embedonomicon/

@@ -1,6 +1,6 @@
 # Runtime
 
-What is the C runtime? What is a Rust runtime? What is a runtime?  
+What is a C runtime? What is a Rust runtime? What is a runtime?  
 
 
 ## 100 Meanings
@@ -23,12 +23,12 @@ For example :
 ### Meaning 3 :  
 Programs usually don't start getting executed just like that. There has to be code that makes the CPU to point to and fetch the right lines of code, make sure that there is enough stack space, make sure that some CPU registers have the expected default values...  
 
-Point is, there is some code that gets executed before the actual program ie. Init code or control code.  
+Point is, there is some code that gets executed before the actual program ie. Init code AND control code.  
 
 In this context, Runtime means init-code. Runtime means control code.  
 Some parts of the runtime code get executed once while other parts get executed continuously & dynamically.  
 
-For example, control functions like *overlay control*,*stack overflow protection* and *Exception Handling* get executed continuously & dynamically. Functions like program-stack initilization gt executed only once at the start of the program.  
+For example, control functions like *overlay control*,*stack overflow protection* and *Exception Handling* get executed continuously & dynamically. Functions like program-stack initilization get executed only once at the start of the program.  
 
 Some compilers can be set to statically insert such control code in every place they are needed at compile time. Other compilers allow you to reference them dynamically.  
 

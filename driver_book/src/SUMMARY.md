@@ -25,7 +25,7 @@
   - [Practicals - part 1](./bare_metal/no_std/pracs_1.md)
   - [Practicals - part 2](./bare_metal/no_std/pracs_2.md)
 - [Cross-Compilation](./bare_metal/cross_compilation/cross_compilation.md)
-  - [The Rust compiler](./bare_metal/cross_compilation/the_rust_compiler)
+  <!-- - [The Rust compiler](./bare_metal/cross_compilation/the_rust_compiler) -->
   - [LLVM](./bare_metal/cross_compilation/LLVM.md)
 - [Linkers and Linking](./bare_metal/linking/linking.md)
 - [Practicals - part 3](./bare_metal/no_std/pracs_3.md)

@@ -16,20 +16,20 @@ It is a free-world. It is up to you to decide what ***your*** C-runtime does.
 However, here are some of the typical functions found in any C-runtime library.  
 
 1. Loading elf programs from ROM/secondary_memory to RAM. 
-2. Allocating space for a software stack and initialize the stack pointer
+2. Allocating space for the stack and initializing the stack pointer
 3. Allocating space for a heap (if used)
-4. Initializing static variables before the program entry point. This is achieved by copying values from Flash into variables declared with initial values
-5. Zero-ing out all uninitialized global varibles.
+4. Initializing global static variables before the program execution begins. This is achieved by copying values from Flash into variables declared with initial values
+5. Zero-ing out all uninitialized global variables.
 6. Clearing uninitialized RAM
 7. Populating the vector table so the device can properly dispatch exceptions and interrupts.  
-8. Calling the `main()` function saely. 
+8. Calling the `main()` function safely. 
 
-Extra functions include :  
+Extra and non-vital functions include :  
 1. Setting up overlay control code.  
 2. Setting up Stack protection code.
 3. Setting up stack unwinding code.
 
-Quite a mouthful ha? So many functions.  
+Quite a mouthful ha? So many functions!  
 Here are resources that will help you understand the C-runtime : 
 - [The C Runtime Environment](https://developerhelp.microchip.com/xwiki/bin/view/software-tools/c-programming/c-runtime-enviorment/) by microchip.com. This summarizes things in a clean way. Best resource here.  
 - This [c_startup](http://bravegnu.org/gnu-eprog/c-startup.html) blog by Vijay Kumar B on [bravegnu.com](http://bravegnu.org) takes you through writing a simple Runtime targeting the ARM board. If you have no interest in ARM, you can just skim through the tutorial and get the gist.  

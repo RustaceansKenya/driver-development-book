@@ -19,7 +19,7 @@ Before we discuss further, make sure you are conversant with the following buzzw
 1. [Instruction Set Architecture](../../misc/isa.md) (ISA)
 2. [Application Binary Interface](../../misc/abi.md) (ABI)
 3. [Application Programming Interface](../../misc/API.md) (API)
-4. [An Execution environment](../../misc/execution_environment.md)  
+4. An Execution environment
 5. The **host machine** is the machine on which you develop and compile your software.  
 6. The **target machine** is the machine that runs the compiled sotware. ie the machine that you are compiling for.  
 
@@ -36,15 +36,15 @@ Each ISA has its own machine code syntax, semantics and encoding. This means tha
 
 2. The Vendor-specific implementations on both the software and hardware of the target machine. (undone: this sentence needs further explanations)
 
-3. The **Execution environment** on which the compiled program is supposed to run on. In most cases the Execution environment is usually the OS. The execution environment affects the kind of symbols that get used in the object files. For example, a program that relies on the availability of a full-featured POSIX OS may have more symbols than those found in an object file meant for bare metal.  
+3. The **Execution environment** on which the compiled program is supposed to run on. In most cases the Execution environment is usually the OS. The execution environment affects the kind of symbols that get used in the object files. For example, a program that relies on the availability of a full-featured POSIX OS will have different symbols than those found in a NON-POSIX OS.  
 
-4. The [**ABI**](../../misc/abi.md) of the execution environment. Depending on your definition of the ABI, the structure and content of the object file is almost entirely dependent on the ABI. 
+4. The [**ABI**](../../misc/abi.md) of the execution environment. The structure and content of the object file is almost entirely dependent on the ABI. 
 
 
 To find out how these 4 factors affect the object file, read [here](../../misc/target_factors.md).
 
 
-So people started describing targets based on the state of the above 4 factors. For example :  
+The above 4 factors were so influential to target files that people started describing targets based on the state of the above 4 factors. For example :  
 
 **Target x86_64-unknown-linux-gnu** means that the target machine contains a x86 CPU, the vendor is unknown and inconsequential, the execution environment is an Operating system called Linux, the execution environment can interact with object files ONLY if they follow the GNU-ABI specification.  
 
@@ -52,16 +52,16 @@ So people started describing targets based on the state of the above 4 factors. 
 
 
 People usually call these target specifications **triple targets**...  
-Don't let the name fool you, some names contain 2 parameters, others 4 ... others 5. The name `Triple-target` is a misnomer. Triple-target don't refer to 3-parameter names alone.  
+Don't let the name fool you, some names contain 2 parameters, others 4 ... others 5. The name `Triple-target` is a misnomer. Triple-targets don't refer to 3-parameter names alone.  
 
-The software world has a naming problem...once you notice it, you see it everywhere. For example, what is a toolchain? Is it a combination of the compiler, linker and assembler? Or do we throw in the debugger? or maybe even the IDE? What is an IDE?? Is a text Editor with plugins an IDE?? You see? Madness everywhere!! Naming things is a big problem. 
+The software world has a naming problem...once you notice it, you see it everywhere. For example, what is a toolchain? Is it a combination of the compiler, linker and assembler? Or do we throw in the debugger? or maybe even the IDE? What is an IDE?? Is a text Editor with plugins an IDE?? You see? Madness everywhere!! Naming things is a big problem.  
 
 
-### Why are triple-target definitions important? - Toolchain Setup
+### Why are triple-target definitions important? --> Toolchain Setup
 Because they help you in choosing and configuring your compiler, assembler and linker in such a way that allows you to build object files that are compatible with the target.  
 
 For example, if you were planning to compile program `x` for a `x86_64-unknown-linux-gnu` target....
-1. You would look for a x86_64 compiler, and install it. A riscv compiler would be useless. An ARM compiler would be useless.   
+1. You would look for a x86_64 compiler, and install it. A riscv compiler would be useless. An ARM compiler would also be useless.   
 2. You would look for a x86_64 assembler, and install it. Any other assembler would be useless.  
 3. You would then look for system files that were made specifically for the Linux kernel. For example, system files with an implementation of the C standard library such as glibc, newlib and musl. 
 4. You would look for a linker that can process and output GNU-ABI-compliant object files
@@ -77,7 +77,7 @@ Rust has a solution to this `toolchain-setup problem`.
 
 Rust solves the `toolchain-setup problem` by providing a compiler feature called `target specification`. This feature allows you to create object files for any target architeture that you specify. The compiler will automatically take care of choosing a linker, providing a linker script, finding the right system-files and take care of other configurations.  
 
-If you had installed your Rust toolchain in the normal fashion... ie. [using rustup](https://www.rust-lang.org/tools/install), then there is a high chance that your compiler has the ability to produce object files for your machine's triple-target ONLY.  
+If you had installed your Rust toolchain in the normal fashion... ie. [using rustup](https://www.rust-lang.org/tools/install), then there is a high chance that your compiler has the ability to produce object files for your host-machine's triple-target ONLY.  
 
 To see the target-architecture AND triple-target name of your machine, run the following commands :  
 ```bash
@@ -149,7 +149,9 @@ Cargo is an awesome tool, learn more about it in the [Cargo Book][cargo-official
 
 ## Understanding Cross-compilation
 What we have covered in this chapter is "How to cross-compile in Rust".  
-The [Rust Toolchain][rust-toolchain-chapter] chapter illustrates how cross-compilation happens behind the scenes in Rust. We discuss LLVM tools and their comparison to GNU tools. We discuss different Rust-compiler back-ends and how you can tweak them.  
+We have not covered the internals of cross-compilation. A good place to start would be to understand a bit about the LLVM project.  
+<!-- The [Rust Toolchain][rust-toolchain-chapter] chapter illustrates how cross-compilation happens behind the scenes in Rust. We discuss LLVM tools and their comparison to GNU tools. We discuss different Rust-compiler back-ends and how you can tweak them.   -->
+<!-- (undone) -->
 
 
 

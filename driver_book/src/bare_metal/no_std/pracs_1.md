@@ -4,17 +4,17 @@ Now that you know a little bit about the core library, we can start writing prog
 This chapter will take you through the process of writing a no-std program.  
 We will try our very best to do things in a procedural manner...step by step... handling each error slowly.  
 
-If you do not wish to go through these practicals(1 & 2) in a stepwise fashion, you can find the complete no-std template [here](undone)
+If you do not wish to go through these practicals(1,2 & 3) in a stepwise fashion, you can find the complete no-std template [here](undone)
 
 ## Step 1: Disabling the Std library
 
 Go to your terminal and create a new empty project :  
 ```bash
-cargo new hello_world --bin
+cargo new no_std_template --bin
 ```
 
 Navigate to the `src/main.rs` file and open it.  
-By default, rust programs depend on the standard library. To disable this dependence, you add the 'no_std attribute' to your code. The no-std attribute makes your crate to stop depending on the `std` library and start depending on the [`core` library][core-library].  
+By default, rust programs depend on the standard library. To disable this dependence, you add the ['#[no_std]`][no-std-attribute] attribute to your code. The no-std attribute removes the standard lobrary from the crate's scope.  
 ```rust
 #![no_std] // added the no-std attribute at macro level (ie an attribute that affects the whole crate)
 
@@ -24,9 +24,9 @@ fn main(){
 ```
 
 If you build this code, you get 3 compilation errors. 
-1. error 1: cannot find macro `println` in this scope
-2. error 2: `#[panic_handler]` function required, but not found
-3. error 3: unwinding panics are not supported without std
+1. error 1: "cannot find macro `println` in this scope"
+2. error 2: "`#[panic_handler]` function required, but not found"
+3. error 3: "unwinding panics are not supported without std"
 
 You can run this code by pressing the `play` button found at the top-right corner of the code block above. Or you can just write it yourself and run it on your local machine.  
 
@@ -49,11 +49,11 @@ The [`println! macro`][println-macro-doc] is part of the `std` library. So when 
 To fix the first error, we either...
 1. Stop using `std::println` in our code  
 2. Define our own custom `println` 
-3. Bring `std` library back into scope. Println is part of std, we do not want bring back std (Doing this will go against the main aim of this chapter; to write a no-std program)
+3. Bring `std` library back into scope.(Doing this will go against the main aim of this chapter; to write a no-std program)
 
 We cannot choose option 3 because the aim of this chapter is to get rid of any dependence on the `std` library.  
 
-We could choose option 2 but implementing our own `println` will be cost us unnecessary hardwork. Right now we just want to get our no-std code compiling...  For the sake of simplicity, we will not choose this option. We will however write our own `println` in a later chapter.  
+We could choose option 2 but implementing our own `println` will be cost us unnecessary hardwork. Right now we just want to get our no-std code compiling...  For the sake of simplicity, we will not choose option 2. We will however write our own `println` in a later chapter.  
 
 So we choose the first option, we choose to comment out the line that uses the proverbial `println`.  
 This has been demonstrated below.  
@@ -65,7 +65,7 @@ fn main(){
     // println!("Hello world!!"); // we comment out this line. println is indeed undefined
 }
 ```
-Two compilation errors remain...  
+Only two compilation errors remain...  
 
 ## Fixing the second and third compilation errors
 
@@ -233,7 +233,7 @@ Bios :
 - Multiboot standard -->
 
 
-
+[no-std-attribute]: https://doc.rust-lang.org/stable/reference/names/preludes.html#the-no_std-attribute
 [core-library]: https://doc.rust-lang.org/core/
 [core-library-requirements]: https://doc.rust-lang.org/core/#how-to-use-the-core-library  
 [println-macro-doc]: https://doc.rust-lang.org/std/macro.println.html  
