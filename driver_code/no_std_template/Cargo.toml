@@ -1,3 +1,6 @@
+cargo-features = ["codegen-backend"]
+
+
 [package]
 name = "no_std_template"
 version = "0.1.0"
@@ -9,6 +12,8 @@ edition = "2021"
 
 [profile.dev]
 panic = "abort"
+# codegen-backend = "cranelift"
 
 [profile.release]
-panic = "abort"
+panic = "abort" 
+# codegen-backend = "cranelift"

@@ -9,8 +9,14 @@ For this reason, this book will not spoil or water-down the purity of the [linki
 
 ### Note-worthy docs 
 1. Start with this [3-minute video][linker-video] demonstrating the role of the linker from a high level.  
-2. Then move to this [doc][gentle-first-docs]. It is gentle, covers the basics and its short.  
-3. And finally finish it with this [more detailed docs][more-detailed-second-docs]. The two most important pages there are on [memory description][memory-description] and [memory abstraction][memory-abstraction].
+2. You can read the first 3 chapters of "Loaders and Linkers" by John R. Levine
+3. Then move to this [doc][gentle-first-docs]. It is gentle, covers the basics of LLD and its short.  
+4. And finally finish it with this [more detailed docs][more-detailed-second-docs]. The two most important pages there are on [memory description][memory-description] and [memory abstraction][memory-abstraction].  
+
+You might be tempted to read these other books and tutorials. They go deep. They do not focus on LLD  
+1. Loaders and Linkers by John R. Levine
+2. Blog : "[Beginner's Guide to Linkers](https://www.lurklurk.org/linkers/linkers.html)" by lurklurk
+3. https://lwn.net/Articles/276782/
 
 ## linkers in Rust
 There are many linkers in existence. However the two dominant linkers are :  
@@ -88,3 +94,32 @@ Feedback :
 [memory-description]: https://sourceware.org/binutils/docs/ld/MEMORY.html
 [memory-abstraction]: https://sourceware.org/binutils/docs/ld/REGION_005fALIAS.html
 [target-add-description]: ../../misc/rustup_target_add.md
+
+
+Other notes
+
+- overlay manager 
+- dynamic linking
+- Role of linker in program loading
+- emphasis on overlay management was slowed down by the rise of bigger, cheaper and faster memories/RAM. 
+- Hardware-assisted relocation and virtual addresses made overlay management easiers
+- new difficulties in creating linkers
+  - support dynamic linking 
+  - support shared libraries
+  - support name mangling
+  - support debugging of both running and dynamic code
+  - support overlays
+  - support compiler-scheduled memory accesses (for improved cache performance)
+  - support all types of optimizations. global program optimization. The linker is the first program that will see the entire program as one unit. It is expected to use this to its advantage and introduce substancial improvements. It is also the program that can do memory optimizations 
+  - Memory mapped programs : (have no direct access to shared libraries)
+  - Instruction re-ordering
+
+- The linker should not alter the behaviour of the *intended* program
+
+
+- As systems became more complex, they called upon linkers to do more
+and more complex name management and address binding.  
+
+What of relinking symbols?  
+What of debugging symbols?  
+

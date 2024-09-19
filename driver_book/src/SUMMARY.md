@@ -27,6 +27,7 @@
 - [Cross-Compilation](./bare_metal/cross_compilation/cross_compilation.md)
   <!-- - [The Rust compiler](./bare_metal/cross_compilation/the_rust_compiler) -->
   - [LLVM](./bare_metal/cross_compilation/LLVM.md)
+  - [Cranelift](./bare_metal/cross_compilation/Cranelift.md)
 - [Linkers and Linking](./bare_metal/linking/linking.md)
 - [Practicals - part 3](./bare_metal/no_std/pracs_3.md)
 - [Binary Inspection](./bare_metal/binary_tools/bin_tools.md)
@@ -36,7 +37,9 @@
 # THE UART
 - [Intro](./uart_theory/intro.md)
 - [general overview](./uart_theory/draft_1.md)
-- [uart registers](./uart_theory/draft_2.md)
+- [uart registers- part 1](./uart_theory/draft_2.md)
+- [uart registers- part 2](./uart_theory/draft_3.md)
+- [uart registers- part 3](./uart_theory/draft_4.md)
 
 
 # THE UART IMPLEMENTATION (on Qemu and single-threaded)
@@ -120,6 +123,8 @@
   - [factors affecting object file](./misc/target_factors.md)
   - [How to build runtimes](./misc/building_runtime_crates.md)
   - [rustup-target-add](./misc/rustup_target_add.md)
+  - [Direct Memory Access](./misc/memory/DMA.md)
+  - [communication protocols](./misc/comms/protocols.md)
 
 
 # DRAFTS
@@ -130,3 +135,6 @@
 - [macros](./drafts/macros.md)
 - [untouched](./drafts/untouched.md)
 - [Codegen](./drafts/codegen.md)
+
+# UNBECOMING
+- [HDLs](./unbecoming/hdls.md)
