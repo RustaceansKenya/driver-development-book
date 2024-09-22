@@ -236,8 +236,35 @@ This interrupt is directly related to bits 0 to 3 of the Modem Status Register.
 The UART provides the following 6 pins for DMA-interactions
 - (rxrdy and rxrdy_n) output signals from UART to DMA-controller, they inform the controller that there is data ready to be read.  
 - (txrdy and txrdy_n) output signals from UART to DMA-controller, they inform the controller that there the UART is ready to receive data through DMA.  
-- (rxrdy_end and txrdy_end) input signals to UART from DMA-controller  
+- (rxrdy_end and txrdy_end) input signals to UART from DMA-controller to signify that a dma-data-transfer is complete.  
 
+How the above inputs change is based on the selected DMA mode.  
+There are 2 dma modes: 
+1. DMA-mode 0
+2. DMA-mode 1  
+
+DMA-modes are selected by toggling bit 3 of the FIFO-control-register.  
+
+#### DMA-mode 0
+This mode works in both 16450 and 16550 uart modes. It works in 16550 mode ONLY if the threshold of the receiver FIFO is zero.   
+
+If there is data in the RHR, the rxrdy output signal goes high. 
+If there is at most 1 word in the receiver-FIFO, the rxrdy output signal goes high.  
+The rxrdy signal goes low only when both the RHR and receiver-FIFO are empty.   
+
+The txrdy signal goes high only when both the THR and transmitter FIFO buffer are empty. txrdy goes low if there is atleast one byte in any transmision buffer. (ie, both THR and transmitter Buffer)
+
+
+#### DMA-mode 1
+This mode works only in 16550 mode.  
+
+The rxrdy signal goes High only when either of the following occur: 
+1. The Receiver FIFO set-threshhold is hit or surpassed.
+2. The receiver timeout gets triggerd
+The rxrdy signal goes low only when the FIFO becomes empty again. 
+
+
+The signal txrdy goes from an active to an inactive state when the transmitter’s FIFO gets full. After this, it is kept inactive until the transmission FIFO gets empty.
 
 
 ### Modem control  
@@ -253,3 +280,23 @@ But you can enable the FIFO-buffers using the FIFO-control register. It is also 
 
 Being 8 bits the maximum data word length, the transmitter FIFO is 8-bits wide. However the receiver FIFO is by default 11-bits wide. This is due to the fact that the receiver does not only put the data in the FIFO, but also the error flags associated to each character. This last size can be reduced to 10-bits wide, without sensibly decreasing the compatibility, by using a synthesis options
 
+### Loop back implementation
+We wont discuss this.  
+
+### The scratchpad register.
+We wont discuss this.  
+
+
+## The UART registers
+For some reason, I am just going to leave this here. I hope you can look at the image and connect the dots based on the discussions we've had before this...
+
+![uart_registers](img/registers.png)  
+
+From here on, we abstract each register using code. So read up on a register from the datasheet and see how you can abstract it.  
+You can view the example abstractions at [this module](undone)
+
+1. RHR register
+- [ ] The RHR is read-only
+external conditions
+- [ ] If you read from RHR, then the DLAB bit in LCR must be zero
+- [ ] Before reading the RHR, 

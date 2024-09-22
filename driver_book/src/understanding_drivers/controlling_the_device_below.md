@@ -107,14 +107,16 @@ This solution is typically known as **Direct register programming**. You directl
 The CPU has a limited number of registers. For example, the bare minimum RiscV Cpu has only 32 general registers. Any substantial software needs more than 32 registers to store variables. The RAM exists because of this exact reason, it acts as extra storage. In fact the stack of most softwares gets stored in the RAM.  
 
 The thing is... registers are not enough.  
-So instead of directly connecting the Hard-disk registers to the limited CPU registers, we could attach them to the RAM instead.  
+So instead of directly connecting the Hard-disk registers to the limited CPU registers, we could add the external-device registers to be part of the address space that the CPU can access.  
 
-We could then write some assembly code to manipulate RAM addresses instead of the CPU register addresses, hence indirectly manipulating the values of the hard-disk registers. This is called Memory-mapped I/O programming (**mmio programming**).  
+We could then write some assembly code using standard memory access instructions to indirectly manipulate the values of the associated hard-disk registers. This is called Memory-mapped I/O programming (**mmio programming**).  
+
+MMIO maps the registers of peripheral devices (e.g., I/O controllers, network interfaces) into the CPU’s address space. This allows the CPU to communicate with these devices using standard memory access instructions (load/store)
 
 This is the method that we will stick to because it is more practical.  
 
-You could however use Direct Register Programming when building things like pace-makers, nanobots or some divine machine that is highly specialized and requires 100% performance.  
-This is because dedicated registers typically perform better than RAMS and ROMS.    
+You could however use Direct Register Programming when building things like pace-makers, nanobots or some divine machine that is highly specialized and requires very little indirection when fetching or writing data to addresses.  
+This is because dedicated registers typically perform better than RAMS and ROMS in terms of access-time.    
 
 
 

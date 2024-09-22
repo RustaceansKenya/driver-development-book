@@ -41,6 +41,18 @@
 - [uart registers- part 2](./uart_theory/draft_3.md)
 - [uart registers- part 3](./uart_theory/draft_4.md)
 
+# ABSTRACTIONS
+- [Abstracting a register](./abstractions/abstracting_a_peripheral.md)
+- [Registers and MMIO programming](./registers_and_mmio_programming.md)
+- [re-definition using strict provenance](./abstractions/strict_provenance.md)
+- [The datasheet](./knowing_your_hardware.md)
+- [Abstraction]()
+  - [Abstracting a peripheral](./abstractions/abstracting_a_peripheral.md)
+    - [MAC, PAC, HAL]()
+  - [svd2rust](./svd2rust.md)
+  - [vcell](./abstractions/vcell.md)
+  - [representations](./abstractions/representations.md)
+- [random](./abstractions/random.md)
 
 # THE UART IMPLEMENTATION (on Qemu and single-threaded)
 - [Intro](./uart_implementations/on_qemu/intro.md)
@@ -59,16 +71,6 @@
 # Testing
 - [no-std testing](./testing_theory/intro.md)
 
-# ABSTRACTIONS
-- [MMIO programming]()
-  - [Registers and MMIO programming](./registers_and_mmio_programming.md)
-- [The datasheet](./knowing_your_hardware.md)
-- [Abstraction]()
-  - [Abstracting a peripheral](./abstractions/abstracting_a_peripheral.md)
-  - [svd2rust](./svd2rust.md)
-  - [vcell](./abstractions/vcell.md)
-  - [representations](./abstractions/representations.md)
-- [random](./abstractions/random.md)
 
 # Probing
 - [Probing](./bare_metal/probing/probing_preface.md)
@@ -96,7 +98,7 @@
   - [Rust's Safety Features for Driver Security]()
   - [Best Practices for Secure Driver Development]()
 - [Case Studies and Examples]()
-  - [Real-world Driver Development Examples]()
+  - [Real-world Driver Development Examples](./case_studies/case_studies_and_examples.md)
   - [Analyzing an Existing Rust Driver]()
 - [Iterative Implementation]()
 - [core::io]()
