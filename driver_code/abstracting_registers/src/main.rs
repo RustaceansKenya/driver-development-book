@@ -1,70 +1,30 @@
 // mod sys_tick;
-
-#![feature(strict_provenance)]
 use core::ptr;
 
-/// Systick is a peripheral based on the memory map below  
-/// | Offset | Name        | Description                 | Width  |
-/// |--------|-------------|-----------------------------|--------|
-/// | 0x00   | SYST_CSR    | Control and Status Register | 32 bits|
-/// | 0x04   | SYST_RVR    | Reload Value Register       | 32 bits|
-/// | 0x08   | SYST_CVR    | Current Value Register      | 32 bits|
-/// | 0x0C   | SYST_CALIB  | Calibration Value Register  | 32 bits|
-/// 
-/// 
-/// The base register of Systick is at address 0xE000_E010 
-#[repr(C)]
-struct SysTick{
-    csr: u32, 
-    rvr: u32,
-    cvr: u32,
-    calib: u32
-}
-
-// instantiating a SysTick
-fn instantiate_sys_tick() -> SysTick{
-    let sys_tick = 0xE000_E010 as *mut SysTick;  
-    const NUM : i32 = 10;
-    unimplemented!()
-}
 
 #[derive(Debug)]
-struct Point<X,Y>(X, Y);
-
-
-fn main() {
-    let mut value = 10;
-
-    // Create a mutable reference
-    let reference: &mut i32 = &mut value;
-
-    // Cast the reference to a raw pointer
-    let raw_pointer: *mut i32 = reference as *mut i32;
-
-    // Use the reference again (which is now invalid after the cast)
-    *reference = 50; // Undefined behavior! The reference and pointer accesses are interleaved.
-
-    // Access through raw pointer
-    unsafe {
-        *raw_pointer = 42;
-        println!("Value through raw pointer: {}", *raw_pointer);
-    }
-
-    println!("Value after raw pointer access: {}", value);
+struct Purei32{
+    data: i32
 }
 
-fn compute(input: &u32, output: &mut u32) {
-    // keep `*input` in a register
-    let cached_input = *input;
-    if cached_input > 10 {
-        // If the original, > 10 would imply:
-        //
-        // *output = 1
-        // *output *= 2
-        //
-        // which we can just simplify into:
-        *output = 2;
-    } else if cached_input > 5 {
-        *output *= 2;
-    }
-}       
+fn main(){
+
+    // every time you run a `let` statement, a new address in the stack must be instatiated. eg 
+    let x = 10;  
+    println!("address of x: {:?}", ptr::addr_of!(x));
+    let x = 20; 
+    println!("new address of x: {:?}", ptr::addr_of!(x));
+
+
+    let mut x = Purei32{data: 20}; 
+    let x_ptr = ptr::addr_of_mut!(x);
+
+    // let mut y = unsafe { *x_ptr };
+    let mut y = x;
+    let y_ptr = ptr::addr_of!(y);
+    y.data = 40 ; 
+
+    // println!("x = {:?}", x); // fails
+    println!("x = {:?}", x_ptr);
+    println!("y = {:?}", y_ptr);
+}

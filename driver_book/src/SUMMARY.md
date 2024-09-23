@@ -127,6 +127,7 @@
   - [rustup-target-add](./misc/rustup_target_add.md)
   - [Direct Memory Access](./misc/memory/DMA.md)
   - [communication protocols](./misc/comms/protocols.md)
+- [tips on pointer abstraction](./abstractions/tips_for_safety.md)
 
 
 # DRAFTS
