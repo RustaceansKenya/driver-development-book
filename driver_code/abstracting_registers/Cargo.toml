@@ -4,3 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+embedded-hal = "1.0.0"
+svd2rust = "0.33.4"
+svd2utra = "0.1.23"
+volatile-register = "0.2.2"

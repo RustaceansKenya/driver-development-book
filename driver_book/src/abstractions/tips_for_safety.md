@@ -113,7 +113,9 @@ fn main(){
 ```
 
 
+3. Err on the side of using `as_ref` and `as_mut` instead of manually referencing the value behind a pointer. `as_ref` and `as_mut` make sure that you are referencing non-null and aligned values.  
 
-
-
-3. 
+4. Reduce the number of unsafe accesses.    
+5. Make all accesses to the register to be volatile... unless volatility is not a problem
+6. Preserve access permissions eg if a register is meant to be read-only, provide a read-only interface for on-top of the abstraction that you will create. (hint: use volatile-register crate)  
+7. Use global singletons to ensure that Mutable borrows occur only once. Treat hardware as data. You can use libraries such as rtic to help co-ordiate peripheral sharing among different programs (immitate a kernel)

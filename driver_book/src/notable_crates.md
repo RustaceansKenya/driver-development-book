@@ -14,10 +14,15 @@
 - riscv-rt
 - volatile-register
 - vcell : Just like Cell but with volatile read / write operations
+- svd2rust
+- svd2utra
+- rtic
+- tock-registers
+- drone-svd
 
 ## Utility-like
 - svd2rust + form + rustfmt
-- defmt : A highly efficient logging framework that targets resource-constrained devices, like microcontrollers.
+  - defmt : A highly efficient logging framework that targets resource-constrained devices, like microcontrollers.
           Check out the defmt book at https://defmt.ferrous-systems.com for more information about how to use it.
 - embassy crates
 - probe crates

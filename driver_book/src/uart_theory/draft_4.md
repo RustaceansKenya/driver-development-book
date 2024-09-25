@@ -1,27 +1,29 @@
-# uart registers- part 3
+# UART Registers- part 2
 
-This page is unnecessary if you can read the 16550A datasheet on your own.  
-This page tries to highlight some points extracted from the datasheet.  
+This page is unnecessary if you can read the [16550A datasheet](./16550.pdf) on your own.  
+This page tries to highlight some points extracted from that datasheet.  
+Here we go...
 
 
-Devices are connected via a physical layer. That physical layer has protocols within it.  
-Protocols that outline things like : 
-    - the way data gets packaged as signals
-    - the speed at which bits should be transfered
-    - the maximum distance between the connected devices
-    - the limit on the number of connected devices
-    - the decoding/encoding procedure
-    - the Pin layout of the physical interface
-    - .... (so much more)  
+Devices are connected via a physical layer. That physical layer has higher level protocols that can be implemented above it.  
+These higher level protocols outline things like : 
+- the way data gets packaged as signals (data-frame format).
+- the speed at which bits should be transfered.
+- the maximum distance allowed between the connected devices.
+- the limit on the number of connected devices per physical connection.
+- the decoding/encoding procedure & mechanism.
+- the Pin layout of the physical interface.
+- error handling (eg parity-checking)
+- .... (so much more! If these things sound new... then you should read a communication book after this. Be a ham-radio hippie!)  
 
-The UART happens to be a serial connection implementation. It can implement various physical-layer protocols like the RS-232, RS-422 and RS-485.   
+The UART is a hardware component used for serial communication, and it can be used in conjunction with transceivers to interface with various physical-layer protocols like RS-232, RS-422, and RS-485.  
 
-There are many standards for creating a UART. THe one that will be discussed here will be the 16550 standard which has the following distinctive characteristics.  
+There are many standards for creating a UART. The one that will be discussed here will be the 16550 standard which has the following distinctive characteristics.  
 1. Has the ability to convert data from serial to parallel, and from parallel to serial, using shift registers.
-2. Has a multi-byte buffer for received data
-3. Has another independent buffer for data that is yet to be transmitted
-4. Has an interface that can interact with a DMA controller (interrupt-handling included)
-5. Has an interface that can interact with the microprocessor (interrupt handling included)
+2. Has a multi-byte buffer for received data.  
+3. Has another independent buffer for data that is yet to be transmitted.  
+4. Has an interface that can interact with a DMA controller (interrupt-handling included).  
+5. Has an interface that can interact with the microprocessor (interrupt handling included).  
 6. Has Handshake lines for control of an external modem, controllable by software.
 
 ## Component tree

@@ -34,15 +34,17 @@
 
 
 
-# THE UART
+# THEORY ON THE UART
 - [Intro](./uart_theory/intro.md)
 - [general overview](./uart_theory/draft_1.md)
 - [uart registers- part 1](./uart_theory/draft_2.md)
-- [uart registers- part 2](./uart_theory/draft_3.md)
-- [uart registers- part 3](./uart_theory/draft_4.md)
+<!-- - [uart registers- part 2](./uart_theory/draft_3.md) -->
+- [uart registers- part 2 ](./uart_theory/draft_4.md)
 
-# ABSTRACTIONS
-- [Abstracting a register](./abstractions/abstracting_a_peripheral.md)
+# ABSTRACTIONS OVER HARDWARE
+- [Abstractions](./abstractions/abstractions.md)
+- [Abstracting a Peripheral](./abstractions/abstracting_a_peripheral.md)
+  - [System Timer - Part 1](./abstractions/system_timer_part_1.md)
 - [Registers and MMIO programming](./registers_and_mmio_programming.md)
 - [re-definition using strict provenance](./abstractions/strict_provenance.md)
 - [The datasheet](./knowing_your_hardware.md)
@@ -87,6 +89,7 @@
 - [Concurrency]()
   - [critical-sections in single-threaded cores]()
   - [critical-secions above multi-cores]()
+  - [real-life-examples](./conurrency/examples.md)
 - [tutorial over a naive UART implementation on a Qemu device]()
 - [tutorial over a naive UART implementation on a Esp32 device]()
 
