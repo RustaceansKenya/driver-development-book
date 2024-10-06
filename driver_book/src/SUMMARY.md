@@ -45,6 +45,7 @@
 - [Abstractions](./abstractions/abstractions.md)
 - [Abstracting a Peripheral](./abstractions/abstracting_a_peripheral.md)
   - [System Timer - Part 1](./abstractions/system_timer_part_1.md)
+  - [System Timer - Step 1 & 2](./abstractions/system_timer_part_2.md)
 - [Registers and MMIO programming](./registers_and_mmio_programming.md)
 - [re-definition using strict provenance](./abstractions/strict_provenance.md)
 - [The datasheet](./knowing_your_hardware.md)
@@ -52,6 +53,10 @@
   - [Abstracting a peripheral](./abstractions/abstracting_a_peripheral.md)
     - [MAC, PAC, HAL]()
   - [svd2rust](./svd2rust.md)
+  - [SVD](./abstractions/svd2rust/svd_format.md)
+  - [IP-XACT](./abstractions/ip_xact.md)
+  - [UVM](./abstractions/uvm.md)
+  - [SystemRDL](./abstractions/systemrdl.md)
   - [vcell](./abstractions/vcell.md)
   - [representations](./abstractions/representations.md)
 - [random](./abstractions/random.md)
@@ -87,6 +92,7 @@
 
 # THE UART IMPLEMENTATION (less naive, with concurrency in mind)
 - [Concurrency]()
+  - [critical section crate](./conurrency/critical_section.md)
   - [critical-sections in single-threaded cores]()
   - [critical-secions above multi-cores]()
   - [real-life-examples](./conurrency/examples.md)
@@ -131,6 +137,7 @@
   - [Direct Memory Access](./misc/memory/DMA.md)
   - [communication protocols](./misc/comms/protocols.md)
 - [tips on pointer abstraction](./abstractions/tips_for_safety.md)
+- [svd2rust further explanations](./abstractions/svd2rust/further_explanations.md)
 
 
 # DRAFTS
@@ -144,3 +151,5 @@
 
 # UNBECOMING
 - [HDLs](./unbecoming/hdls.md)
+- [Interfaces](./unbecoming/interfaces.md)
+- [community_links](./unbecoming/arbitrary_links.md)

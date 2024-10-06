@@ -19,6 +19,10 @@
 - rtic
 - tock-registers
 - drone-svd
+- loom
+- crossbeam-utils : Utilities for concurrent programming
+- serde
+- sptr: This library provides a stable polyfill for Rust's [Strict Provenance] experimen
 
 ## Utility-like
 - svd2rust + form + rustfmt

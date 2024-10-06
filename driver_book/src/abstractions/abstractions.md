@@ -8,10 +8,10 @@ You can read these 2 sources on abstraction layers above the hardware:
 2. Embedded Rust Book - [Portability Chapter](https://docs.rust-embedded.org/book/portability/)
 
 
-As with other chapters in this book, I will just go on ahead and summarize the above docs in an inaccurate manner.  
-Spot the lies.  
+As we have done in other chapters in this book, I will just go on ahead and summarize the above docs in an inaccurate manner.  
+You can spot the lies everywhere in this text.  
 
-Roughly speaking, here are 5 layers of hardware abstraction arranged from most-low-level to most-high-level.  
+Roughly speaking, here are 5 Abstraction crates over Hardware arranged from most-low-level to most-high-level.  
 
 | Abstraction Layer Name  | level     |
 |-------------------------|-----------|
@@ -31,21 +31,21 @@ Here is a pic extracted from the Embedded Rust Book :
 
 
 ## MicroArchitechture crates (MACs)
-This crate abstracts away the processor Architecture itself. It's API provides things like : 
+This crate abstracts away the processor Architecture itself. This crate is pretty constant across Processor families. It's API provides things like : 
 - rust-wrapped assembly commands 
 - provides a framework to manage interrupts (as prescribed by the processor)
 - provides a way to abstract critical sections as implemented by the Architecture.  
 
-Examples include of MAC craretes include : [cortex-m](https://crates.io/crates/cortex-m) and [riscv](https://crates.io/crates/riscv)
+Examples of MAC crates include : [cortex-m](https://crates.io/crates/cortex-m) and [riscv](https://crates.io/crates/riscv) Go check them out, try to see what they abstract.  
 
 ## Peripheral Access Crates (PACs)
-These crates abstract away the registers of the physical devices. They abstract away peripherals that come attached to the processor. Eg the UART, I2C and USB modules.   
+These crates abstract away the registers of the physical devices. (ie They abstract away peripherals). Eg the UART, I2C and USB modules.   
 
-In other words.. this kind of crate is a thin wrapper over the various memory-wrapper registers defined for your particular part-number of micro-controller you are using. 
+In other words.. this kind of crate is a thin wrapper over the various memory-mapped registers defined for your particular part-number of micro-controller that you are using. 
 
-Some peripherals are sometimes considered to be a part of the micro-architecture instead of independent peripherals eg the system-timer in cortex boards. As a result, the crate above the system-timer becomes part of the MAC instead of the PAC. The line between MACs and PACs is vague... you could say that the MAC is a PAC above the Micro-processor!    
+By convention, peripherals and the processor are considered to be separate units. However, some peripherals are sometimes considered to be a part of the micro-architecture(processor) eg the system-timer in cortex-m boards. As a result, the crate above the system-timer becomes part of the MAC instead of the PAC. The line between MACs and PACs is vague... you could say that the MAC is a PAC above the Micro-processor! And we are back to the naming problem in the software world.  
 
-Examples include:   [tm4c123x](https://crates.io/crates/tm4c123x), [stm32f30x](https://crates.io/crates/stm32f30x) 
+Examples of PACs include:   [tm4c123x](https://crates.io/crates/tm4c123x), [stm32f30x](https://crates.io/crates/stm32f30x) 
 
 ## Hardware Access Layer
 The hardware access layer is an API that tries to abstract away the combination of both PACs and MACs. It summarizes its API into a group of traits that represent functions generically found in most processors.   
@@ -56,9 +56,13 @@ We will look at the embedded-hal in a future chapter (undone)
 This board builds upon the Hardware Access Layer by configuring the API exposed by the HAL to suit a specific board. We will also look at this in a future chapter. (undone)
 
 ## Runtime Layers
-The Runtime layer is more of a hypervisor... or even a kernel. It manages things like concurrent use of the hardware below. It takes care of booting (or even safe booting), flashing-safety, logging, loading, debugging & updating of firmware, ...  
+The Runtime layer is more of a hypervisor than a simple abstract crate. It manages things like concurrent use of the hardware below. It takes care of booting (or even safe booting), flashing-safety, logging, loading, debugging & updating of firmware, ...  
 
 To put it inaccurately, it is a small minimal kernel over your board.  So really, in reality we cannot say what its definite functions are - it is up to the runtime library creator to figure that out.  
 
+<br><br><br>
 
-We will try to build all these layers as we go.  
+## Bottom up
+We will try to build all these layers as we go. They will not be full implementations, but they will provide the framework to understand how full implementations get built.  
+
+Where is the harm in re-iventing the wheel?

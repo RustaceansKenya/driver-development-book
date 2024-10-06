@@ -1,14 +1,22 @@
 # Abstracting a Peripheral  
 
-We will build a Peripheral Access Layer(PAC) above two different peripherals: A system timer and the UART.  
+Instead of writing paragraphs, let's just build peripheral drivers and hope to learn along the way.  
 
-We've chosen the System timer because it is simple - It has only 4 registers and has few functionalities. We will use the timer as practice ground before moving on to the UART which has more registers and functionalities.  
+We will build PACs above the following peripherals:  
+1. The SystemTimer for a cortex-m board
+2. The SystemTimer for an ESP32 board
+3. The 16550A UART found in the Qemu board
+4. The UART found in the ESP32 board.  
 
-Here is the source-code for both the timer and UART PACs
-1. System Timer Code
-2. UART code
+
+### Why is the list long?
+The list is long because we want to learn through practice. If you are in a hurry, I suggest you look at the PAC for the UART found in the ESP32 board.  
+
+### Why those peripherals?  
+1. The cortex-m timer is very basic. It has 4 registers only. For this reason, it was chosen as the first practice point.  
+2. The ESP32 system timer is not as basic as the cortex-m timer, but it is less complex in comparison to the UART. For this reason, it was chosen as an intermediate step.  
+3. A virtual UART gives us room to make mistakes
+4. I don't think we have to explain why the last peripheral was chosen.  
 
 
-Go read this chapter from [the Embedded Rust Book](https://docs.rust-embedded.org/book/peripherals/a-first-attempt.html). The SysTick example is comparatively simple.  
-
-Here we go....
+Off we go....
