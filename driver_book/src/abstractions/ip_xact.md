@@ -26,3 +26,19 @@ The different document types are:
 IP-XACT has more access modes than SystemRDL and UVM. It borrowed a lot from the two.
 
 (This topic is undone.)  
+
+
+
+# Short Notes
+- all of its documents are in xml
+- It has 9 descriptive documents:  
+    - component
+    - design
+    - design configuration
+    - bus definition
+    - abstraction definition
+    - type definitions
+    - abstractor
+    - generator chain
+    - catalog
+

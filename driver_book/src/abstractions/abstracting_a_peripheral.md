@@ -10,7 +10,7 @@ We will build PACs above the following peripherals:
 
 
 ### Why is the list long?
-The list is long because we want to learn through practice. If you are in a hurry, I suggest you look at the PAC for the UART found in the ESP32 board.  
+The list is long because we want to learn through practice, through lots of practice. If you are in a hurry, I suggest you just skip to the chapters that cover the PAC for the UART found in the ESP32 board.  
 
 ### Why those peripherals?  
 1. The cortex-m timer is very basic. It has 4 registers only. For this reason, it was chosen as the first practice point.  

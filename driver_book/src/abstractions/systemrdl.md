@@ -63,12 +63,47 @@ HumanSpec ==> Schematics|Behavioural Code|SystemRDL ==> {RTL, C, Verilog, Rust, 
 ```systemerdl
 
 // simple explicit/definitive field
-field 
+field my_custom_field {
+
+};
+
+
+// simple anonymous field
+field {} ;
 ```
 
 ### Needed Tooling
 - [ ] Conversion to IP-XACT xml
 - [ ] Automatic documentation
+- [ ] Strict SystemRDL {
+   - makes sure user fills out every component property explicitly (or the intellisense fills things out automatially)
+   - every instance is explicitly named (no implicit declarations and instantiations)
+   - address comments are filled automatically (eg reg {} csr; // 0x400 - 0x408)
+   - no parameter dependence
+   - no dynamic assignments
+   - no implicit declarations or instantiations
+   - No "Arrays may be used as struct members, or in property or parameter declarations.s"
+   - Where and how is it recommended to define custom properties?
+   - "Effectively, multi-dimensional arrays are not supported. This limitation may be circumvented
+by defining arrays of structs containing arrays." - this is not a limitation, design better!
+   - remove this rule: "When expression is not specified, it is presumed the property_name is of type boolean and the default value
+      is set to true" - it does not make sense eg 
+      ```systemrdl
+        field myField {
+rclr;
+// Bool property assign, set implicitly to true
+woset = false;
+// Bool property assign, set explicitly to false
+name = “my field”; // string property assignment
+sw = rw;
+// accesstype property assignment
+};
+      ```
+   - Dont allow this : "swwe and swwel have precedence over the software access property in determining its current
+access state, e.g., if a field is declared as sw=rw, has a swwe property, and the value is currently
+false, the effective software access property is sw=r."
+
+  }
 - [ ] Driver generation
 - [ ] C header generation
 - [ ] PAC-generator (with Rust style safety)
@@ -76,3 +111,15 @@ field
 - [ ] VsCode systemRDL support
 - [ ] Intellisense
 - [ ] rust-based compiler
+- [ ] nixos support
+
+
+### Advantages
+1. "NOTE—Any hardware-writable field is inherently volatile, which is important for verification and test purposes." - this will reduce the number of volatile reads in our PAC, it will allow the compiler to optimize things
+2. Elaborate reads/write access descriptions : 
+   1. description includes both hardware and software access specifications
+   2. descriptions go beyond RW, RO, WOs
+   3. description includes both read and write effects
+   4. * does not explain register-register effect
+   5. * does not explain timing costraints
+3. fddf
